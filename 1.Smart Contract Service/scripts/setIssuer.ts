@@ -6,9 +6,10 @@ async function main() {
   console.log("🔐 Setting up ISSUER_ROLE...");
 
   // Load deployment info
-  const addressesPath = path.join(__dirname, "../artifacts/addresses.json");
+  const addressesPath = path.join(process.cwd(), "deploy/addresses.json");
   if (!fs.existsSync(addressesPath)) {
     console.error("❌ Deployment info not found. Please run deploy.ts first.");
+    console.error("Expected file at:", addressesPath);
     process.exit(1);
   }
 

@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/token/common/ERC2981.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
 
 /**
  * @title TARReceipt
@@ -13,15 +12,14 @@ import "@openzeppelin/contracts/security/Pausable.sol";
  * @notice This contract allows authorized issuers to mint NFT receipts for tokenized assets
  */
 contract TARReceipt is ERC721, AccessControl, ERC2981, Pausable {
-    using Counters for Counters.Counter;
-
     // Roles
     bytes32 public constant ISSUER_ROLE = keccak256("ISSUER_ROLE");
 
     // State variables
-    Counters.Counter private _tokenIdCounter;
+    uint256 private _tokenIdCounter;
     mapping(uint256 => bytes32) private _metaHashes;
     mapping(uint256 => bool) private _revokedTokens;
+    mapping(uint256 => string) private _tokenURIs;
 
     // Events
     event Minted(uint256 indexed tokenId, address indexed to, bytes32 indexed metaHash);
@@ -51,27 +49,27 @@ contract TARReceipt is ERC721, AccessControl, ERC2981, Pausable {
     /**
      * @dev Mint a new TAR receipt to the specified address
      * @param to The address to mint the token to
-     * @param tokenURI The metadata URI for the token
+     * @param uri The metadata URI for the token
      * @param metaHash The hash of the metadata for verification
      * @notice Only addresses with ISSUER_ROLE can call this function
      */
     function mint(
         address to,
-        string memory tokenURI,
+        string memory uri,
         bytes32 metaHash
     ) external onlyRole(ISSUER_ROLE) whenNotPaused {
         if (to == address(0)) {
             revert InvalidRecipient(to);
         }
-        if (bytes(tokenURI).length == 0) {
-            revert InvalidTokenURI(tokenURI);
+        if (bytes(uri).length == 0) {
+            revert InvalidTokenURI(uri);
         }
 
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
+        uint256 tokenId = _tokenIdCounter;
+        _tokenIdCounter++;
 
         _safeMint(to, tokenId);
-        _setTokenURI(tokenId, tokenURI);
+        _tokenURIs[tokenId] = uri;
         _metaHashes[tokenId] = metaHash;
 
         emit Minted(tokenId, to, metaHash);
@@ -83,7 +81,9 @@ contract TARReceipt is ERC721, AccessControl, ERC2981, Pausable {
      * @notice Only addresses with ISSUER_ROLE can call this function
      */
     function revoke(uint256 tokenId) external onlyRole(ISSUER_ROLE) whenNotPaused {
-        if (!_exists(tokenId)) {
+        try this.ownerOf(tokenId) returns (address) {
+            // Token exists, continue
+        } catch {
             revert TokenRevoked(tokenId);
         }
         if (_revokedTokens[tokenId]) {
@@ -101,7 +101,9 @@ contract TARReceipt is ERC721, AccessControl, ERC2981, Pausable {
      * @return bool True if the token is valid and hash matches, false otherwise
      */
     function verify(uint256 tokenId, bytes32 metaHash) external view returns (bool) {
-        if (!_exists(tokenId)) {
+        try this.ownerOf(tokenId) returns (address) {
+            // Token exists
+        } catch {
             return false;
         }
         if (_revokedTokens[tokenId]) {
@@ -116,7 +118,9 @@ contract TARReceipt is ERC721, AccessControl, ERC2981, Pausable {
      * @return bytes32 The metadata hash for the token
      */
     function getMetaHash(uint256 tokenId) external view returns (bytes32) {
-        if (!_exists(tokenId)) {
+        try this.ownerOf(tokenId) returns (address) {
+            // Token exists
+        } catch {
             revert TokenRevoked(tokenId);
         }
         return _metaHashes[tokenId];
@@ -177,7 +181,17 @@ contract TARReceipt is ERC721, AccessControl, ERC2981, Pausable {
      * @return uint256 The current token counter value
      */
     function getCurrentTokenId() external view returns (uint256) {
-        return _tokenIdCounter.current();
+        return _tokenIdCounter;
+    }
+
+    /**
+     * @dev Override tokenURI to return stored URI
+     * @param tokenId The ID of the token
+     * @return string The token URI
+     */
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+        _requireOwned(tokenId);
+        return _tokenURIs[tokenId];
     }
 
     /**
@@ -194,18 +208,12 @@ contract TARReceipt is ERC721, AccessControl, ERC2981, Pausable {
     }
 
     /**
-     * @dev Override _beforeTokenTransfer to check for revoked tokens
+     * @dev Override _update to check for revoked tokens
      */
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 tokenId,
-        uint256 batchSize
-    ) internal virtual override {
-        super._beforeTokenTransfer(from, to, tokenId, batchSize);
-        
+    function _update(address to, uint256 tokenId, address auth) internal virtual override returns (address) {
         if (_revokedTokens[tokenId]) {
             revert TokenRevoked(tokenId);
         }
+        return super._update(to, tokenId, auth);
     }
 }
