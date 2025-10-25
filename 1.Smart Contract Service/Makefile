@@ -84,3 +84,17 @@ full-test: test test-gas coverage
 deploy-full: deploy-local set-issuer
 	@echo "✅ Contract deployed and configured!"
 
+# Metadata server
+metadata-server:
+	node metadata-server.js
+
+# Complete flow test
+test-complete: metadata-server
+	@echo "🚀 Running complete TAR receipt flow test..."
+	@./test-complete-flow.sh
+
+# Quick verification test
+verify-quick:
+	@echo "🔍 Quick verification test..."
+	@TOKEN_ID=1 npm run verify
+
