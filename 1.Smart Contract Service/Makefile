@@ -83,3 +83,4 @@ full-test: test test-gas coverage
 
 deploy-full: deploy-local set-issuer
 	@echo "✅ Contract deployed and configured!"
+
