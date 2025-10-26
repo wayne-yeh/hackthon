@@ -1,0 +1,5 @@
+com/tar/metadata/service/HashCalculatorServiceTest.class
+com/tar/metadata/MetadataServiceIntegrationTest.class
+com/tar/metadata/S3IntegrationTest.class
+com/tar/metadata/service/MetadataJsonBuilderServiceTest.class
+com/tar/metadata/adapter/IpfsAdapterStubTest.class
