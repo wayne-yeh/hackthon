@@ -24,3 +24,4 @@ public class HashVerificationResponse {
         this.metaHash = metaHash;
     }
 }
+

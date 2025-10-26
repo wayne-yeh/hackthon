@@ -143,3 +143,4 @@ class MetadataJsonBuilderServiceTest {
         assertEquals(originalMetadata.getTimestamp(), parsedMetadata.getTimestamp());
     }
 }
+

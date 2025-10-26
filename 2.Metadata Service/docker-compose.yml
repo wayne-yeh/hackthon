@@ -43,3 +43,4 @@ networks:
 
 volumes:
   localstack-data:
+

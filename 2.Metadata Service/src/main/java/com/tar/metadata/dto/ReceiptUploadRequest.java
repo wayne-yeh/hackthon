@@ -96,3 +96,4 @@ public class ReceiptUploadRequest {
         this.image = image;
     }
 }
+

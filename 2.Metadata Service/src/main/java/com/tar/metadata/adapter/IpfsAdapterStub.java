@@ -96,3 +96,4 @@ public class IpfsAdapterStub implements StorageAdapter {
         return stats;
     }
 }
+

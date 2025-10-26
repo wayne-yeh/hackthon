@@ -20,3 +20,4 @@ EXPOSE 8081
 
 # Run the application
 CMD ["java", "-jar", "target/metadata-service-0.0.1-SNAPSHOT.jar"]
+

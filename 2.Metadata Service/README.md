@@ -258,3 +258,4 @@ docker-compose logs localstack
 ## License
 
 MIT License - see LICENSE file for details.
+

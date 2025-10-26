@@ -58,3 +58,4 @@ check:
 # Package application
 package:
 	mvn clean package -DskipTests
+

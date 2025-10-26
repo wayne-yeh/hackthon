@@ -35,3 +35,4 @@ public class HashCalculatorService {
         return DigestUtils.sha256Hex(input);
     }
 }
+
