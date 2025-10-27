@@ -1,0 +1,27 @@
+server:
+  port: 0 # Random port for tests
+
+spring:
+  application:
+    name: tar-verification-service-test
+  cache:
+    type: simple
+
+# Test Blockchain Configuration
+blockchain:
+  rpc-url: http://localhost:8545
+  contract-address: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+  network-id: 31337
+
+# Test External Services
+external:
+  metadata-service:
+    base-url: http://localhost:8089
+    timeout: 5s
+
+# Logging for tests
+logging:
+  level:
+    com.tar.verification: DEBUG
+    org.web3j: WARN
+    org.springframework.web: WARN

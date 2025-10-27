@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: tar-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-tar_backend}
+      POSTGRES_USER: ${POSTGRES_USER:-taruser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tarpassword}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-taruser}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend-api:
+    build: .
+    container_name: tar-backend-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-tar_backend}
+      POSTGRES_USER: ${POSTGRES_USER:-taruser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tarpassword}
+      BLOCKCHAIN_RPC_URL: ${BLOCKCHAIN_RPC_URL:-http://host.docker.internal:8545}
+      CONTRACT_ADDRESS: ${CONTRACT_ADDRESS}
+      ISSUER_PRIVATE_KEY: ${ISSUER_PRIVATE_KEY}
+      METADATA_SERVICE_URL: ${METADATA_SERVICE_URL:-http://host.docker.internal:8081}
+      API_KEY_SECRET: ${API_KEY_SECRET:-change-this-in-production}
+      SERVER_PORT: 8080
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  postgres_data:
+
+

@@ -1,0 +1,43 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: tar-verification-service
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=1000,expireAfterWrite=5m
+
+# Blockchain Configuration
+blockchain:
+  rpc-url: ${BLOCKCHAIN_RPC_URL:http://localhost:8545}
+  contract-address: ${CONTRACT_ADDRESS:0x5FbDB2315678afecb367f032d93F642f64180aa3}
+  network-id: ${NETWORK_ID:31337}
+
+# External Services
+external:
+  metadata-service:
+    base-url: ${METADATA_SERVICE_URL:http://localhost:8081}
+    timeout: 10s
+
+# Management
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+# Logging
+logging:
+  level:
+    com.tar.verification: DEBUG
+    org.web3j: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/verification-service.log

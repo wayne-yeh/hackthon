@@ -1,0 +1,5 @@
+com/tar/verification/service/VerificationServiceTest.class
+com/tar/verification/service/HashComparatorServiceTest.class
+com/tar/verification/client/BlockchainClientTest.class
+com/tar/verification/integration/VerificationServiceIntegrationTest.class
+com/tar/verification/client/MetadataClientTest.class

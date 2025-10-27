@@ -1,0 +1,372 @@
+{
+	"info": {
+		"_postman_id": "59796c7c-dfa8-4e0b-8893-017c2a846f7e",
+		"name": "hackson",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25150737"
+	},
+	"item": [
+		{
+			"name": "1.Smart Contract Service",
+			"item": [
+				{
+					"name": "http://localhost:8545",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":1}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8545",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8545"
+						},
+						"description": "Generated from cURL: curl -X POST http://localhost:8545 \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":1}'"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2.MetadataService",
+			"item": [
+				{
+					"name": "http://localhost:8081/actuator/health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/actuator/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"actuator",
+								"health"
+							]
+						},
+						"description": "Generated from cURL: curl http://localhost:8081/actuator/health\n"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8081/api/metadata/receipts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "invoiceNo",
+									"value": "TEST-001",
+									"type": "text"
+								},
+								{
+									"key": "purchaseDate",
+									"value": "2023-10-24",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "1000.00",
+									"type": "text"
+								},
+								{
+									"key": "itemName",
+									"value": "Test Item",
+									"type": "text"
+								},
+								{
+									"key": "ownerAddress",
+									"value": "0x1234567890123456789012345678901234567890",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/metadata/receipts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"metadata",
+								"receipts"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST \"http://localhost:8081/api/metadata/receipts\" \\\n  -F \"invoiceNo=TEST-001\" \\\n  -F \"purchaseDate=2023-10-24\" \\\n  -F \"amount=1000.00\" \\\n  -F \"itemName=Test Item\" \\\n  -F \"ownerAddress=0x1234567890123456789012345678901234567890\""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8081/api/metadata/hash?url=ipfs://<metadata_url>",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/metadata/hash?url=ipfs://<metadata_url>",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"metadata",
+								"hash"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "ipfs://<metadata_url>"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl \"http://localhost:8081/api/metadata/hash?url=ipfs://<metadata_url>\""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3.Backend Core API",
+			"item": [
+				{
+					"name": "http://localhost:8083/actuator/health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/actuator/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"actuator",
+								"health"
+							]
+						},
+						"description": "Generated from cURL: curl -X GET http://localhost:8080/actuator/health\n"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8083/api/v1/receipts/issue",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-API-Key",
+								"value": "change-this-in-production"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"invoiceNo\": \"INV-005\",\n    \"purchaseDate\": \"2024-01-01\",\n    \"amount\": 100.50,\n    \"itemName\": \"Gold Bar\",\n    \"ownerAddress\": \"0x1234567890123456789012345678901234567890\",\n    \"description\": \"High purity gold bar\",\n    \"metadata\": {\n      \"purity\": \"99.9%\",\n      \"weight\": \"100g\"\n    }\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/receipts/issue",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"receipts",
+								"issue"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST http://localhost:8080/api/v1/receipts/issue \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: change-this-in-production\" \\\n  -d '{\n    \"invoiceNo\": \"INV-001\",\n    \"purchaseDate\": \"2024-01-01\",\n    \"amount\": 100.50,\n    \"itemName\": \"Gold Bar\",\n    \"ownerAddress\": \"0x1234567890123456789012345678901234567890\",\n    \"description\": \"High purity gold bar\",\n    \"metadata\": {\n      \"purity\": \"99.9%\",\n      \"weight\": \"100g\"\n    }\n  }'"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8083/api/v1/receipts/verify",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tokenId\": 818011,\n    \"metadataHash\": \"a9a4c7989845016f118d19c1adeae37c110ab1756ca02f269c460a80e31f6711\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/receipts/verify",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"receipts",
+								"verify"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST http://localhost:8080/api/v1/receipts/verify \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"tokenId\": 650575,\n    \"metadataHash\": \"8c8e949a6debccd9a3a1e4e1c9daba7a46b69bd65a43cacdc71c535fe9b6e94f\"\n  }'"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8083/api/v1/receipts/650575/revoke",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-API-Key",
+								"value": "change-this-in-production"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/receipts/650575/revoke",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"receipts",
+								"650575",
+								"revoke"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST http://localhost:8080/api/v1/receipts/650575/revoke \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: change-this-in-production\""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8083/api/v1/receipts/650575/details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/receipts/898011/details",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"receipts",
+								"898011",
+								"details"
+							]
+						},
+						"description": "Generated from cURL: curl -X GET http://localhost:8080/api/v1/receipts/650575/details"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8083/api/v1/receipts/owner/0x1234567890123456789012345678901234567890/active",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "change-this-in-production"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/receipts/owner/0x1234567890123456789012345678901234567890/active",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"receipts",
+								"owner",
+								"0x1234567890123456789012345678901234567890",
+								"active"
+							]
+						},
+						"description": "Generated from cURL: curl -X GET http://localhost:8080/api/v1/receipts/owner/0x1234567890123456789012345678901234567890/active \\\n  -H \"X-API-Key: change-this-in-production\""
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8083/api/v1/receipts/owner/0x1234567890123456789012345678901234567890",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "change-this-in-production"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/receipts/owner/0x1234567890123456789012345678901234567890",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"receipts",
+								"owner",
+								"0x1234567890123456789012345678901234567890"
+							]
+						},
+						"description": "Generated from cURL: curl -X GET http://localhost:8080/api/v1/receipts/owner/0x1234567890123456789012345678901234567890 \\\n  -H \"X-API-Key: change-this-in-production\""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

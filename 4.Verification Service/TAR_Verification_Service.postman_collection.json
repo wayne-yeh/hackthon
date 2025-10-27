@@ -1,0 +1,259 @@
+{
+	"info": {
+		"_postman_id": "tar-verification-service",
+		"name": "TAR Verification Service API",
+		"description": "API collection for TAR Verification Service testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/verify/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"verify",
+						"health"
+					]
+				},
+				"description": "Check if the verification service is healthy"
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Token by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/verify?tokenId={{token_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"verify"
+					],
+					"query": [
+						{
+							"key": "tokenId",
+							"value": "{{token_id}}",
+							"description": "Token ID to verify"
+						}
+					]
+				},
+				"description": "Verify a token by its ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Token by ID - Invalid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/verify?tokenId=-1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"verify"
+					],
+					"query": [
+						{
+							"key": "tokenId",
+							"value": "-1",
+							"description": "Invalid negative token ID"
+						}
+					]
+				},
+				"description": "Test verification with invalid token ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Token by ID - Missing Parameter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/verify",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"verify"
+					]
+				},
+				"description": "Test verification without token ID parameter"
+			},
+			"response": []
+		},
+		{
+			"name": "Verify by Serial Number",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/verify/by-serial?serial={{serial_number}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"verify",
+						"by-serial"
+					],
+					"query": [
+						{
+							"key": "serial",
+							"value": "{{serial_number}}",
+							"description": "Serial number to verify"
+						}
+					]
+				},
+				"description": "Verify a token by its serial number (not implemented)"
+			},
+			"response": []
+		},
+		{
+			"name": "Swagger UI",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/swagger-ui.html",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"swagger-ui.html"
+					]
+				},
+				"description": "Access Swagger UI documentation"
+			},
+			"response": []
+		},
+		{
+			"name": "OpenAPI Docs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v3/api-docs",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v3",
+						"api-docs"
+					]
+				},
+				"description": "Get OpenAPI JSON specification"
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/actuator/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"actuator",
+						"health"
+					]
+				},
+				"description": "Spring Boot Actuator health endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator Info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/actuator/info",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"actuator",
+						"info"
+					]
+				},
+				"description": "Spring Boot Actuator info endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator Metrics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/actuator/metrics",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"actuator",
+						"metrics"
+					]
+				},
+				"description": "Spring Boot Actuator metrics endpoint"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8082",
+			"type": "string"
+		},
+		{
+			"key": "token_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "serial_number",
+			"value": "TAR-2024-001",
+			"type": "string"
+		}
+	]
+}

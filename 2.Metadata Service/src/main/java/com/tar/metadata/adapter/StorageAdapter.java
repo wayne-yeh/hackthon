@@ -37,3 +37,4 @@ public interface StorageAdapter {
     String downloadMetadata(String url) throws Exception;
 }
 
+
