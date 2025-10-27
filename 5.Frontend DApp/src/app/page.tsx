@@ -1,147 +1,156 @@
+'use client';
+
+import React from 'react';
+import { WalletConnectButton } from '@/components/WalletConnectButton';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Receipt, Shield, CheckCircle, Users, ArrowRight, Star } from 'lucide-react';
+import Link from 'next/link';
+import { useWallet } from '@/hooks/useWalletConnect';
+
 export default function HomePage() {
+  const { wallet } = useWallet();
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">TAR</span>
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <Receipt className="h-5 w-5 text-white" />
               </div>
-              <h1 className="text-xl font-bold text-gray-900">TAR DApp</h1>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                TAR DApp
+              </h1>
             </div>
-            <div className="text-sm text-gray-600">
-              Tokenized Asset Receipt System
-            </div>
+            
+            <nav className="hidden md:flex items-center space-x-6">
+              <Link href="/" className="text-gray-600 hover:text-gray-900 transition-colors">
+                首頁
+              </Link>
+              <Link href="/verify" className="text-gray-600 hover:text-gray-900 transition-colors">
+                驗證收據
+              </Link>
+              {wallet.isConnected && (
+                <Link href="/issuer">
+                  <Button size="sm">發行收據</Button>
+                </Link>
+              )}
+            </nav>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            TAR DApp 系統狀態
-          </h1>
-          <p className="text-xl text-gray-600">
-            基於區塊鏈的資產收據代幣化系統
+      {/* Hero Section */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <Star className="h-4 w-4" />
+            區塊鏈資產收據系統
+          </div>
+          
+          <h2 className="text-5xl font-bold text-gray-900 mb-6">
+            數位化您的
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> 資產收據</span>
+          </h2>
+          
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            使用區塊鏈技術創建、驗證和管理您的資產收據。安全、透明、不可篡改的數位收據解決方案。
           </p>
+
+          {wallet.isConnected ? (
+            <div className="space-y-4">
+              <div className="flex justify-center">
+                <Link href="/issuer">
+                  <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                    發行新收據
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+              </div>
+              <div className="flex justify-center">
+                <WalletConnectButton />
+              </div>
+            </div>
+          ) : (
+            <div className="flex justify-center">
+              <WalletConnectButton />
+            </div>
+          )}
         </div>
 
-        {/* Services Status */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {/* Frontend Service */}
-          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">前端服務</h3>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            </div>
-            <div className="space-y-2">
-              <p className="text-sm text-gray-600">狀態: <span className="text-green-600 font-medium">運行中</span></p>
-              <p className="text-sm text-gray-600">端口: <span className="font-mono">3000</span></p>
-              <p className="text-sm text-gray-600">URL: <span className="font-mono">http://localhost:3000</span></p>
-            </div>
-          </div>
+        {/* Features Grid */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <Card className="text-center hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Receipt className="h-6 w-6 text-blue-600" />
+              </div>
+              <CardTitle>數位收據</CardTitle>
+              <CardDescription>
+                將實體收據轉換為區塊鏈上的 NFT，確保永久保存和驗證
+              </CardDescription>
+            </CardHeader>
+          </Card>
 
-          {/* Backend Core API */}
-          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Backend Core API</h3>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            </div>
-            <div className="space-y-2">
-              <p className="text-sm text-gray-600">狀態: <span className="text-green-600 font-medium">運行中</span></p>
-              <p className="text-sm text-gray-600">端口: <span className="font-mono">8083</span></p>
-              <p className="text-sm text-gray-600">URL: <span className="font-mono">http://localhost:8083</span></p>
-            </div>
-          </div>
+          <Card className="text-center hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Shield className="h-6 w-6 text-green-600" />
+              </div>
+              <CardTitle>安全驗證</CardTitle>
+              <CardDescription>
+                使用加密技術確保收據的真實性和完整性，防止偽造
+              </CardDescription>
+            </CardHeader>
+          </Card>
 
-          {/* Metadata Service */}
-          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Metadata Service</h3>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            </div>
-            <div className="space-y-2">
-              <p className="text-sm text-gray-600">狀態: <span className="text-green-600 font-medium">運行中</span></p>
-              <p className="text-sm text-gray-600">端口: <span className="font-mono">8081</span></p>
-              <p className="text-sm text-gray-600">URL: <span className="font-mono">http://localhost:8081</span></p>
-            </div>
-          </div>
-
-          {/* Verification Service */}
-          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Verification Service</h3>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            </div>
-            <div className="space-y-2">
-              <p className="text-sm text-gray-600">狀態: <span className="text-green-600 font-medium">運行中</span></p>
-              <p className="text-sm text-gray-600">端口: <span className="font-mono">8082</span></p>
-              <p className="text-sm text-gray-600">URL: <span className="font-mono">http://localhost:8082</span></p>
-            </div>
-          </div>
+          <Card className="text-center hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="h-6 w-6 text-purple-600" />
+              </div>
+              <CardTitle>即時驗證</CardTitle>
+              <CardDescription>
+                隨時隨地驗證收據的有效性，查看詳細的資產信息
+              </CardDescription>
+            </CardHeader>
+          </Card>
         </div>
 
-        {/* Quick Actions */}
-        <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">快速操作</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <a
-              href="/api-test"
-              className="block p-4 bg-orange-50 border border-orange-200 rounded-lg hover:bg-orange-100 transition-colors"
-            >
-              <h4 className="font-medium text-orange-900">API 測試工具</h4>
-              <p className="text-sm text-orange-700 mt-1">直接測試所有 API</p>
-            </a>
-            <a
-              href="http://localhost:8083/swagger-ui.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block p-4 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors"
-            >
-              <h4 className="font-medium text-blue-900">Backend API 文檔</h4>
-              <p className="text-sm text-blue-700 mt-1">查看 Swagger UI</p>
-            </a>
-            <a
-              href="http://localhost:8081/swagger-ui.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block p-4 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 transition-colors"
-            >
-              <h4 className="font-medium text-green-900">Metadata API 文檔</h4>
-              <p className="text-sm text-green-700 mt-1">查看 Swagger UI</p>
-            </a>
-            <a
-              href="http://localhost:8082/swagger-ui.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block p-4 bg-purple-50 border border-purple-200 rounded-lg hover:bg-purple-100 transition-colors"
-            >
-              <h4 className="font-medium text-purple-900">Verification API 文檔</h4>
-              <p className="text-sm text-purple-700 mt-1">查看 Swagger UI</p>
-            </a>
-          </div>
-        </div>
-
-        {/* System Info */}
-        <div className="mt-8 bg-gray-100 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">系統信息</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        {/* Stats Section */}
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+          <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
-              <p className="text-gray-600"><strong>項目名稱:</strong> TAR DApp</p>
-              <p className="text-gray-600"><strong>版本:</strong> 1.0.0</p>
-              <p className="text-gray-600"><strong>技術棧:</strong> Next.js, React, TypeScript</p>
+              <div className="text-3xl font-bold mb-2">100%</div>
+              <div className="text-blue-100">安全保證</div>
             </div>
             <div>
-              <p className="text-gray-600"><strong>後端技術:</strong> Spring Boot, Java 17</p>
-              <p className="text-gray-600"><strong>數據庫:</strong> H2 (內存)</p>
-              <p className="text-gray-600"><strong>區塊鏈:</strong> Hardhat 本地網絡</p>
+              <div className="text-3xl font-bold mb-2">24/7</div>
+              <div className="text-blue-100">隨時驗證</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold mb-2">∞</div>
+              <div className="text-blue-100">永久保存</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold mb-2">0</div>
+              <div className="text-blue-100">手續費</div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t bg-white/80 backdrop-blur-sm">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center text-gray-600">
+            <p>&copy; 2024 TAR DApp. 基於區塊鏈的資產收據系統</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -1,296 +1,265 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import Link from 'next/link';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { VerifyBadge } from '@/components/VerifyBadge';
-import { QRGenerator } from '@/components/QRGenerator';
-import { WalletConnectButton } from '@/components/WalletConnectButton';
-import { ReceiptVerifyResponse, ReceiptDetails } from '@/types';
-import { apiClient } from '@/services/apiClients';
-import { Search, ArrowLeft, Package, ExternalLink, RefreshCw } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { ReceiptCard } from '@/components/ReceiptCard';
+import { ArrowLeft, Search, CheckCircle, XCircle, AlertCircle, Clock } from 'lucide-react';
+import Link from 'next/link';
+import { toast } from 'react-hot-toast';
+import { apiService, ReceiptDetails, VerificationResponse } from '@/services/apiService';
 
-export default function VerifyPage() {
-  const router = useRouter();
+function VerifyPageContent() {
   const searchParams = useSearchParams();
-  const [tokenId, setTokenId] = useState<string>('');
-  const [metadataHash, setMetadataHash] = useState<string>('');
-  const [verificationResult, setVerificationResult] = useState<ReceiptVerifyResponse | null>(null);
-  const [receiptDetails, setReceiptDetails] = useState<ReceiptDetails | null>(null);
+  const tokenId = searchParams.get('tokenId');
+  
+  const [inputTokenId, setInputTokenId] = useState(tokenId || '');
+  const [receipt, setReceipt] = useState<ReceiptDetails | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isVerifying, setIsVerifying] = useState(false);
+  const [verificationStatus, setVerificationStatus] = useState<'valid' | 'invalid' | 'revoked' | 'pending' | 'unknown'>('unknown');
 
-  useEffect(() => {
-    const tokenIdParam = searchParams.get('tokenId');
-    if (tokenIdParam) {
-      setTokenId(tokenIdParam);
-      handleGetDetails(parseInt(tokenIdParam));
+  const verifyReceipt = async (id: string) => {
+    if (!id) {
+      toast.error('請輸入 Token ID');
+      return;
     }
-  }, [searchParams]);
 
-  const handleGetDetails = async (id: number) => {
     setIsLoading(true);
     try {
-      const details = await apiClient.getReceiptDetails(id);
-      setReceiptDetails(details);
-      setMetadataHash(details.metadataHash);
+      const tokenIdNum = parseInt(id);
+      
+      // 先獲取收據詳情
+      const receiptDetails = await apiService.getReceiptDetails(tokenIdNum);
+      
+      // 然後驗證收據
+      const verificationResult = await apiService.verifyReceipt({ tokenId: tokenIdNum });
+      
+      // 合併結果
+      const receipt: ReceiptDetails = {
+        ...receiptDetails,
+        valid: verificationResult.valid,
+        revoked: verificationResult.revoked,
+      };
+
+      setReceipt(receipt);
+      
+      if (verificationResult.revoked) {
+        setVerificationStatus('revoked');
+      } else if (verificationResult.valid) {
+        setVerificationStatus('valid');
+      } else {
+        setVerificationStatus('invalid');
+      }
+      
+      toast.success('驗證完成！');
     } catch (error: any) {
-      console.error('Get details error:', error);
-      toast.error(error.response?.data?.message || '獲取收據詳情失敗');
+      toast.error(error.message || '驗證失敗，請檢查 Token ID');
+      setReceipt(null);
+      setVerificationStatus('invalid');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleVerify = async () => {
-    if (!tokenId || !metadataHash) {
-      toast.error('請填寫 Token ID 和元數據哈希');
-      return;
+  useEffect(() => {
+    if (tokenId) {
+      verifyReceipt(tokenId);
     }
+  }, [tokenId]);
 
-    setIsVerifying(true);
-    try {
-      const result = await apiClient.verifyReceipt({
-        tokenId: parseInt(tokenId),
-        metadataHash,
-      });
-      setVerificationResult(result);
-      toast.success('驗證完成');
-    } catch (error: any) {
-      console.error('Verify error:', error);
-      toast.error(error.response?.data?.message || '驗證失敗');
-    } finally {
-      setIsVerifying(false);
-    }
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('zh-TW', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
-
-  const formatAmount = (amount: number) => {
-    return new Intl.NumberFormat('zh-TW', {
-      style: 'currency',
-      currency: 'TWD',
-    }).format(amount);
-  };
-
-  const generateVerifyURL = () => {
-    const baseUrl = window.location.origin;
-    return `${baseUrl}/verify?tokenId=${tokenId}`;
+  const handleSearch = () => {
+    verifyReceipt(inputTokenId);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      {/* Header */}
+      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Link href="/" className="flex items-center space-x-2 text-gray-600 hover:text-gray-900">
-                <ArrowLeft className="h-5 w-5" />
-                <span>返回首頁</span>
+              <Link href="/">
+                <Button variant="ghost" size="sm">
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  返回首頁
+                </Button>
               </Link>
               <div className="flex items-center space-x-2">
-                <Package className="h-8 w-8 text-blue-600" />
-                <h1 className="text-xl font-bold text-gray-900">TAR DApp - 驗證收據</h1>
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                  <CheckCircle className="h-5 w-5 text-white" />
+                </div>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  TAR DApp
+                </h1>
               </div>
             </div>
-            <WalletConnectButton />
           </div>
         </div>
-      </nav>
+      </header>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Column - Verification Form */}
-          <div className="space-y-6">
-            <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">驗證收據</h2>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Token ID
-                  </label>
-                  <input
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto">
+          {/* Page Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+              <Search className="h-4 w-4" />
+              收據驗證
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              驗證收據真偽
+            </h2>
+            <p className="text-gray-600">
+              輸入 Token ID 來驗證收據的有效性和真實性
+            </p>
+          </div>
+
+          {/* Search Form */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Search className="h-5 w-5 text-blue-600" />
+                驗證收據
+              </CardTitle>
+              <CardDescription>
+                輸入收據的 Token ID 來查看詳細信息和驗證狀態
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="tokenId">Token ID</Label>
+                <div className="flex gap-2">
+                  <Input
+                    id="tokenId"
                     type="number"
-                    value={tokenId}
-                    onChange={(e) => setTokenId(e.target.value)}
-                    className="input-field"
-                    placeholder="輸入 Token ID"
+                    placeholder="輸入 Token ID..."
+                    value={inputTokenId}
+                    onChange={(e) => setInputTokenId(e.target.value)}
+                    className="flex-1"
                   />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    元數據哈希
-                  </label>
-                  <input
-                    type="text"
-                    value={metadataHash}
-                    onChange={(e) => setMetadataHash(e.target.value)}
-                    className="input-field"
-                    placeholder="輸入元數據哈希"
-                  />
-                </div>
-
-                <div className="flex space-x-4">
-                  <button
-                    onClick={handleVerify}
-                    disabled={isVerifying || !tokenId || !metadataHash}
-                    className="btn-primary flex-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                  <Button
+                    onClick={handleSearch}
+                    disabled={isLoading || !inputTokenId}
+                    className="px-6"
                   >
-                    {isVerifying ? (
+                    {isLoading ? (
                       <>
-                        <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                         驗證中...
                       </>
                     ) : (
                       <>
                         <Search className="h-4 w-4 mr-2" />
-                        驗證收據
+                        驗證
                       </>
                     )}
-                  </button>
-                  
-                  {tokenId && (
-                    <button
-                      onClick={() => handleGetDetails(parseInt(tokenId))}
-                      disabled={isLoading}
-                      className="btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {isLoading ? (
-                        <RefreshCw className="h-4 w-4 animate-spin" />
-                      ) : (
-                        '獲取詳情'
-                      )}
-                    </button>
-                  )}
+                  </Button>
                 </div>
               </div>
-            </div>
+            </CardContent>
+          </Card>
 
-            {/* Verification Result */}
-            {verificationResult && (
-              <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">驗證結果</h3>
-                
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">狀態:</span>
-                    <VerifyBadge 
-                      isValid={verificationResult.valid} 
-                      isRevoked={verificationResult.revoked}
-                    />
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">Token ID:</span>
-                    <span className="text-sm font-mono text-gray-900">#{verificationResult.tokenId}</span>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">擁有者:</span>
-                    <span className="text-sm font-mono text-gray-900 truncate max-w-xs">
-                      {verificationResult.ownerAddress.slice(0, 6)}...{verificationResult.ownerAddress.slice(-4)}
-                    </span>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">哈希匹配:</span>
-                    <span className={`text-sm font-medium ${verificationResult.hashMatches ? 'text-green-600' : 'text-red-600'}`}>
-                      {verificationResult.hashMatches ? '是' : '否'}
-                    </span>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">驗證時間:</span>
-                    <span className="text-sm text-gray-900">
-                      {formatDate(verificationResult.verifiedAt)}
-                    </span>
-                  </div>
-                  
-                  <div className="pt-2 border-t border-gray-200">
-                    <p className="text-sm text-gray-600">{verificationResult.message}</p>
-                  </div>
+          {/* Verification Result */}
+          {receipt && (
+            <Card className="mb-8">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center gap-2">
+                    <CheckCircle className="h-5 w-5 text-green-600" />
+                    驗證結果
+                  </CardTitle>
+                  <VerifyBadge status={verificationStatus} size="lg" />
                 </div>
-              </div>
-            )}
-          </div>
+                <CardDescription>
+                  Token ID: {receipt.tokenId} 的驗證結果
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ReceiptCard 
+                  receipt={receipt} 
+                  showVerifyButton={false}
+                />
+              </CardContent>
+            </Card>
+          )}
 
-          {/* Right Column - Receipt Details & QR Code */}
-          <div className="space-y-6">
-            {/* Receipt Details */}
-            {receiptDetails && (
-              <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">收據詳情</h3>
-                
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">發票號碼:</span>
-                    <span className="text-sm text-gray-900">{receiptDetails.invoiceNo}</span>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">商品名稱:</span>
-                    <span className="text-sm text-gray-900">{receiptDetails.itemName}</span>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">購買日期:</span>
-                    <span className="text-sm text-gray-900">{formatDate(receiptDetails.purchaseDate)}</span>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">金額:</span>
-                    <span className="text-sm font-medium text-gray-900">{formatAmount(receiptDetails.amount)}</span>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">狀態:</span>
-                    <VerifyBadge isValid={!receiptDetails.revoked} isRevoked={receiptDetails.revoked} />
-                  </div>
-                  
-                  {receiptDetails.transactionHash && (
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-gray-700">交易哈希:</span>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm font-mono text-gray-900 truncate max-w-xs">
-                          {receiptDetails.transactionHash}
-                        </span>
-                        <a
-                          href={`https://sepolia.etherscan.io/tx/${receiptDetails.transactionHash}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:text-blue-800"
-                        >
-                          <ExternalLink className="h-4 w-4" />
-                        </a>
-                      </div>
-                    </div>
-                  )}
+          {/* Status Information */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="bg-green-50 border-green-200">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg text-green-900 flex items-center gap-2">
+                  <CheckCircle className="h-5 w-5" />
+                  有效收據
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2 text-sm text-green-800">
+                <div className="flex items-start gap-2">
+                  <div className="w-2 h-2 bg-green-600 rounded-full mt-2"></div>
+                  <span>收據信息完整且未被篡改</span>
                 </div>
-              </div>
-            )}
+                <div className="flex items-start gap-2">
+                  <div className="w-2 h-2 bg-green-600 rounded-full mt-2"></div>
+                  <span>區塊鏈記錄與元數據一致</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="w-2 h-2 bg-green-600 rounded-full mt-2"></div>
+                  <span>擁有者地址正確</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="w-2 h-2 bg-green-600 rounded-full mt-2"></div>
+                  <span>收據未被撤銷</span>
+                </div>
+              </CardContent>
+            </Card>
 
-            {/* QR Code Generator */}
-            {tokenId && (
-              <QRGenerator
-                data={generateVerifyURL()}
-                title="驗證 QR Code"
-              />
-            )}
+            <Card className="bg-red-50 border-red-200">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg text-red-900 flex items-center gap-2">
+                  <XCircle className="h-5 w-5" />
+                  無效收據
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2 text-sm text-red-800">
+                <div className="flex items-start gap-2">
+                  <div className="w-2 h-2 bg-red-600 rounded-full mt-2"></div>
+                  <span>Token ID 不存在</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="w-2 h-2 bg-red-600 rounded-full mt-2"></div>
+                  <span>元數據已被篡改</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="w-2 h-2 bg-red-600 rounded-full mt-2"></div>
+                  <span>區塊鏈記錄不一致</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="w-2 h-2 bg-red-600 rounded-full mt-2"></div>
+                  <span>收據已被撤銷</span>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
     </div>
+  );
+}
+
+export default function VerifyPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">載入中...</p>
+        </div>
+      </div>
+    }>
+      <VerifyPageContent />
+    </Suspense>
   );
 }

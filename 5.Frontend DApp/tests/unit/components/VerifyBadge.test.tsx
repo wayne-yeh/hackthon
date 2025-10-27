@@ -29,3 +29,4 @@ describe('VerifyBadge', () => {
     expect(screen.getByText('未驗證')).toBeInTheDocument();
   });
 });
+

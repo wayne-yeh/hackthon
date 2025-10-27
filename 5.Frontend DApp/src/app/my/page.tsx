@@ -1,39 +1,43 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { ReceiptCard } from '@/components/ReceiptCard';
+import { ArrowLeft, Receipt, Plus, RefreshCw, Filter } from 'lucide-react';
 import Link from 'next/link';
-import { NFTCard } from '@/components/NFTCard';
-import { WalletConnectButton } from '@/components/WalletConnectButton';
+import { toast } from 'react-hot-toast';
 import { useWallet } from '@/hooks/useWalletConnect';
-import { ReceiptDetails } from '@/types';
-import { apiClient } from '@/services/apiClients';
-import { Package, ArrowLeft, RefreshCw, User, Wallet } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { apiService, ReceiptDetails } from '@/services/apiService';
 
 export default function MyPage() {
   const { wallet } = useWallet();
   const [receipts, setReceipts] = useState<ReceiptDetails[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'all' | 'active'>('all');
-
-  useEffect(() => {
-    if (wallet.isConnected && wallet.address) {
-      loadReceipts();
-    }
-  }, [wallet.isConnected, wallet.address, activeTab]);
+  const [filter, setFilter] = useState<'all' | 'valid' | 'revoked'>('all');
 
   const loadReceipts = async () => {
-    if (!wallet.address) return;
+          if (!wallet.isConnected || !wallet.address) {
+            console.log('Wallet not connected:', { isConnected: wallet.isConnected, address: wallet.address });
+            setReceipts([]);
+            return;
+          }
 
     setIsLoading(true);
     try {
-      const data = activeTab === 'active' 
-        ? await apiClient.getOwnerActiveReceipts(wallet.address)
-        : await apiClient.getOwnerReceipts(wallet.address);
-      setReceipts(data);
+      console.log('Loading receipts for address:', wallet.address);
+      const receipts = await apiService.getOwnerReceipts(wallet.address);
+      console.log('Received receipts:', receipts);
+      setReceipts(receipts);
+      if (receipts.length > 0) {
+        toast.success(`找到 ${receipts.length} 個收據`);
+      } else {
+        toast('您還沒有任何收據', { icon: 'ℹ️' });
+      }
     } catch (error: any) {
-      console.error('Load receipts error:', error);
-      toast.error(error.response?.data?.message || '載入收據失敗');
+      console.error('Error loading receipts:', error);
+      toast.error(error.message || '載入收據失敗');
+      setReceipts([]);
     } finally {
       setIsLoading(false);
     }
@@ -43,47 +47,78 @@ export default function MyPage() {
     window.open(`/verify?tokenId=${tokenId}`, '_blank');
   };
 
-  const handleViewDetails = (tokenId: number) => {
-    window.open(`/verify?tokenId=${tokenId}`, '_blank');
-  };
+  const filteredReceipts = receipts.filter(receipt => {
+    if (filter === 'all') return true;
+    if (filter === 'valid') return receipt.valid && !receipt.revoked;
+    if (filter === 'revoked') return receipt.revoked;
+    return true;
+  });
 
-  const formatAddress = (address: string) => {
-    return `${address.slice(0, 6)}...${address.slice(-4)}`;
-  };
+  useEffect(() => {
+    if (wallet.isConnected && wallet.address) {
+      loadReceipts();
+    }
+  }, [wallet.isConnected, wallet.address]);
+
+  // 當頁面重新獲得焦點時刷新數據
+  useEffect(() => {
+    const handleFocus = () => {
+      if (wallet.isConnected && wallet.address) {
+        console.log('頁面重新獲得焦點，刷新收據數據');
+        loadReceipts();
+      }
+    };
+
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, [wallet.isConnected, wallet.address]);
+
+  // 調試信息
+  console.log('My page wallet state:', wallet);
 
   if (!wallet.isConnected) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        {/* Navigation */}
-        <nav className="bg-white shadow-sm border-b border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <div className="flex items-center space-x-4">
-                <Link href="/" className="flex items-center space-x-2 text-gray-600 hover:text-gray-900">
-                  <ArrowLeft className="h-5 w-5" />
-                  <span>返回首頁</span>
-                </Link>
-                <div className="flex items-center space-x-2">
-                  <Package className="h-8 w-8 text-blue-600" />
-                  <h1 className="text-xl font-bold text-gray-900">TAR DApp - 我的收據</h1>
-                </div>
-              </div>
-              <WalletConnectButton />
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center space-x-4">
+              <Link href="/">
+                <Button variant="ghost" size="sm">
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  返回首頁
+                </Button>
+              </Link>
             </div>
           </div>
-        </nav>
-
-        {/* Not Connected State */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center">
-            <div className="mx-auto flex items-center justify-center h-24 w-24 rounded-full bg-gray-100 mb-6">
-              <Wallet className="h-12 w-12 text-gray-400" />
-            </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">請先連接錢包</h1>
-            <p className="text-gray-600 mb-8">
-              連接您的錢包以查看您擁有的 Tokenized Asset Receipt
-            </p>
-            <WalletConnectButton className="text-lg px-8 py-3" />
+        </header>
+        
+        <div className="container mx-auto px-4 py-16">
+          <div className="max-w-md mx-auto text-center">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center justify-center gap-2">
+                  <Receipt className="h-5 w-5 text-blue-600" />
+                  需要連接錢包
+                </CardTitle>
+                <CardDescription>
+                  請先連接您的錢包以查看收據
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="text-sm text-gray-600">
+                    <p>調試信息:</p>
+                    <p>isConnected: {wallet.isConnected ? 'true' : 'false'}</p>
+                    <p>address: {wallet.address || 'null'}</p>
+                  </div>
+                  <Link href="/">
+                    <Button className="w-full">
+                      連接錢包
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
@@ -91,142 +126,183 @@ export default function MyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      {/* Header */}
+      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Link href="/" className="flex items-center space-x-2 text-gray-600 hover:text-gray-900">
-                <ArrowLeft className="h-5 w-5" />
-                <span>返回首頁</span>
+              <Link href="/">
+                <Button variant="ghost" size="sm">
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  返回首頁
+                </Button>
               </Link>
               <div className="flex items-center space-x-2">
-                <Package className="h-8 w-8 text-blue-600" />
-                <h1 className="text-xl font-bold text-gray-900">TAR DApp - 我的收據</h1>
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                  <Receipt className="h-5 w-5 text-white" />
+                </div>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  TAR DApp
+                </h1>
               </div>
             </div>
-            <WalletConnectButton />
+            
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={loadReceipts}
+                        disabled={isLoading}
+                      >
+                        <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+                        刷新
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => {
+                          console.log('強制刷新收據，當前錢包狀態:', wallet);
+                          loadReceipts();
+                        }}
+                        disabled={isLoading}
+                      >
+                        <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+                        強制刷新
+                      </Button>
+                      <Link href="/issuer">
+                        <Button size="sm">
+                          <Plus className="h-4 w-4 mr-2" />
+                          發行收據
+                        </Button>
+                      </Link>
+                    </div>
           </div>
         </div>
-      </nav>
+      </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">我的收據</h1>
-              <p className="text-gray-600 mt-1">
-                錢包地址: <span className="font-mono">{formatAddress(wallet.address)}</span>
-              </p>
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-6xl mx-auto">
+          {/* Page Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+              <Receipt className="h-4 w-4" />
+              我的收據
             </div>
-            <button
-              onClick={loadReceipts}
-              disabled={isLoading}
-              className="btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? (
-                <RefreshCw className="h-4 w-4 animate-spin" />
-              ) : (
-                <>
-                  <RefreshCw className="h-4 w-4 mr-2" />
-                  重新載入
-                </>
-              )}
-            </button>
-          </div>
-
-          {/* Tabs */}
-          <div className="border-b border-gray-200">
-            <nav className="-mb-px flex space-x-8">
-              <button
-                onClick={() => setActiveTab('all')}
-                className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'all'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                所有收據 ({receipts.length})
-              </button>
-              <button
-                onClick={() => setActiveTab('active')}
-                className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'active'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                有效收據 ({receipts.filter(r => !r.revoked).length})
-              </button>
-            </nav>
-          </div>
-        </div>
-
-        {/* Content */}
-        {isLoading ? (
-          <div className="flex items-center justify-center py-12">
-            <div className="text-center">
-              <RefreshCw className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-4" />
-              <p className="text-gray-600">載入收據中...</p>
-            </div>
-          </div>
-        ) : receipts.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="mx-auto flex items-center justify-center h-24 w-24 rounded-full bg-gray-100 mb-6">
-              <Package className="h-12 w-12 text-gray-400" />
-            </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
-              {activeTab === 'active' ? '沒有有效收據' : '沒有收據'}
-            </h3>
-            <p className="text-gray-600 mb-6">
-              {activeTab === 'active' 
-                ? '您目前沒有有效的收據' 
-                : '您目前沒有任何收據'
-              }
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              我的資產收據
+            </h2>
+            <p className="text-gray-600">
+              管理您擁有的所有 Tokenized Asset Receipt
             </p>
-            <Link href="/issuer" className="btn-primary">
-              發行新收據
-            </Link>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {receipts.map((receipt) => (
-              <NFTCard
-                key={receipt.tokenId}
-                receipt={receipt}
-                onVerify={handleVerify}
-                onViewDetails={handleViewDetails}
-              />
-            ))}
-          </div>
-        )}
 
-        {/* Stats */}
-        {receipts.length > 0 && (
-          <div className="mt-12 bg-white rounded-lg shadow-md border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">統計信息</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center">
+          {/* Stats and Filters */}
+          <div className="grid md:grid-cols-4 gap-4 mb-8">
+            <Card className="text-center">
+              <CardContent className="pt-6">
                 <div className="text-2xl font-bold text-blue-600">{receipts.length}</div>
                 <div className="text-sm text-gray-600">總收據數</div>
-              </div>
-              <div className="text-center">
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center">
+              <CardContent className="pt-6">
                 <div className="text-2xl font-bold text-green-600">
-                  {receipts.filter(r => !r.revoked).length}
+                  {receipts.filter(r => r.valid && !r.revoked).length}
                 </div>
                 <div className="text-sm text-gray-600">有效收據</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-red-600">
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center">
+              <CardContent className="pt-6">
+                <div className="text-2xl font-bold text-orange-600">
                   {receipts.filter(r => r.revoked).length}
                 </div>
-                <div className="text-sm text-gray-600">已撤銷收據</div>
-              </div>
-            </div>
+                <div className="text-sm text-gray-600">已撤銷</div>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center">
+              <CardContent className="pt-6">
+                <div className="text-2xl font-bold text-purple-600">
+                  {receipts.reduce((sum, r) => sum + r.amount, 0).toLocaleString()}
+                </div>
+                <div className="text-sm text-gray-600">總價值 (TWD)</div>
+              </CardContent>
+            </Card>
           </div>
-        )}
+
+          {/* Filter Buttons */}
+          <div className="flex gap-2 mb-6">
+            <Button
+              variant={filter === 'all' ? 'default' : 'outline'}
+              onClick={() => setFilter('all')}
+              size="sm"
+            >
+              <Filter className="h-4 w-4 mr-2" />
+              全部
+            </Button>
+            <Button
+              variant={filter === 'valid' ? 'default' : 'outline'}
+              onClick={() => setFilter('valid')}
+              size="sm"
+            >
+              有效
+            </Button>
+            <Button
+              variant={filter === 'revoked' ? 'default' : 'outline'}
+              onClick={() => setFilter('revoked')}
+              size="sm"
+            >
+              已撤銷
+            </Button>
+          </div>
+
+          {/* Receipts Grid */}
+          {isLoading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+              <p className="text-gray-600">載入收據中...</p>
+            </div>
+          ) : filteredReceipts.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredReceipts.map((receipt) => (
+                <ReceiptCard
+                  key={receipt.tokenId}
+                  receipt={receipt}
+                  onVerify={handleVerify}
+                  showVerifyButton={true}
+                />
+              ))}
+            </div>
+          ) : (
+            <Card className="text-center py-12">
+              <CardContent>
+                <Receipt className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  {filter === 'all' ? '沒有收據' : `沒有${filter === 'valid' ? '有效' : '已撤銷'}收據`}
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  {filter === 'all' 
+                    ? '您還沒有任何收據，開始發行您的第一個收據吧！'
+                    : `您目前沒有${filter === 'valid' ? '有效' : '已撤銷'}的收據`
+                  }
+                </p>
+                {filter === 'all' && (
+                  <Link href="/issuer">
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />
+                      發行收據
+                    </Button>
+                  </Link>
+                )}
+              </CardContent>
+            </Card>
+          )}
+        </div>
       </div>
     </div>
   );

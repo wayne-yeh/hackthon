@@ -1,31 +1,45 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { ReceiptData } from '@/types';
-import { Package, Calendar, DollarSign, User, FileText, Upload } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent } from '@/components/ui/card';
+import { Upload, X, Image as ImageIcon } from 'lucide-react';
+import { apiService, ReceiptIssueRequest } from '@/services/apiService';
 
 interface ReceiptFormProps {
-  onSubmit: (data: ReceiptData) => Promise<void>;
-  isLoading?: boolean;
-  className?: string;
+  onSubmit: (data: ReceiptIssueRequest) => Promise<void>;
+  isSubmitting?: boolean;
 }
 
-export function ReceiptForm({ onSubmit, isLoading = false, className = '' }: ReceiptFormProps) {
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string>('');
+export function ReceiptForm({ onSubmit, isSubmitting = false }: ReceiptFormProps) {
+  const [formData, setFormData] = useState<ReceiptIssueRequest>({
+    ownerAddress: '',
+    invoiceNo: '',
+    itemName: '',
+    amount: 0,
+    description: '',
+    purchaseDate: new Date().toISOString().split('T')[0],
+  });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<ReceiptData>();
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: name === 'amount' ? parseFloat(value) || 0 : value,
+    }));
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImageFile(file);
+      setFormData(prev => ({ ...prev, image: file }));
+      
+      // Create preview
       const reader = new FileReader();
       reader.onload = (e) => {
         setImagePreview(e.target?.result as string);
@@ -34,163 +48,180 @@ export function ReceiptForm({ onSubmit, isLoading = false, className = '' }: Rec
     }
   };
 
-  const onFormSubmit = async (data: ReceiptData) => {
-    try {
-      await onSubmit(data);
-      reset();
-      setImageFile(null);
-      setImagePreview('');
-    } catch (error) {
-      console.error('Form submission error:', error);
-    }
+  const removeImage = () => {
+    setFormData(prev => ({ ...prev, image: null }));
+    setImagePreview(null);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await onSubmit(formData);
   };
 
   return (
-    <div className={`bg-white rounded-lg shadow-md border border-gray-200 p-6 ${className}`}>
-      <h2 className="text-xl font-semibold text-gray-900 mb-6">發行收據</h2>
-      
-      <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
-        {/* Invoice Number */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            <FileText className="h-4 w-4 inline mr-1" />
-            發票號碼 *
-          </label>
-          <input
-            type="text"
-            {...register('invoiceNo', { required: '發票號碼為必填項目' })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="例如: INV-001"
-          />
-          {errors.invoiceNo && (
-            <p className="mt-1 text-sm text-red-600">{errors.invoiceNo.message}</p>
-          )}
-        </div>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Owner Address */}
+      <div className="space-y-2">
+        <Label htmlFor="ownerAddress">擁有者地址 *</Label>
+        <Input
+          id="ownerAddress"
+          name="ownerAddress"
+          type="text"
+          placeholder="0x..."
+          value={formData.ownerAddress}
+          onChange={handleInputChange}
+          required
+          className="font-mono"
+        />
+        <p className="text-xs text-gray-500">
+          收據將發行給此地址的擁有者
+        </p>
+      </div>
 
-        {/* Purchase Date */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            <Calendar className="h-4 w-4 inline mr-1" />
-            購買日期 *
-          </label>
-          <input
-            type="date"
-            {...register('purchaseDate', { required: '購買日期為必填項目' })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-          {errors.purchaseDate && (
-            <p className="mt-1 text-sm text-red-600">{errors.purchaseDate.message}</p>
-          )}
-        </div>
+      {/* Invoice Number */}
+      <div className="space-y-2">
+        <Label htmlFor="invoiceNo">發票號碼 *</Label>
+        <Input
+          id="invoiceNo"
+          name="invoiceNo"
+          type="text"
+          placeholder="INV-2024-001"
+          value={formData.invoiceNo}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
 
-        {/* Amount */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            <DollarSign className="h-4 w-4 inline mr-1" />
-            金額 *
-          </label>
-          <input
-            type="number"
-            step="0.01"
-            {...register('amount', { 
-              required: '金額為必填項目',
-              min: { value: 0.01, message: '金額必須大於 0' }
-            })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="0.00"
-          />
-          {errors.amount && (
-            <p className="mt-1 text-sm text-red-600">{errors.amount.message}</p>
-          )}
-        </div>
+      {/* Item Name */}
+      <div className="space-y-2">
+        <Label htmlFor="itemName">物品名稱 *</Label>
+        <Input
+          id="itemName"
+          name="itemName"
+          type="text"
+          placeholder="黃金條"
+          value={formData.itemName}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
 
-        {/* Item Name */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            <Package className="h-4 w-4 inline mr-1" />
-            商品名稱 *
-          </label>
-          <input
-            type="text"
-            {...register('itemName', { required: '商品名稱為必填項目' })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="例如: 黃金條"
-          />
-          {errors.itemName && (
-            <p className="mt-1 text-sm text-red-600">{errors.itemName.message}</p>
-          )}
-        </div>
+      {/* Amount */}
+      <div className="space-y-2">
+        <Label htmlFor="amount">金額 (TWD) *</Label>
+        <Input
+          id="amount"
+          name="amount"
+          type="number"
+          step="0.01"
+          placeholder="1000.00"
+          value={formData.amount}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
 
-        {/* Owner Address */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            <User className="h-4 w-4 inline mr-1" />
-            擁有者地址 *
-          </label>
-          <input
-            type="text"
-            {...register('ownerAddress', { 
-              required: '擁有者地址為必填項目',
-              pattern: {
-                value: /^0x[a-fA-F0-9]{40}$/,
-                message: '請輸入有效的以太坊地址'
-              }
-            })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="0x..."
-          />
-          {errors.ownerAddress && (
-            <p className="mt-1 text-sm text-red-600">{errors.ownerAddress.message}</p>
-          )}
-        </div>
+      {/* Purchase Date */}
+      <div className="space-y-2">
+        <Label htmlFor="purchaseDate">購買日期 *</Label>
+        <Input
+          id="purchaseDate"
+          name="purchaseDate"
+          type="date"
+          value={formData.purchaseDate}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
 
-        {/* Description */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            描述
-          </label>
-          <textarea
-            {...register('description')}
-            rows={3}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="商品描述..."
-          />
-        </div>
+      {/* Description */}
+      <div className="space-y-2">
+        <Label htmlFor="description">描述</Label>
+        <Textarea
+          id="description"
+          name="description"
+          placeholder="詳細描述此資產..."
+          value={formData.description}
+          onChange={handleInputChange}
+          rows={3}
+        />
+      </div>
 
-        {/* Image Upload */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            <Upload className="h-4 w-4 inline mr-1" />
-            商品圖片
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-          {imagePreview && (
-            <div className="mt-2">
-              <img
-                src={imagePreview}
-                alt="Preview"
-                className="h-32 w-32 object-cover rounded-md border border-gray-300"
+      {/* Image Upload */}
+      <div className="space-y-2">
+        <Label>資產圖片</Label>
+        <div className="space-y-4">
+          {!imagePreview ? (
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
+              <Upload className="h-8 w-8 text-gray-400 mx-auto mb-2" />
+              <p className="text-sm text-gray-600 mb-2">點擊上傳或拖拽圖片到此處</p>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+                id="image-upload"
               />
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => document.getElementById('image-upload')?.click()}
+              >
+                選擇圖片
+              </Button>
             </div>
+          ) : (
+            <Card className="overflow-hidden">
+              <CardContent className="p-0">
+                <div className="relative">
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="w-full h-48 object-cover"
+                  />
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    className="absolute top-2 right-2"
+                    onClick={removeImage}
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+                <div className="p-4">
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <ImageIcon className="h-4 w-4" />
+                    <span>{formData.image?.name}</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           )}
         </div>
+        <p className="text-xs text-gray-500">
+          支持 JPG、PNG 格式，最大 10MB
+        </p>
+      </div>
 
-        {/* Submit Button */}
-        <div className="pt-4">
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            {isLoading ? '發行中...' : '發行收據'}
-          </button>
-        </div>
-      </form>
-    </div>
+      {/* Submit Button */}
+      <div className="pt-4">
+        <Button
+          type="submit"
+          className="w-full"
+          size="lg"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <>
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+              發行中...
+            </>
+          ) : (
+            '發行收據'
+          )}
+        </Button>
+      </div>
+    </form>
   );
 }

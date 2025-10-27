@@ -47,3 +47,4 @@ test.describe('Wallet Integration Tests', () => {
     await expect(page.locator('text=連接錢包')).toBeVisible();
   });
 });
+

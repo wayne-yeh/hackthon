@@ -120,3 +120,4 @@ describe('ReceiptForm', () => {
     expect(fileInput.files[0]).toBe(file);
   });
 });
+

@@ -226,3 +226,4 @@ export const {
   getNFTDetails,
   getOwnedNFTs,
 } = blockchainService;
+

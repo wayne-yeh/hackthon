@@ -29,3 +29,4 @@ export function generateVerifyURL(tokenId: number, baseUrl?: string): string {
   const origin = baseUrl || (typeof window !== 'undefined' ? window.location.origin : '');
   return `${origin}/verify?tokenId=${tokenId}`;
 }
+

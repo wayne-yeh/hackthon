@@ -94,3 +94,4 @@ test.describe('TAR DApp E2E Tests', () => {
     await expect(page.locator('text=驗證收據')).toBeVisible();
   });
 });
+

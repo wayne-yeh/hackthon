@@ -65,3 +65,4 @@ export interface NFTMetadata {
     value: string | number;
   }>;
 }
+
