@@ -223,4 +223,3 @@ public class TarReceiptService {
                 .collect(Collectors.toList());
     }
 }
-

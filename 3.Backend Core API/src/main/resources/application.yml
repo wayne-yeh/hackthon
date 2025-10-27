@@ -26,9 +26,9 @@ server:
   port: ${SERVER_PORT:8083}
 
 blockchain:
-  rpc-url: ${BLOCKCHAIN_RPC_URL:http://localhost:8545}
-  contract-address: ${CONTRACT_ADDRESS:}
-  issuer-private-key: ${ISSUER_PRIVATE_KEY:}
+  rpc-url: http://localhost:8545
+  contract-address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+  issuer-private-key: 59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d
   gas-price: 20000000000
   gas-limit: 6721975
 

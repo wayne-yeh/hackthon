@@ -77,3 +77,8 @@ echo "   Backend API: http://localhost:8083/swagger-ui.html"
 echo "   Metadata API: http://localhost:8081/swagger-ui.html"
 echo "   Verification API: http://localhost:8082/swagger-ui.html"
 
+
+
+
+
+

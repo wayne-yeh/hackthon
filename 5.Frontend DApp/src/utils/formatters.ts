@@ -30,3 +30,8 @@ export function generateVerifyURL(tokenId: number, baseUrl?: string): string {
   return `${origin}/verify?tokenId=${tokenId}`;
 }
 
+
+
+
+
+

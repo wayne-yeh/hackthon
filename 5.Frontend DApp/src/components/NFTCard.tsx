@@ -122,3 +122,8 @@ export function NFTCard({ receipt, onVerify, onViewDetails, className = '' }: NF
   );
 }
 
+
+
+
+
+
