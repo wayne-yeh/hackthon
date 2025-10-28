@@ -73,3 +73,5 @@ echo "💡 提示:"
 echo "- 如果發行失敗，請檢查區塊鏈是否運行"
 echo "- 如果驗證失敗，請檢查 Verification Service 是否運行"
 echo "- 查看完整測試指南: API_TESTING_GUIDE.md"
+
+

@@ -1,0 +1,20 @@
+You are a senior solution architect. Generate production-grade codebases with TDD for a Tokenized Asset Receipt (TAR) system using NFTs on EVM and imToken wallet integration via WalletConnect v2.
+
+Constraints:
+
+- Split into microservices. Each prompt will produce an independent, runnable module with its own tests and README.
+- Prioritize test-first: write failing tests, then implement code to pass, include coverage scripts.
+- Languages & stacks:
+  - Smart Contract: Solidity (OpenZeppelin), Hardhat, TypeScript tests.
+  - Backend Core API: Java 17, Spring Boot 3, Gradle or Maven, web3j, JPA (PostgreSQL), Testcontainers, JUnit 5, Mockito.
+  - Metadata Service: Spring Boot 3, S3 (localstack) or IPFS adapter, JUnit 5.
+  - Frontend DApp: React/Next.js, WalletConnect v2, viem/ethers, Jest/React Testing Library, Playwright for E2E.
+  - Verification Service: Spring Boot 3, stateless REST, consumes on-chain + metadata hash verification.
+- Security: input validation, rate-limits (where relevant), secrets via env.
+- Deliverables per service: README with run & test commands, .env.sample, Dockerfile, docker-compose if helpful, OpenAPI/Swagger, Makefile, CI-ready scripts.
+
+Acceptance:
+
+- End-to-end flow: Issuer uploads receipt → metadata stored & hashed → NFT minted to buyer → imToken displays → QR verify endpoint returns {valid:true/false} → optional revoke.
+- Provide seed scripts & example data.
+- Include negative tests (bad hashes, revoked, mismatched owner).

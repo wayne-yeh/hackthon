@@ -1,0 +1,16 @@
+Role: Produce cross-service E2E validation scripts.
+
+Scenarios:
+1) Happy Path:
+  - Issuer upload -> core-api -> metadata-service -> contract.mint -> tar-dapp /my shows NFT -> verification-service returns valid.
+2) Tampered Metadata:
+  - Modify metadata content in storage -> verify returns invalid with reason "HASH_MISMATCH".
+3) Revocation:
+  - issuer revoke -> verify returns revoked true and valid false.
+4) Wrong Owner Transfer:
+  - transfer NFT to another address -> /my reflects new owner; verify still valid.
+
+Deliver:
+- /e2e/playwright tests calling real services (use docker-compose).
+- Postman collection with environments.
+- README: `docker compose up`, `pnpm test:e2e`.

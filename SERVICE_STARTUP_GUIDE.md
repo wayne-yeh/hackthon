@@ -260,3 +260,4 @@ curl -X POST -H "Content-Type: application/json" \
 ---
 
 **記住：** 這個 API `http://localhost:8083/api/v1/receipts/issue` 現在會真正與區塊鏈交互，每次成功調用都會產生新的區塊和代幣！
+

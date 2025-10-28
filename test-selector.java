@@ -25,3 +25,4 @@ public class TestSelector {
         System.out.println("Function selector (first 10 chars): " + encoded.substring(0, 10));
     }
 }
+
