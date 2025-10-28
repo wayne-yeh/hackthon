@@ -100,7 +100,7 @@ nano src/main/resources/application.yml
 ```yaml
 blockchain:
   rpc-url: http://localhost:8545 # 確認 Hardhat 節點運行在 8545
-  contract-address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9" # 從步驟 2 獲取的地址
+  contract-address: "0x5FbDB2315678afecb367f032d93F642f64180aa3" # 從步驟 2 獲取的地址
   issuer-private-key: 59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d # 不含 0x 前綴
   gas-price: 20000000000
   gas-limit: 6721975
@@ -138,7 +138,7 @@ cd "/Users/weiyeh/Desktop/區塊鏈/hackathon/3.Backend Core API"
 #### 6.1 測試 API 連接
 
 ```bash
-curl http://localhost:8083/api/v1/receipts/actuator
+curl http://localhost:8083/actuator/health
 ```
 
 應該返回 200 OK。

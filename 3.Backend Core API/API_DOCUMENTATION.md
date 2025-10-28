@@ -4,7 +4,7 @@ Complete API documentation for the Tokenized Asset Receipt (TAR) Backend Core AP
 
 ## Base Information
 
-- **Base URL**: `http://localhost:8080/api/v1`
+- **Base URL**: `http://localhost:8083/api/v1`
 - **API Version**: v1
 - **Content-Type**: `application/json`
 - **Authentication**: API Key (for protected endpoints)
@@ -45,7 +45,7 @@ Issue a new TAR receipt NFT.
 
 ```http
 POST /api/v1/receipts/issue HTTP/1.1
-Host: localhost:8080
+Host: localhost:8083
 Content-Type: application/json
 X-API-Key: your-api-key-secret
 
@@ -127,7 +127,7 @@ Verify the validity of a TAR receipt.
 
 ```http
 POST /api/v1/receipts/verify HTTP/1.1
-Host: localhost:8080
+Host: localhost:8083
 Content-Type: application/json
 
 {
@@ -202,7 +202,7 @@ Revoke a TAR receipt, marking it as invalid.
 
 ```http
 POST /api/v1/receipts/1/revoke HTTP/1.1
-Host: localhost:8080
+Host: localhost:8083
 X-API-Key: your-api-key-secret
 ```
 
@@ -244,7 +244,7 @@ Retrieve detailed information about a specific receipt.
 
 ```http
 GET /api/v1/receipts/1/details HTTP/1.1
-Host: localhost:8080
+Host: localhost:8083
 ```
 
 #### Path Parameters
@@ -419,7 +419,7 @@ X-RateLimit-Reset: 1642248000
 #### Issue Receipt
 
 ```bash
-curl -X POST http://localhost:8080/api/v1/receipts/issue \
+curl -X POST http://localhost:8083/api/v1/receipts/issue \
   -H "Content-Type: application/json" \
   -H "X-API-Key: your-api-key-secret" \
   -d '{
@@ -434,7 +434,7 @@ curl -X POST http://localhost:8080/api/v1/receipts/issue \
 #### Verify Receipt
 
 ```bash
-curl -X POST http://localhost:8080/api/v1/receipts/verify \
+curl -X POST http://localhost:8083/api/v1/receipts/verify \
   -H "Content-Type: application/json" \
   -d '{
     "tokenId": 1,
@@ -445,14 +445,14 @@ curl -X POST http://localhost:8080/api/v1/receipts/verify \
 #### Revoke Receipt
 
 ```bash
-curl -X POST http://localhost:8080/api/v1/receipts/1/revoke \
+curl -X POST http://localhost:8083/api/v1/receipts/1/revoke \
   -H "X-API-Key: your-api-key-secret"
 ```
 
 #### Get Receipt Details
 
 ```bash
-curl http://localhost:8080/api/v1/receipts/1/details
+curl http://localhost:8083/api/v1/receipts/1/details
 ```
 
 ---
@@ -462,13 +462,13 @@ curl http://localhost:8080/api/v1/receipts/1/details
 For interactive API testing, visit the Swagger UI:
 
 ```
-http://localhost:8080/swagger-ui.html
+http://localhost:8083/swagger-ui.html
 ```
 
 OpenAPI specification available at:
 
 ```
-http://localhost:8080/api-docs
+http://localhost:8083/api-docs
 ```
 
 ---
@@ -488,4 +488,3 @@ _Planned for future releases: webhook notifications for receipt events_
 - Owner queries
 - API key authentication
 - OpenAPI documentation
-

@@ -58,7 +58,7 @@ start_hardhat() {
     fi
     
     echo "啟動 Hardhat 節點..."
-    npm run node &
+    npx hardhat node &
     HARDHAT_PID=$!
     
     # 等待 Hardhat 啟動
