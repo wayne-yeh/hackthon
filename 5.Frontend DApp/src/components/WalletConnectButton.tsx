@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Wallet, Copy, Check, AlertCircle } from 'lucide-react';
+import { Wallet, Copy, Check, AlertCircle, RefreshCw } from 'lucide-react';
 import { useWallet } from '@/hooks/useWalletConnect';
 import { toast } from 'react-hot-toast';
 
