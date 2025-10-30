@@ -32,11 +32,23 @@ function VerifyPageContent() {
     try {
       const tokenIdNum = parseInt(id);
       
-      // 先獲取收據詳情
+      // 先獲取收據詳情（包含 metadataHash）
       const receiptDetails = await apiService.getReceiptDetails(tokenIdNum);
       
-      // 然後驗證收據
-      const verificationResult = await apiService.verifyReceipt({ tokenId: tokenIdNum });
+      // 如果沒有 metadataHash，無法進行驗證
+      if (!receiptDetails.metadataHash) {
+        toast.error('收據缺少 metadataHash，無法驗證');
+        setReceipt(receiptDetails);
+        setVerificationStatus('invalid');
+        setIsLoading(false);
+        return;
+      }
+      
+      // 使用獲取的 metadataHash 進行驗證
+      const verificationResult = await apiService.verifyReceipt({ 
+        tokenId: tokenIdNum,
+        metadataHash: receiptDetails.metadataHash 
+      });
       
       // 合併結果
       const receipt: ReceiptDetails = {
@@ -47,17 +59,21 @@ function VerifyPageContent() {
 
       setReceipt(receipt);
       
+      // 根據驗證結果設置狀態
       if (verificationResult.revoked) {
         setVerificationStatus('revoked');
+        toast.error('收據已被撤銷');
       } else if (verificationResult.valid) {
         setVerificationStatus('valid');
+        toast.success('驗證成功！收據有效');
       } else {
         setVerificationStatus('invalid');
+        toast.error(`驗證失敗：${verificationResult.message || '未知錯誤'}`);
       }
-      
-      toast.success('驗證完成！');
     } catch (error: any) {
-      toast.error(error.message || '驗證失敗，請檢查 Token ID');
+      console.error('驗證錯誤:', error);
+      const errorMessage = error.response?.data?.message || error.message || '驗證失敗，請檢查 Token ID';
+      toast.error(errorMessage);
       setReceipt(null);
       setVerificationStatus('invalid');
     } finally {

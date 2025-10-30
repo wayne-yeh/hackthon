@@ -40,7 +40,7 @@ export interface ReceiptDetails {
 
 export interface VerificationRequest {
   tokenId: number;
-  metadataHash?: string;
+  metadataHash: string; // Required for verification API
 }
 
 export interface VerificationResponse {
