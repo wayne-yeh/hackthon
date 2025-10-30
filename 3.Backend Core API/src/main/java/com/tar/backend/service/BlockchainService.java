@@ -17,14 +17,22 @@ import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Numeric;
 import org.web3j.abi.FunctionEncoder;
+import org.web3j.abi.EventEncoder;
 import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.Event;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.generated.Bytes32;
+import org.web3j.abi.datatypes.generated.Uint256;
+import org.web3j.protocol.core.methods.response.Log;
+import org.web3j.abi.TypeReference;
+import org.web3j.abi.FunctionReturnDecoder;
+import org.web3j.abi.datatypes.Type;
 
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Service for blockchain interactions via web3j
@@ -245,14 +253,92 @@ public class BlockchainService {
         try {
             if (credentials == null) {
                 // Simulate verification when no credentials are available
+                System.out.println("⚠️ No credentials available, simulating verification for tokenId: " + tokenId);
                 return true;
             }
 
-            TARReceiptContract contract = loadContract();
-            byte[] hashBytes = Numeric.hexStringToByteArray(metadataHash);
+            System.out.println("🔍 Verifying receipt on-chain:");
+            System.out.println("   Token ID: " + tokenId);
+            System.out.println("   Metadata Hash: " + metadataHash);
 
-            return contract.verify(BigInteger.valueOf(tokenId), hashBytes).send();
+            TARReceiptContract contract = loadContract();
+
+            // Normalize metadata hash (add 0x prefix if missing)
+            String normalizedHash = metadataHash;
+            if (!normalizedHash.startsWith("0x")) {
+                normalizedHash = "0x" + normalizedHash;
+            }
+
+            byte[] hashBytes = Numeric.hexStringToByteArray(normalizedHash);
+
+            // Ensure hash is exactly 32 bytes
+            if (hashBytes.length != 32) {
+                System.err.println("❌ Invalid hash length: " + hashBytes.length + " bytes (expected 32)");
+                byte[] paddedBytes = new byte[32];
+                System.arraycopy(hashBytes, 0, paddedBytes, 0, Math.min(hashBytes.length, 32));
+                hashBytes = paddedBytes;
+            }
+
+            System.out.println("   Hash bytes length: " + hashBytes.length);
+
+            // Try to get stored hash - this will fail if token is revoked
+            try {
+                // First check if token exists by calling ownerOf
+                try {
+                    String owner = contract.ownerOf(BigInteger.valueOf(tokenId)).send();
+                    System.out.println("   Token owner: " + owner);
+                } catch (Exception ownerEx) {
+                    String ownerError = ownerEx.getMessage();
+                    System.err.println("   ⚠️ ownerOf failed: " + ownerError);
+                    if (ownerError != null && ownerError.contains("TokenRevoked")) {
+                        System.out.println("❌ Token is revoked (detected from ownerOf error)");
+                        throw new RuntimeException("TOKEN_REVOKED");
+                    }
+                    if (ownerError != null && ownerError.contains("ERC721NonexistentToken")) {
+                        System.out.println("❌ Token does not exist on blockchain");
+                        throw new RuntimeException("TOKEN_NOT_FOUND");
+                    }
+                    throw ownerEx; // Re-throw if it's a different error
+                }
+
+                // If ownerOf succeeds, try to get metaHash
+                byte[] storedHashBytes = contract.getMetaHash(BigInteger.valueOf(tokenId)).send();
+                String storedHash = Numeric.toHexString(storedHashBytes);
+                System.out.println("   Stored hash on blockchain: " + storedHash);
+                System.out.println("   Provided hash: " + normalizedHash);
+            } catch (RuntimeException e) {
+                if ("TOKEN_REVOKED".equals(e.getMessage())) {
+                    throw e; // Re-throw revocation exception
+                }
+                throw e;
+            } catch (Exception e) {
+                // If getMetaHash fails with TokenRevoked error, token is revoked
+                String errorMsg = e.getMessage();
+                if (errorMsg != null && errorMsg.contains("TokenRevoked")) {
+                    System.out.println("❌ Token is revoked (detected from getMetaHash error)");
+                    throw new RuntimeException("TOKEN_REVOKED"); // Special exception to indicate revocation
+                }
+                System.err.println("   ⚠️ Could not get stored hash: " + errorMsg);
+            }
+
+            System.out.println("   Calling contract.verify()...");
+
+            Boolean result = contract.verify(BigInteger.valueOf(tokenId), hashBytes).send();
+
+            System.out.println("✅ Verification result: " + result);
+            return result != null && result;
+        } catch (RuntimeException e) {
+            if ("TOKEN_REVOKED".equals(e.getMessage()) || "TOKEN_NOT_FOUND".equals(e.getMessage())) {
+                throw e; // Re-throw revocation/not found exception
+            }
+            System.err.println("❌ Error verifying receipt on-chain for tokenId: " + tokenId);
+            System.err.println("   Error: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         } catch (Exception e) {
+            System.err.println("❌ Error verifying receipt on-chain for tokenId: " + tokenId);
+            System.err.println("   Error: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
@@ -270,6 +356,13 @@ public class BlockchainService {
             TARReceiptContract contract = loadContract();
             return contract.isRevoked(BigInteger.valueOf(tokenId)).send();
         } catch (Exception e) {
+            // If we get TokenRevoked error, it means the token is revoked
+            String errorMsg = e.getMessage();
+            if (errorMsg != null && errorMsg.contains("TokenRevoked")) {
+                System.out.println("   TokenRevoked error detected, token is revoked");
+                return true;
+            }
+            System.err.println("   ⚠️ Error checking revocation status: " + errorMsg);
             return false;
         }
     }
@@ -363,20 +456,89 @@ public class BlockchainService {
         // Parse events to extract token ID from Minted event
         try {
             if (receipt.getLogs() != null && !receipt.getLogs().isEmpty()) {
-                // For now, use a simple counter based on current time to avoid conflicts
-                // In production, you should parse the actual Minted event logs
-                long tokenId = System.currentTimeMillis() % 1000000;
-                System.out.println("📝 Extracted token ID: " + tokenId);
-                return tokenId;
+                // Define Minted event signature: Minted(uint256 indexed tokenId, address
+                // indexed to, bytes32 indexed metaHash)
+                Event mintedEvent = new Event("Minted",
+                        Arrays.asList(
+                                new TypeReference<Uint256>() {
+                                }, // tokenId
+                                new TypeReference<Address>() {
+                                }, // to
+                                new TypeReference<Bytes32>() {
+                                } // metaHash
+                        ));
+
+                String eventSignature = EventEncoder.encode(mintedEvent);
+                System.out.println("🔍 Looking for Minted event with signature: " + eventSignature);
+
+                // Find Minted event in logs
+                for (Log log : receipt.getLogs()) {
+                    if (log.getTopics() != null && !log.getTopics().isEmpty()) {
+                        String logTopic0 = log.getTopics().get(0);
+                        if (eventSignature.equals(logTopic0)) {
+                            System.out.println("✅ Found Minted event!");
+                            // Extract tokenId from topics (first indexed parameter is at topics[1])
+                            if (log.getTopics().size() > 1) {
+                                String tokenIdHex = log.getTopics().get(1);
+                                BigInteger tokenIdBigInt = Numeric.decodeQuantity(tokenIdHex);
+                                Long tokenId = tokenIdBigInt.longValue();
+                                System.out.println("📝 Extracted token ID from Minted event: " + tokenId);
+                                return tokenId;
+                            }
+                        }
+                    }
+                }
+
+                // Fallback: Try to find Transfer event (ERC721 standard)
+                Event transferEvent = new Event("Transfer",
+                        Arrays.asList(
+                                new TypeReference<Address>() {
+                                }, // from
+                                new TypeReference<Address>() {
+                                }, // to
+                                new TypeReference<Uint256>() {
+                                } // tokenId
+                        ));
+
+                String transferEventSignature = EventEncoder.encode(transferEvent);
+                System.out.println("🔍 Looking for Transfer event with signature: " + transferEventSignature);
+
+                for (Log log : receipt.getLogs()) {
+                    if (log.getTopics() != null && log.getTopics().size() >= 4) {
+                        String logTopic0 = log.getTopics().get(0);
+                        if (transferEventSignature.equals(logTopic0)) {
+                            System.out.println("✅ Found Transfer event!");
+                            // Extract tokenId from topics (tokenId is at topics[3])
+                            String tokenIdHex = log.getTopics().get(3);
+                            BigInteger tokenIdBigInt = Numeric.decodeQuantity(tokenIdHex);
+                            Long tokenId = tokenIdBigInt.longValue();
+                            System.out.println("📝 Extracted token ID from Transfer event: " + tokenId);
+                            return tokenId;
+                        }
+                    }
+                }
+
+                System.err.println("⚠️ Could not find Minted or Transfer event in receipt");
             }
         } catch (Exception e) {
             System.err.println("⚠️ Error extracting token ID: " + e.getMessage());
+            e.printStackTrace();
         }
 
-        // Fallback: use timestamp-based ID
-        long tokenId = System.currentTimeMillis() % 1000000;
-        System.out.println("📝 Using fallback token ID: " + tokenId);
-        return tokenId;
+        // Last resort: Query contract for current token counter
+        try {
+            System.out.println("📝 Attempting to get token ID from contract...");
+            TARReceiptContract contract = loadContract();
+            BigInteger currentTokenId = contract.totalSupply().send();
+            Long tokenId = currentTokenId.subtract(BigInteger.ONE).longValue(); // Last minted token
+            System.out.println("📝 Using token ID from contract totalSupply: " + tokenId);
+            return tokenId;
+        } catch (Exception e) {
+            System.err.println("⚠️ Could not get token ID from contract: " + e.getMessage());
+        }
+
+        // Final fallback: throw error instead of using fake ID
+        throw new RuntimeException("Could not extract token ID from transaction receipt");
     }
 
     /**
@@ -427,47 +589,4 @@ public class BlockchainService {
         }
     }
 
-    /**
-     * Placeholder contract wrapper - should be generated by web3j
-     */
-    private static class TARReceiptContract {
-        // This should be replaced with web3j generated contract wrapper
-        // For now, we'll create a simplified version
-
-        public static TARReceiptContract load(String contractAddress, Web3j web3j,
-                TransactionManager txManager, DefaultGasProvider gasProvider) {
-            return new TARReceiptContract();
-        }
-
-        public org.web3j.protocol.core.RemoteFunctionCall<TransactionReceipt> mint(
-                String to, String uri, byte[] metaHash) {
-            // Placeholder
-            return null;
-        }
-
-        public org.web3j.protocol.core.RemoteFunctionCall<TransactionReceipt> revoke(BigInteger tokenId) {
-            // Placeholder
-            return null;
-        }
-
-        public org.web3j.protocol.core.RemoteFunctionCall<Boolean> verify(BigInteger tokenId, byte[] metaHash) {
-            // Placeholder
-            return null;
-        }
-
-        public org.web3j.protocol.core.RemoteFunctionCall<Boolean> isRevoked(BigInteger tokenId) {
-            // Placeholder
-            return null;
-        }
-
-        public org.web3j.protocol.core.RemoteFunctionCall<String> ownerOf(BigInteger tokenId) {
-            // Placeholder
-            return null;
-        }
-
-        public org.web3j.protocol.core.RemoteFunctionCall<byte[]> getMetaHash(BigInteger tokenId) {
-            // Placeholder
-            return null;
-        }
-    }
 }

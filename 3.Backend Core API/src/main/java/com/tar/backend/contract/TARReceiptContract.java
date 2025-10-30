@@ -11,7 +11,6 @@ import org.web3j.tx.gas.ContractGasProvider;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * TAR Receipt Contract Interface
@@ -23,9 +22,11 @@ public class TARReceiptContract extends Contract {
 
     public static final String FUNC_MINT = "mint";
     public static final String FUNC_REVOKE = "revoke";
+    public static final String FUNC_VERIFY = "verify";
     public static final String FUNC_OWNEROF = "ownerOf";
     public static final String FUNC_GETMETAHASH = "getMetaHash";
     public static final String FUNC_TOTALSUPPLY = "totalSupply";
+    public static final String FUNC_ISREVOKED = "isRevoked";
 
     @Deprecated
     protected TARReceiptContract(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice,
@@ -78,6 +79,19 @@ public class TARReceiptContract extends Contract {
     }
 
     /**
+     * Verify a token's metadata hash
+     */
+    public RemoteFunctionCall<Boolean> verify(BigInteger tokenId, byte[] metaHash) {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+                FUNC_VERIFY,
+                Arrays.asList(new org.web3j.abi.datatypes.generated.Uint256(tokenId),
+                        new org.web3j.abi.datatypes.generated.Bytes32(metaHash)),
+                Arrays.asList(new org.web3j.abi.TypeReference<org.web3j.abi.datatypes.Bool>() {
+                }));
+        return executeRemoteCallSingleValueReturn(function, Boolean.class);
+    }
+
+    /**
      * Get owner of a token
      */
     public RemoteFunctionCall<String> ownerOf(BigInteger tokenId) {
@@ -99,6 +113,18 @@ public class TARReceiptContract extends Contract {
                 Arrays.asList(new org.web3j.abi.TypeReference<org.web3j.abi.datatypes.generated.Bytes32>() {
                 }));
         return executeRemoteCallSingleValueReturn(function, byte[].class);
+    }
+
+    /**
+     * Check if a token is revoked
+     */
+    public RemoteFunctionCall<Boolean> isRevoked(BigInteger tokenId) {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+                FUNC_ISREVOKED,
+                Arrays.asList(new org.web3j.abi.datatypes.generated.Uint256(tokenId)),
+                Arrays.asList(new org.web3j.abi.TypeReference<org.web3j.abi.datatypes.Bool>() {
+                }));
+        return executeRemoteCallSingleValueReturn(function, Boolean.class);
     }
 
     /**

@@ -92,40 +92,125 @@ public class TarReceiptService {
      */
     public VerifyReceiptResponse verifyReceipt(VerifyReceiptRequest request) {
         try {
-            // Check in database
+            System.out.println("🔍 Starting verification for tokenId: " + request.getTokenId());
+            System.out.println("   Provided metadataHash: " + request.getMetadataHash());
+
+            // Check in database (optional - for enhanced validation)
             Optional<TarReceipt> receiptOpt = receiptRepository.findByTokenId(request.getTokenId());
+            TarReceipt receipt = receiptOpt.orElse(null);
 
-            if (receiptOpt.isEmpty()) {
-                return VerifyReceiptResponse.invalid("Receipt not found");
+            if (receipt != null) {
+                System.out.println("✅ Receipt found in database:");
+                System.out.println("   Stored metadataHash: " + receipt.getMetadataHash());
+                System.out.println("   Revoked: " + receipt.getRevoked());
+
+                // Check if revoked in database
+                if (receipt.getRevoked()) {
+                    System.out.println("❌ Receipt is revoked in database");
+                    return VerifyReceiptResponse.revoked(receipt.getTokenId(), receipt.getOwnerAddress());
+                }
+            } else {
+                System.out.println("⚠️ Receipt not found in database, will verify on-chain only");
             }
 
-            TarReceipt receipt = receiptOpt.get();
-
-            // Check if revoked
-            if (receipt.getRevoked()) {
-                return VerifyReceiptResponse.revoked(receipt.getTokenId(), receipt.getOwnerAddress());
+            // Check if token is revoked on blockchain FIRST (before verification)
+            System.out.println("🔍 Checking if token is revoked on blockchain...");
+            try {
+                boolean revokedOnChain = blockchainService.isRevoked(request.getTokenId());
+                System.out.println("   isRevoked returned: " + revokedOnChain);
+                if (revokedOnChain) {
+                    System.out.println("❌ Token is revoked on blockchain");
+                    // Get owner from blockchain if needed
+                    String ownerAddress;
+                    try {
+                        ownerAddress = receipt != null ? receipt.getOwnerAddress()
+                                : blockchainService.getTokenOwner(request.getTokenId());
+                    } catch (Exception e) {
+                        // If ownerOf fails, try to get from the provided receipt data
+                        ownerAddress = receipt != null ? receipt.getOwnerAddress()
+                                : "0x0000000000000000000000000000000000000000";
+                    }
+                    return VerifyReceiptResponse.revoked(request.getTokenId(), ownerAddress);
+                }
+            } catch (Exception e) {
+                System.err.println("   ⚠️ Could not check revocation status: " + e.getMessage());
+                // If isRevoked throws TokenRevoked error, token is definitely revoked
+                if (e.getMessage() != null && e.getMessage().contains("TokenRevoked")) {
+                    System.out.println("❌ Token is revoked (detected from isRevoked error)");
+                    String ownerAddress = receipt != null ? receipt.getOwnerAddress()
+                            : "0x0000000000000000000000000000000000000000";
+                    return VerifyReceiptResponse.revoked(request.getTokenId(), ownerAddress);
+                }
             }
 
-            // Verify on blockchain
-            boolean isValidOnChain = blockchainService.verifyReceipt(
+            // Verify on blockchain (primary verification)
+            System.out.println("🔗 Verifying on blockchain...");
+            try {
+                boolean isValidOnChain = blockchainService.verifyReceipt(
+                        request.getTokenId(),
+                        request.getMetadataHash());
+
+                System.out.println("   Blockchain verification result: " + isValidOnChain);
+
+                if (!isValidOnChain) {
+                    System.out.println("❌ Blockchain verification failed");
+                    return VerifyReceiptResponse.invalid("Blockchain verification failed");
+                }
+            } catch (RuntimeException e) {
+                // Check if this is a revocation exception
+                if ("TOKEN_REVOKED".equals(e.getMessage())) {
+                    System.out.println("❌ Token is revoked on blockchain");
+                    // Get owner from blockchain if needed
+                    String ownerAddress;
+                    try {
+                        ownerAddress = receipt != null ? receipt.getOwnerAddress()
+                                : blockchainService.getTokenOwner(request.getTokenId());
+                    } catch (Exception ownerEx) {
+                        System.err.println("   ⚠️ Could not get owner: " + ownerEx.getMessage());
+                        ownerAddress = receipt != null ? receipt.getOwnerAddress()
+                                : "0x0000000000000000000000000000000000000000";
+                    }
+                    return VerifyReceiptResponse.revoked(request.getTokenId(), ownerAddress);
+                }
+                // Check if token not found
+                if ("TOKEN_NOT_FOUND".equals(e.getMessage())) {
+                    System.out.println("❌ Token does not exist on blockchain");
+                    return VerifyReceiptResponse.invalid("Token does not exist on blockchain");
+                }
+                throw e; // Re-throw if not a revocation/not found exception
+            }
+
+            // If database record exists, also verify hash matches
+            if (receipt != null) {
+                System.out.println("🔍 Comparing hashes:");
+                System.out.println("   Stored hash: " + receipt.getMetadataHash());
+                System.out.println("   Provided hash: " + request.getMetadataHash());
+
+                if (!receipt.getMetadataHash().equals(request.getMetadataHash())) {
+                    System.out.println("❌ Metadata hash mismatch");
+                    return VerifyReceiptResponse.invalid("Metadata hash mismatch");
+                }
+            }
+
+            // Get owner from blockchain if database record doesn't exist
+            String ownerAddress;
+            if (receipt != null) {
+                ownerAddress = receipt.getOwnerAddress();
+            } else {
+                System.out.println("📝 Fetching owner from blockchain...");
+                ownerAddress = blockchainService.getTokenOwner(request.getTokenId());
+                System.out.println("   Owner: " + ownerAddress);
+            }
+
+            System.out.println("✅ Verification successful!");
+            return VerifyReceiptResponse.valid(
                     request.getTokenId(),
+                    ownerAddress,
                     request.getMetadataHash());
 
-            if (!isValidOnChain) {
-                return VerifyReceiptResponse.invalid("Blockchain verification failed");
-            }
-
-            // Verify hash matches
-            if (!receipt.getMetadataHash().equals(request.getMetadataHash())) {
-                return VerifyReceiptResponse.invalid("Metadata hash mismatch");
-            }
-
-            return VerifyReceiptResponse.valid(
-                    receipt.getTokenId(),
-                    receipt.getOwnerAddress(),
-                    receipt.getMetadataHash());
-
         } catch (Exception e) {
+            System.err.println("❌ Exception during verification: " + e.getMessage());
+            e.printStackTrace();
             return VerifyReceiptResponse.invalid("Verification failed: " + e.getMessage());
         }
     }
