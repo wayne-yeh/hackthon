@@ -4,7 +4,7 @@ import React from 'react';
 import { WalletConnectButton } from '@/components/WalletConnectButton';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Receipt, Shield, CheckCircle, Users, ArrowRight, Star, Search } from 'lucide-react';
+import { Receipt, Shield, CheckCircle, Users, Star, Search } from 'lucide-react';
 import Link from 'next/link';
 import { useWallet } from '@/hooks/useWalletConnect';
 
@@ -34,8 +34,8 @@ export default function HomePage() {
                 驗證收據
               </Link>
               {wallet.isConnected && (
-                <Link href="/issuer">
-                  <Button size="sm">發行收據</Button>
+                <Link href="/issuer" className="text-gray-600 hover:text-gray-900 transition-colors">
+                  發行收據
                 </Link>
               )}
             </nav>
@@ -63,12 +63,6 @@ export default function HomePage() {
           {wallet.isConnected ? (
             <div className="space-y-4">
               <div className="flex justify-center gap-4">
-                <Link href="/issuer">
-                  <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                    發行新收據
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
                 <Link href="/query-assets">
                   <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
                     查詢資產
