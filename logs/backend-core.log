@@ -37,27 +37,27 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.0)
 
-2025-10-29T22:52:35.654+08:00  INFO 16415 --- [tar-backend-core-api] [           main] com.tar.backend.BackendCoreApplication   : Starting BackendCoreApplication using Java 17.0.16 with PID 16415 (/Users/weiyeh/Desktop/區塊鏈/hackathon/3.Backend Core API/target/classes started by weiyeh in /Users/weiyeh/Desktop/區塊鏈/hackathon/3.Backend Core API)
-2025-10-29T22:52:35.656+08:00  INFO 16415 --- [tar-backend-core-api] [           main] com.tar.backend.BackendCoreApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-10-29T22:52:36.355+08:00  INFO 16415 --- [tar-backend-core-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-10-29T22:52:36.504+08:00  INFO 16415 --- [tar-backend-core-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 144 ms. Found 1 JPA repository interface.
-2025-10-29T22:52:36.964+08:00  INFO 16415 --- [tar-backend-core-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8083 (http)
-2025-10-29T22:52:36.976+08:00  INFO 16415 --- [tar-backend-core-api] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-10-29T22:52:36.976+08:00  INFO 16415 --- [tar-backend-core-api] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
-2025-10-29T22:52:37.014+08:00  INFO 16415 --- [tar-backend-core-api] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-10-29T22:52:37.014+08:00  INFO 16415 --- [tar-backend-core-api] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1337 ms
-2025-10-29T22:52:37.105+08:00  INFO 16415 --- [tar-backend-core-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-10-29T22:52:37.222+08:00  INFO 16415 --- [tar-backend-core-api] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
-2025-10-29T22:52:37.222+08:00  INFO 16415 --- [tar-backend-core-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-10-29T22:52:37.227+08:00  INFO 16415 --- [tar-backend-core-api] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
-2025-10-29T22:52:37.354+08:00  INFO 16415 --- [tar-backend-core-api] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-10-29T22:52:37.387+08:00  INFO 16415 --- [tar-backend-core-api] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
-2025-10-29T22:52:37.406+08:00  INFO 16415 --- [tar-backend-core-api] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-10-29T22:52:37.538+08:00  INFO 16415 --- [tar-backend-core-api] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-10-29T22:52:37.562+08:00  WARN 16415 --- [tar-backend-core-api] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-10-29T22:52:37.982+08:00  INFO 16415 --- [tar-backend-core-api] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-10-29T22:52:38.002+08:00  INFO 16415 --- [tar-backend-core-api] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-10-29T22:52:38.191+08:00  INFO 16415 --- [tar-backend-core-api] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-10-30T19:34:47.503+08:00  INFO 2390 --- [tar-backend-core-api] [           main] com.tar.backend.BackendCoreApplication   : Starting BackendCoreApplication using Java 17.0.16 with PID 2390 (/Users/weiyeh/Desktop/區塊鏈/hackathon/3.Backend Core API/target/classes started by weiyeh in /Users/weiyeh/Desktop/區塊鏈/hackathon/3.Backend Core API)
+2025-10-30T19:34:47.505+08:00  INFO 2390 --- [tar-backend-core-api] [           main] com.tar.backend.BackendCoreApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-10-30T19:34:48.047+08:00  INFO 2390 --- [tar-backend-core-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-30T19:34:48.147+08:00  INFO 2390 --- [tar-backend-core-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 95 ms. Found 1 JPA repository interface.
+2025-10-30T19:34:48.548+08:00  INFO 2390 --- [tar-backend-core-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8083 (http)
+2025-10-30T19:34:48.552+08:00  INFO 2390 --- [tar-backend-core-api] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-30T19:34:48.552+08:00  INFO 2390 --- [tar-backend-core-api] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-10-30T19:34:48.584+08:00  INFO 2390 --- [tar-backend-core-api] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-30T19:34:48.584+08:00  INFO 2390 --- [tar-backend-core-api] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1054 ms
+2025-10-30T19:34:48.668+08:00  INFO 2390 --- [tar-backend-core-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-30T19:34:48.755+08:00  INFO 2390 --- [tar-backend-core-api] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-10-30T19:34:48.756+08:00  INFO 2390 --- [tar-backend-core-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-30T19:34:48.761+08:00  INFO 2390 --- [tar-backend-core-api] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2025-10-30T19:34:48.878+08:00  INFO 2390 --- [tar-backend-core-api] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-30T19:34:48.912+08:00  INFO 2390 --- [tar-backend-core-api] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-10-30T19:34:48.933+08:00  INFO 2390 --- [tar-backend-core-api] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-30T19:34:49.048+08:00  INFO 2390 --- [tar-backend-core-api] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-30T19:34:49.068+08:00  WARN 2390 --- [tar-backend-core-api] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-30T19:34:49.427+08:00  INFO 2390 --- [tar-backend-core-api] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-30T19:34:49.445+08:00  INFO 2390 --- [tar-backend-core-api] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-30T19:34:49.632+08:00  INFO 2390 --- [tar-backend-core-api] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
 ✅ Blockchain credentials created successfully for address: 0x70997970c51812dc3a010c7d01b50e0d17dc79c8
 🔗 Blockchain service initialized:
    RPC URL: http://localhost:8545
@@ -66,12 +66,98 @@
 🔍 Contract code length: 14636
 ✅ Contract found at address: 0x5FbDB2315678afecb367f032d93F642f64180aa3
    Code length: 14636 characters
-2025-10-29T22:52:38.872+08:00  WARN 16415 --- [tar-backend-core-api] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-10-29T22:52:39.169+08:00  INFO 16415 --- [tar-backend-core-api] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoint(s) beneath base path '/actuator'
-2025-10-29T22:52:39.222+08:00  INFO 16415 --- [tar-backend-core-api] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@29957fe0, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@57d5dd0, org.springframework.security.web.context.SecurityContextHolderFilter@3feec3b0, org.springframework.security.web.header.HeaderWriterFilter@174bbe8e, org.springframework.web.filter.CorsFilter@5d98216c, org.springframework.security.web.authentication.logout.LogoutFilter@16b5c059, com.tar.backend.config.ApiKeyAuthFilter@30fa8a6b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4967d14c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@42000b02, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@76312df9, org.springframework.security.web.session.SessionManagementFilter@1a26f595, org.springframework.security.web.access.ExceptionTranslationFilter@44496e0c, org.springframework.security.web.access.intercept.AuthorizationFilter@a9375dd]
-2025-10-29T22:52:39.544+08:00  INFO 16415 --- [tar-backend-core-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8083 (http) with context path ''
-2025-10-29T22:52:39.553+08:00  INFO 16415 --- [tar-backend-core-api] [           main] com.tar.backend.BackendCoreApplication   : Started BackendCoreApplication in 4.082 seconds (process running for 4.259)
-2025-10-29T22:56:59.523+08:00  INFO 16415 --- [tar-backend-core-api] [nio-8083-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-10-29T22:56:59.523+08:00  INFO 16415 --- [tar-backend-core-api] [nio-8083-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-10-29T22:56:59.525+08:00  INFO 16415 --- [tar-backend-core-api] [nio-8083-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2025-10-29T22:56:59.541+08:00  WARN 16415 --- [tar-backend-core-api] [nio-8083-exec-2] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/actuator/health' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2025-10-30T19:34:50.269+08:00  WARN 2390 --- [tar-backend-core-api] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-30T19:34:50.561+08:00  INFO 2390 --- [tar-backend-core-api] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-10-30T19:34:50.615+08:00  INFO 2390 --- [tar-backend-core-api] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7f09b3aa, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@79d72d99, org.springframework.security.web.context.SecurityContextHolderFilter@5e9257b3, org.springframework.security.web.header.HeaderWriterFilter@408ce324, org.springframework.web.filter.CorsFilter@16b5c059, org.springframework.security.web.authentication.logout.LogoutFilter@6e767943, com.tar.backend.config.ApiKeyAuthFilter@57b63253, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@fe8344c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4412b152, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@482b6e57, org.springframework.security.web.session.SessionManagementFilter@20120154, org.springframework.security.web.access.ExceptionTranslationFilter@388b4f68, org.springframework.security.web.access.intercept.AuthorizationFilter@5126c400]
+2025-10-30T19:34:50.962+08:00  INFO 2390 --- [tar-backend-core-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8083 (http) with context path ''
+2025-10-30T19:34:50.972+08:00  INFO 2390 --- [tar-backend-core-api] [           main] com.tar.backend.BackendCoreApplication   : Started BackendCoreApplication in 3.662 seconds (process running for 3.856)
+2025-10-30T19:35:04.403+08:00  INFO 2390 --- [tar-backend-core-api] [nio-8083-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-30T19:35:04.404+08:00  INFO 2390 --- [tar-backend-core-api] [nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-30T19:35:04.406+08:00  INFO 2390 --- [tar-backend-core-api] [nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-10-30T19:35:04.426+08:00  WARN 2390 --- [tar-backend-core-api] [nio-8083-exec-1] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/actuator/health' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2025-10-30T19:35:37.709+08:00 ERROR 2390 --- [tar-backend-core-api] [nio-8083-exec-3] i.n.r.d.DnsServerAddressStreamProviders  : Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'. Use DEBUG level to see the full stack: java.lang.UnsatisfiedLinkError: failed to load the required native library
+🪙 Attempting to mint receipt:
+   To Address: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+   Token URI: http://localhost:8081/api/metadata/download?key=ipfs://f9d96ad3-4ca8-4e6b-bf6e-96d280cdd127
+   Metadata Hash: 653cd026e134919ffe59bec47ce509c9e4a81d8004af4daf7405880a74488fa3
+   Credentials Available: true
+🔗 準備直接調用區塊鏈合約...
+   合約地址: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+   接收地址: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+   Token URI: http://localhost:8081/api/metadata/download?key=ipfs://f9d96ad3-4ca8-4e6b-bf6e-96d280cdd127
+   Metadata Hash: 653cd026e134919ffe59bec47ce509c9e4a81d8004af4daf7405880a74488fa3
+   Hash bytes length: 32
+📝 Function signature: mint(address,string,bytes32)
+📝 Function data: 0xe64e1a26000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb922660000000000000000000000000000000000000000000000000000000000000060653cd026e134919ffe59bec47ce509c9e4a81d8004af4daf7405880a74488fa3000000000000000000000000000000000000000000000000000000000000005b687474703a2f2f6c6f63616c686f73743a383038312f6170692f6d657461646174612f646f776e6c6f61643f6b65793d697066733a2f2f66396439366164332d346361382d346536622d626636652d3936643238306364643132370000000000
+📝 Function data length: 458
+📝 Actual selector: 0xe64e1a26
+📝 Expected selector: 0xd34047b6
+📝 Using correct function data: 0xd34047b6000000000000000000000000f39fd6e51aad88f6...
+🔗 Chain ID: 31337
+🚀 發送交易到區塊鏈...
+   合約地址: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+   函數數據: 0xd34047b6000000000000000000000000f39fd6e51aad88f6...
+   Gas Price: 4100000000
+   Gas Limit: 9000000
+📝 交易已發送，哈希: 0x82045824124a31af29406c82aac1ccb67a0f7a33a77bdea5063a29dc72613ad7
+✅ 交易收據已找到！
+📝 Transaction sent, hash: 0x82045824124a31af29406c82aac1ccb67a0f7a33a77bdea5063a29dc72613ad7
+✅ Mint transaction successful!
+   Transaction Hash: 0x82045824124a31af29406c82aac1ccb67a0f7a33a77bdea5063a29dc72613ad7
+   Status: SUCCESS
+🔍 Looking for Minted event with signature: 0x735d687607ce9e35b73121f5b238c4cd2854db103741adba51d670bb706051cc
+✅ Found Minted event!
+📝 Extracted token ID from Minted event: 0
+🔍 Starting verification for tokenId: 0
+   Provided metadataHash: 653cd026e134919ffe59bec47ce509c9e4a81d8004af4daf7405880a74488fa3
+✅ Receipt found in database:
+   Stored metadataHash: 653cd026e134919ffe59bec47ce509c9e4a81d8004af4daf7405880a74488fa3
+   Revoked: false
+🔍 Checking if token is revoked on blockchain...
+🔗 Chain ID: 31337
+   isRevoked returned: false
+🔗 Verifying on blockchain...
+🔍 Verifying receipt on-chain:
+   Token ID: 0
+   Metadata Hash: 653cd026e134919ffe59bec47ce509c9e4a81d8004af4daf7405880a74488fa3
+🔗 Chain ID: 31337
+   Hash bytes length: 32
+   Token owner: 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+   Stored hash on blockchain: 0x653cd026e134919ffe59bec47ce509c9e4a81d8004af4daf7405880a74488fa3
+   Provided hash: 0x653cd026e134919ffe59bec47ce509c9e4a81d8004af4daf7405880a74488fa3
+   Calling contract.verify()...
+✅ Verification result: true
+   Blockchain verification result: true
+🔍 Comparing hashes:
+   Stored hash: 653cd026e134919ffe59bec47ce509c9e4a81d8004af4daf7405880a74488fa3
+   Provided hash: 653cd026e134919ffe59bec47ce509c9e4a81d8004af4daf7405880a74488fa3
+✅ Verification successful!
+🔍 Starting verification for tokenId: 0
+   Provided metadataHash: 1
+✅ Receipt found in database:
+   Stored metadataHash: 653cd026e134919ffe59bec47ce509c9e4a81d8004af4daf7405880a74488fa3
+   Revoked: false
+🔍 Checking if token is revoked on blockchain...
+🔗 Chain ID: 31337
+   isRevoked returned: false
+🔗 Verifying on blockchain...
+🔍 Verifying receipt on-chain:
+   Token ID: 0
+   Metadata Hash: 1
+🔗 Chain ID: 31337
+❌ Invalid hash length: 1 bytes (expected 32)
+   Hash bytes length: 32
+   Token owner: 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+   Stored hash on blockchain: 0x653cd026e134919ffe59bec47ce509c9e4a81d8004af4daf7405880a74488fa3
+   Provided hash: 0x1
+   Calling contract.verify()...
+✅ Verification result: false
+   Blockchain verification result: false
+❌ Blockchain verification failed
+🔗 Chain ID: 31337
+🔍 Starting verification for tokenId: 0
+   Provided metadataHash: 653cd026e134919ffe59bec47ce509c9e4a81d8004af4daf7405880a74488fa3
+✅ Receipt found in database:
+   Stored metadataHash: 653cd026e134919ffe59bec47ce509c9e4a81d8004af4daf7405880a74488fa3
+   Revoked: true
+❌ Receipt is revoked in database

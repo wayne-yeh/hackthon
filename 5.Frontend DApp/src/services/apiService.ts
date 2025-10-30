@@ -59,7 +59,26 @@ class ApiService {
 
   async issueReceipt(data: ReceiptIssueRequest): Promise<ReceiptIssueResponse> {
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/v1/receipts/issue`, data, {
+      // Convert image file to base64 if provided
+      let requestData: any = {
+        invoiceNo: data.invoiceNo,
+        purchaseDate: data.purchaseDate,
+        amount: data.amount,
+        itemName: data.itemName,
+        ownerAddress: data.ownerAddress,
+      };
+
+      // Add description if provided
+      if (data.description) {
+        requestData.description = data.description;
+      }
+
+      // Convert image file to base64 if provided
+      if (data.image) {
+        requestData.imageBase64 = await this.fileToBase64(data.image);
+      }
+
+      const response = await axios.post(`${API_BASE_URL}/api/v1/receipts/issue`, requestData, {
         headers: {
           'Content-Type': 'application/json',
           'X-API-Key': this.apiKey,
@@ -70,6 +89,20 @@ class ApiService {
       console.error('Issue receipt error:', error);
       throw new Error(error.response?.data?.message || '發行收據失敗');
     }
+  }
+
+  private fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64String = reader.result as string;
+        // Remove data URL prefix (e.g., "data:image/png;base64,")
+        const base64 = base64String.split(',')[1];
+        resolve(base64);
+      };
+      reader.onerror = (error) => reject(error);
+    });
   }
 
   async verifyReceipt(data: VerificationRequest): Promise<VerificationResponse> {

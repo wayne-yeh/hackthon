@@ -46,7 +46,8 @@ public class MetadataController {
             @Parameter(description = "Amount") @RequestParam String amount,
             @Parameter(description = "Item name") @RequestParam String itemName,
             @Parameter(description = "Owner Ethereum address") @RequestParam String ownerAddress,
-            @Parameter(description = "Optional image file") @RequestParam(required = false) org.springframework.web.multipart.MultipartFile image) {
+            @Parameter(description = "Optional image file") @RequestParam(required = false) org.springframework.web.multipart.MultipartFile image,
+            @Parameter(description = "Optional base64 encoded image") @RequestParam(required = false) String imageBase64) {
 
         try {
             ReceiptUploadRequest request = new ReceiptUploadRequest();
@@ -56,6 +57,7 @@ public class MetadataController {
             request.setItemName(itemName);
             request.setOwnerAddress(ownerAddress);
             request.setImage(image);
+            request.setImageBase64(imageBase64);
 
             ReceiptUploadResponse response = metadataService.uploadReceipt(request);
             return ResponseEntity.ok(response);
@@ -86,13 +88,14 @@ public class MetadataController {
         }
     }
 
-    @Operation(summary = "Download file", description = "Download file from storage by key")
+    @Operation(summary = "Download file", description = "Download file from storage by key or IPFS URI")
     @GetMapping("/download")
     public ResponseEntity<String> downloadFile(
-            @Parameter(description = "File key") @RequestParam String key) {
+            @Parameter(description = "File key or IPFS URI") @RequestParam String key) {
 
         try {
-            String url = "http://localhost:8081/api/metadata/download?key=" + key;
+            // If key is an IPFS URI (ipfs://...), use it directly
+            String url = key.startsWith("ipfs://") ? key : "http://localhost:8081/api/metadata/download?key=" + key;
             String content = metadataService.downloadMetadata(url);
             return ResponseEntity.ok(content);
         } catch (Exception e) {

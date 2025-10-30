@@ -49,6 +49,20 @@ public class MetadataService {
         if (request.getImage() != null && !request.getImage().isEmpty()) {
             String imageFilename = generateImageFilename(request.getImage());
             imageUrl = storageAdapter.uploadFile(request.getImage(), imageFilename);
+        } else if (request.getImageBase64() != null && !request.getImageBase64().isEmpty()) {
+            // Check if imageBase64 is actually a URL (starts with http:// or https://)
+            String imageBase64Value = request.getImageBase64().trim();
+            if (imageBase64Value.startsWith("http://") || imageBase64Value.startsWith("https://")) {
+                // It's a URL, use it directly
+                imageUrl = imageBase64Value;
+            } else {
+                // It's a base64 string, try to decode and upload
+                MultipartFile multipartFile = base64ToMultipartFile(imageBase64Value);
+                if (multipartFile != null) {
+                    String imageFilename = generateImageFilename(multipartFile);
+                    imageUrl = storageAdapter.uploadFile(multipartFile, imageFilename);
+                }
+            }
         }
 
         // Build metadata JSON
@@ -125,12 +139,70 @@ public class MetadataService {
      */
     private String generateImageFilename(MultipartFile image) {
         String originalFilename = image.getOriginalFilename();
-        String extension = "";
+        String extension = ".png"; // Default extension for base64 images
 
         if (originalFilename != null && originalFilename.contains(".")) {
             extension = originalFilename.substring(originalFilename.lastIndexOf("."));
         }
 
         return String.format("image_%s%s", UUID.randomUUID().toString(), extension);
+    }
+
+    /**
+     * Convert base64 string to MultipartFile
+     * 
+     * @param base64String base64 encoded image string
+     * @return MultipartFile or null if conversion fails
+     */
+    private MultipartFile base64ToMultipartFile(String base64String) {
+        try {
+            // Decode base64 string
+            byte[] imageBytes = java.util.Base64.getDecoder().decode(base64String);
+
+            // Create a simple MultipartFile implementation
+            return new MultipartFile() {
+                @Override
+                public String getName() {
+                    return "image";
+                }
+
+                @Override
+                public String getOriginalFilename() {
+                    return "image.png";
+                }
+
+                @Override
+                public String getContentType() {
+                    return "image/png";
+                }
+
+                @Override
+                public boolean isEmpty() {
+                    return imageBytes.length == 0;
+                }
+
+                @Override
+                public long getSize() {
+                    return imageBytes.length;
+                }
+
+                @Override
+                public byte[] getBytes() {
+                    return imageBytes;
+                }
+
+                @Override
+                public java.io.InputStream getInputStream() {
+                    return new java.io.ByteArrayInputStream(imageBytes);
+                }
+
+                @Override
+                public void transferTo(java.io.File dest) throws java.io.IOException, IllegalStateException {
+                    java.nio.file.Files.write(dest.toPath(), imageBytes);
+                }
+            };
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

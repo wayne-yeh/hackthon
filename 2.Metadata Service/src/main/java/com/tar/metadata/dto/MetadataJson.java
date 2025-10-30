@@ -8,9 +8,21 @@ import java.time.LocalDate;
 
 /**
  * DTO for metadata JSON structure
+ * Includes ERC721 standard fields for NFT compatibility
  */
 public class MetadataJson {
 
+    // ERC721 Standard Fields
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("description")
+    private String description;
+
+    @JsonProperty("image")
+    private String image;
+
+    // Custom Fields
     @JsonProperty("invoiceNo")
     private String invoiceNo;
 
@@ -45,10 +57,37 @@ public class MetadataJson {
         this.itemName = itemName;
         this.ownerAddress = ownerAddress;
         this.imageUrl = imageUrl;
+        this.image = imageUrl; // Set ERC721 image field
         this.timestamp = timestamp;
     }
 
     // Getters and Setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+        // Also set imageUrl for backward compatibility
+        this.imageUrl = image;
+    }
+
     public String getInvoiceNo() {
         return invoiceNo;
     }
@@ -95,6 +134,8 @@ public class MetadataJson {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        // Also set ERC721 image field
+        this.image = imageUrl;
     }
 
     public long getTimestamp() {
@@ -105,5 +146,3 @@ public class MetadataJson {
         this.timestamp = timestamp;
     }
 }
-
-

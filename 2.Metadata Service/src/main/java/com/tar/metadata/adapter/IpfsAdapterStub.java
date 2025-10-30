@@ -2,6 +2,7 @@ package com.tar.metadata.adapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,13 +26,18 @@ public class IpfsAdapterStub implements StorageAdapter {
     private final Map<String, String> metadataStorage = new HashMap<>();
     private final Map<String, byte[]> fileStorage = new HashMap<>();
 
+    @Value("${app.metadata.base-url:http://localhost:8081}")
+    private String baseUrl;
+
     @Override
     public String uploadMetadata(String metadataJson, String filename) throws Exception {
         try {
             String hash = UUID.randomUUID().toString();
             metadataStorage.put(hash, metadataJson);
 
-            String url = "ipfs://" + hash;
+            // Return HTTP URL instead of IPFS URI for MetaMask compatibility
+            // MetaMask can access HTTP URLs directly, but needs gateway for IPFS URIs
+            String url = baseUrl + "/api/metadata/download?key=ipfs://" + hash;
             logger.info("Metadata uploaded to IPFS stub: {}", url);
             return url;
 
@@ -80,6 +86,17 @@ public class IpfsAdapterStub implements StorageAdapter {
         if (url.startsWith("ipfs://")) {
             return url.substring(7);
         }
+        // Handle HTTP URL format:
+        // http://localhost:8081/api/metadata/download?key=ipfs://hash
+        if (url.contains("key=ipfs://")) {
+            String ipfsPart = url.substring(url.indexOf("key=ipfs://") + 11);
+            // Remove any query parameters after the hash
+            int queryIndex = ipfsPart.indexOf("&");
+            if (queryIndex > 0) {
+                ipfsPart = ipfsPart.substring(0, queryIndex);
+            }
+            return ipfsPart;
+        }
         throw new IllegalArgumentException("Invalid IPFS URL format: " + url);
     }
 
@@ -96,5 +113,3 @@ public class IpfsAdapterStub implements StorageAdapter {
         return stats;
     }
 }
-
-

@@ -6,6 +6,7 @@
 /Users/weiyeh/Desktop/區塊鏈/hackathon/2.Metadata Service/src/main/java/com/tar/metadata/service/MetadataJsonBuilderService.java
 /Users/weiyeh/Desktop/區塊鏈/hackathon/2.Metadata Service/src/main/java/com/tar/metadata/adapter/StorageAdapter.java
 /Users/weiyeh/Desktop/區塊鏈/hackathon/2.Metadata Service/src/main/java/com/tar/metadata/dto/ReceiptUploadRequest.java
+/Users/weiyeh/Desktop/區塊鏈/hackathon/2.Metadata Service/src/main/java/com/tar/metadata/config/CorsConfig.java
 /Users/weiyeh/Desktop/區塊鏈/hackathon/2.Metadata Service/src/main/java/com/tar/metadata/dto/HashVerificationResponse.java
 /Users/weiyeh/Desktop/區塊鏈/hackathon/2.Metadata Service/src/main/java/com/tar/metadata/service/HashCalculatorService.java
 /Users/weiyeh/Desktop/區塊鏈/hackathon/2.Metadata Service/src/main/java/com/tar/metadata/adapter/IpfsAdapterStub.java

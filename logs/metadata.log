@@ -37,33 +37,56 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.0)
 
-2025-10-29T22:52:35.659+08:00  INFO 16416 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Starting MetadataServiceApplication using Java 17.0.16 with PID 16416 (/Users/weiyeh/Desktop/區塊鏈/hackathon/2.Metadata Service/target/classes started by weiyeh in /Users/weiyeh/Desktop/區塊鏈/hackathon/2.Metadata Service)
-2025-10-29T22:52:35.660+08:00 DEBUG 16416 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Running with Spring Boot v3.2.0, Spring v6.1.1
-2025-10-29T22:52:35.661+08:00  INFO 16416 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-10-29T22:52:36.403+08:00  INFO 16416 --- [metadata-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-10-29T22:52:36.423+08:00  INFO 16416 --- [metadata-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-10-29T22:52:36.423+08:00  INFO 16416 --- [metadata-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
-2025-10-29T22:52:36.504+08:00  INFO 16416 --- [metadata-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-10-29T22:52:36.504+08:00  INFO 16416 --- [metadata-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 818 ms
-2025-10-29T22:52:36.589+08:00 DEBUG 16416 --- [metadata-service] [           main] o.s.w.f.ServerHttpObservationFilter      : Filter 'webMvcObservationFilter' configured for use
-2025-10-29T22:52:36.709+08:00 DEBUG 16416 --- [metadata-service] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 9 mappings in 'requestMappingHandlerMapping'
-2025-10-29T22:52:36.734+08:00 DEBUG 16416 --- [metadata-service] [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
-2025-10-29T22:52:36.750+08:00 DEBUG 16416 --- [metadata-service] [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-10-29T22:52:36.765+08:00 DEBUG 16416 --- [metadata-service] [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-10-29T22:52:36.859+08:00  INFO 16416 --- [metadata-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoint(s) beneath base path '/actuator'
-2025-10-29T22:52:36.891+08:00  INFO 16416 --- [metadata-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
-2025-10-29T22:52:36.900+08:00  INFO 16416 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Started MetadataServiceApplication in 1.419 seconds (process running for 1.57)
-2025-10-29T22:57:02.212+08:00  INFO 16416 --- [metadata-service] [nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-10-29T22:57:02.213+08:00  INFO 16416 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-10-29T22:57:02.213+08:00 DEBUG 16416 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
-2025-10-29T22:57:02.213+08:00 DEBUG 16416 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
-2025-10-29T22:57:02.213+08:00 DEBUG 16416 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
-2025-10-29T22:57:02.215+08:00 DEBUG 16416 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@1f11c0a6
-2025-10-29T22:57:02.215+08:00 DEBUG 16416 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@26de970
-2025-10-29T22:57:02.215+08:00 DEBUG 16416 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-10-29T22:57:02.215+08:00  INFO 16416 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2025-10-29T22:57:02.237+08:00 DEBUG 16416 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/actuator/health", parameters={}
-2025-10-29T22:57:02.245+08:00 DEBUG 16416 --- [metadata-service] [nio-8081-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Read "application/octet-stream" to []
-2025-10-29T22:57:02.252+08:00 DEBUG 16416 --- [metadata-service] [nio-8081-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/vnd.spring-boot.actuator.v3+json', given [*/*] and supported [application/vnd.spring-boot.actuator.v3+json, application/vnd.spring-boot.actuator.v2+json, application/json]
-2025-10-29T22:57:02.268+08:00 DEBUG 16416 --- [metadata-service] [nio-8081-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [org.springframework.boot.actuate.health.SystemHealth@598c26b]
-2025-10-29T22:57:02.279+08:00 DEBUG 16416 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-10-30T19:34:47.316+08:00  INFO 2387 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Starting MetadataServiceApplication using Java 17.0.16 with PID 2387 (/Users/weiyeh/Desktop/區塊鏈/hackathon/2.Metadata Service/target/classes started by weiyeh in /Users/weiyeh/Desktop/區塊鏈/hackathon/2.Metadata Service)
+2025-10-30T19:34:47.317+08:00 DEBUG 2387 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-10-30T19:34:47.317+08:00  INFO 2387 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-10-30T19:34:47.955+08:00  INFO 2387 --- [metadata-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-10-30T19:34:47.960+08:00  INFO 2387 --- [metadata-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-30T19:34:47.960+08:00  INFO 2387 --- [metadata-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-10-30T19:34:48.003+08:00  INFO 2387 --- [metadata-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-30T19:34:48.004+08:00  INFO 2387 --- [metadata-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 658 ms
+2025-10-30T19:34:48.070+08:00 DEBUG 2387 --- [metadata-service] [           main] o.s.w.f.ServerHttpObservationFilter      : Filter 'webMvcObservationFilter' configured for use
+2025-10-30T19:34:48.178+08:00 DEBUG 2387 --- [metadata-service] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 9 mappings in 'requestMappingHandlerMapping'
+2025-10-30T19:34:48.204+08:00 DEBUG 2387 --- [metadata-service] [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2025-10-30T19:34:48.216+08:00 DEBUG 2387 --- [metadata-service] [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-10-30T19:34:48.230+08:00 DEBUG 2387 --- [metadata-service] [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-10-30T19:34:48.317+08:00  INFO 2387 --- [metadata-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-10-30T19:34:48.351+08:00  INFO 2387 --- [metadata-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2025-10-30T19:34:48.359+08:00  INFO 2387 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Started MetadataServiceApplication in 1.279 seconds (process running for 1.532)
+2025-10-30T19:35:01.696+08:00  INFO 2387 --- [metadata-service] [nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-30T19:35:01.697+08:00  INFO 2387 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-30T19:35:01.697+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-10-30T19:35:01.697+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-10-30T19:35:01.697+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-10-30T19:35:01.698+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@26453da9
+2025-10-30T19:35:01.699+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@6259883c
+2025-10-30T19:35:01.699+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-10-30T19:35:01.699+08:00  INFO 2387 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-10-30T19:35:01.710+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/actuator/health", parameters={}
+2025-10-30T19:35:01.721+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Read "application/octet-stream" to []
+2025-10-30T19:35:01.729+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/vnd.spring-boot.actuator.v3+json', given [*/*] and supported [application/vnd.spring-boot.actuator.v3+json, application/vnd.spring-boot.actuator.v2+json, application/json]
+2025-10-30T19:35:01.746+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [org.springframework.boot.actuate.health.SystemHealth@18af140c]
+2025-10-30T19:35:01.759+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-10-30T19:35:37.811+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/metadata/receipts", parameters={multipart}
+2025-10-30T19:35:37.832+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.tar.metadata.controller.MetadataController#uploadReceipt(String, String, String, String, String, MultipartFile, String)
+2025-10-30T19:35:37.853+08:00  INFO 2387 --- [metadata-service] [nio-8081-exec-3] c.tar.metadata.adapter.IpfsAdapterStub   : Metadata uploaded to IPFS stub: http://localhost:8081/api/metadata/download?key=ipfs://f9d96ad3-4ca8-4e6b-bf6e-96d280cdd127
+2025-10-30T19:35:37.855+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-10-30T19:35:37.855+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.tar.metadata.dto.ReceiptUploadResponse@457fa71a]
+2025-10-30T19:35:37.856+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-10-30T19:37:12.102+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/actuator/health", parameters={}
+2025-10-30T19:37:12.107+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Read "application/octet-stream" to []
+2025-10-30T19:37:12.111+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/vnd.spring-boot.actuator.v3+json', given [*/*] and supported [application/vnd.spring-boot.actuator.v3+json, application/vnd.spring-boot.actuator.v2+json, application/json]
+2025-10-30T19:37:12.112+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [org.springframework.boot.actuate.health.SystemHealth@6cca79df]
+2025-10-30T19:37:12.114+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-10-30T19:37:16.379+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-8] o.s.web.servlet.DispatcherServlet        : POST "/api/metadata/receipts", parameters={multipart}
+2025-10-30T19:37:16.385+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.tar.metadata.controller.MetadataController#uploadReceipt(String, String, String, String, String, MultipartFile, String)
+2025-10-30T19:37:16.392+08:00  INFO 2387 --- [metadata-service] [nio-8081-exec-8] c.tar.metadata.adapter.IpfsAdapterStub   : Metadata uploaded to IPFS stub: http://localhost:8081/api/metadata/download?key=ipfs://a447d831-1ca9-4463-84a5-18898d159647
+2025-10-30T19:37:16.392+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-10-30T19:37:16.392+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.tar.metadata.dto.ReceiptUploadResponse@18f29b2a]
+2025-10-30T19:37:16.393+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-10-30T19:37:18.251+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-9] o.s.web.servlet.DispatcherServlet        : POST "/api/metadata/receipts", parameters={multipart}
+2025-10-30T19:37:18.257+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.tar.metadata.controller.MetadataController#uploadReceipt(String, String, String, String, String, MultipartFile, String)
+2025-10-30T19:37:18.259+08:00  INFO 2387 --- [metadata-service] [nio-8081-exec-9] c.tar.metadata.adapter.IpfsAdapterStub   : Metadata uploaded to IPFS stub: http://localhost:8081/api/metadata/download?key=ipfs://10ef30e0-6722-46d6-9cdf-29b2a6520498
+2025-10-30T19:37:18.260+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-10-30T19:37:18.260+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.tar.metadata.dto.ReceiptUploadResponse@1e2cbd25]
+2025-10-30T19:37:18.263+08:00 DEBUG 2387 --- [metadata-service] [nio-8081-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

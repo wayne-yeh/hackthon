@@ -44,6 +44,13 @@ public class MetadataJsonBuilderService {
         metadata.setImageUrl(imageUrl);
         metadata.setTimestamp(Instant.now().toEpochMilli());
 
+        // Set ERC721 standard fields for NFT compatibility
+        metadata.setName("TAR Receipt #" + invoiceNo);
+        metadata.setDescription(
+                String.format("Tokenized Asset Receipt - %s (Amount: %s TWD, Date: %s)",
+                        itemName, amount.toString(), purchaseDate.toString()));
+        metadata.setImage(imageUrl); // ERC721 standard image field
+
         return metadata;
     }
 

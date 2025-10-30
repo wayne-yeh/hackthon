@@ -33,6 +33,8 @@ public class ReceiptUploadRequest {
 
     private MultipartFile image;
 
+    private String imageBase64;
+
     // Constructors
     public ReceiptUploadRequest() {
     }
@@ -45,6 +47,14 @@ public class ReceiptUploadRequest {
         this.itemName = itemName;
         this.ownerAddress = ownerAddress;
         this.image = image;
+    }
+
+    public String getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
     }
 
     // Getters and Setters
@@ -96,5 +106,3 @@ public class ReceiptUploadRequest {
         this.image = image;
     }
 }
-
-
