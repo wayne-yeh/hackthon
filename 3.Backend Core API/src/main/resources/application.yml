@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: tar-backend-core-api
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+  security:
+    user:
+      name: admin
+      password: admin
+
+server:
+  port: ${SERVER_PORT:8083}
+
+blockchain:
+  rpc-url: http://localhost:8545
+  contract-address: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+  issuer-private-key: 59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d
+  gas-price: 20000000000
+  gas-limit: 6721975
+
+metadata-service:
+  base-url: ${METADATA_SERVICE_URL:http://localhost:8081}
+
+api:
+  key:
+    header: ${API_KEY_HEADER:X-API-Key}
+    secret: ${API_KEY_SECRET:change-this-in-production}
+
+rate-limit:
+  requests: ${RATE_LIMIT_REQUESTS:100}
+  period-seconds: ${RATE_LIMIT_PERIOD_SECONDS:60}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html

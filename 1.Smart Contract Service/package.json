@@ -12,7 +12,10 @@
     "mint": "hardhat run scripts/mint.ts --network localhost",
     "revoke": "hardhat run scripts/revoke.ts --network localhost",
     "verify": "hardhat run scripts/verify.ts --network localhost",
-    "set-issuer": "hardhat run scripts/setIssuer.ts --network localhost"
+    "set-issuer": "hardhat run scripts/setIssuer.ts --network localhost",
+    "metadata-server": "node metadata-server.js",
+    "dev:full": "concurrently \"npm run metadata-server\" \"npx hardhat node\"",
+    "test:full": "npm run metadata-server & sleep 2 && npm run mint && npm run verify && pkill -f metadata-server"
   },
   "keywords": ["solidity", "erc721", "nft", "blockchain", "hardhat"],
   "author": "",
@@ -31,6 +34,8 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "concurrently": "^8.2.2"
   }
 }

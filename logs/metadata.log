@@ -1,0 +1,87 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.tar.metadata:metadata-service >------------------
+[INFO] Building metadata-service 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.0:run (default-cli) > test-compile @ metadata-service >>>
+[INFO] 
+[INFO] --- jacoco:0.8.8:prepare-agent (default) @ metadata-service ---
+[INFO] argLine set to "-javaagent:/Users/weiyeh/.m2/repository/org/jacoco/org.jacoco.agent/0.8.8/org.jacoco.agent-0.8.8-runtime.jar=destfile=/Users/weiyeh/Desktop/區塊鏈/hackathon/2.Metadata Service/target/jacoco.exec"
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ metadata-service ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ metadata-service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ metadata-service ---
+[INFO] Copying 0 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ metadata-service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:3.2.0:run (default-cli) < test-compile @ metadata-service <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.0:run (default-cli) @ metadata-service ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2025-10-31T01:11:55.304+08:00  INFO 94063 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Starting MetadataServiceApplication using Java 17.0.16 with PID 94063 (/Users/weiyeh/Desktop/區塊鏈/hackathon/2.Metadata Service/target/classes started by weiyeh in /Users/weiyeh/Desktop/區塊鏈/hackathon/2.Metadata Service)
+2025-10-31T01:11:55.305+08:00 DEBUG 94063 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-10-31T01:11:55.305+08:00  INFO 94063 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-10-31T01:11:55.962+08:00  INFO 94063 --- [metadata-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-10-31T01:11:55.966+08:00  INFO 94063 --- [metadata-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-31T01:11:55.966+08:00  INFO 94063 --- [metadata-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-10-31T01:11:56.002+08:00  INFO 94063 --- [metadata-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-31T01:11:56.003+08:00  INFO 94063 --- [metadata-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 670 ms
+2025-10-31T01:11:56.070+08:00 DEBUG 94063 --- [metadata-service] [           main] o.s.w.f.ServerHttpObservationFilter      : Filter 'webMvcObservationFilter' configured for use
+2025-10-31T01:11:56.180+08:00 DEBUG 94063 --- [metadata-service] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 9 mappings in 'requestMappingHandlerMapping'
+2025-10-31T01:11:56.206+08:00 DEBUG 94063 --- [metadata-service] [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2025-10-31T01:11:56.220+08:00 DEBUG 94063 --- [metadata-service] [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-10-31T01:11:56.235+08:00 DEBUG 94063 --- [metadata-service] [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-10-31T01:11:56.326+08:00  INFO 94063 --- [metadata-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-10-31T01:11:56.357+08:00  INFO 94063 --- [metadata-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2025-10-31T01:11:56.366+08:00  INFO 94063 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Started MetadataServiceApplication in 1.271 seconds (process running for 1.467)
+2025-10-31T01:12:00.657+08:00  INFO 94063 --- [metadata-service] [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-31T01:12:00.657+08:00  INFO 94063 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-31T01:12:00.658+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-10-31T01:12:00.658+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-10-31T01:12:00.658+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-10-31T01:12:00.658+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@1e7f5536
+2025-10-31T01:12:00.658+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@741d3137
+2025-10-31T01:12:00.659+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-10-31T01:12:00.659+08:00  INFO 94063 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-10-31T01:12:00.667+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/actuator/health", parameters={}
+2025-10-31T01:12:00.676+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/octet-stream" to []
+2025-10-31T01:12:00.682+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/vnd.spring-boot.actuator.v3+json', given [*/*] and supported [application/vnd.spring-boot.actuator.v3+json, application/vnd.spring-boot.actuator.v2+json, application/json]
+2025-10-31T01:12:00.696+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [org.springframework.boot.actuate.health.SystemHealth@3b81a3aa]
+2025-10-31T01:12:00.707+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-10-31T01:12:11.194+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/metadata/receipts", parameters={multipart}
+2025-10-31T01:12:11.216+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.tar.metadata.controller.MetadataController#uploadReceipt(String, String, String, String, String, MultipartFile, String)
+2025-10-31T01:12:11.227+08:00  INFO 94063 --- [metadata-service] [nio-8081-exec-3] c.tar.metadata.adapter.IpfsAdapterStub   : Metadata uploaded to IPFS stub: http://localhost:8081/api/metadata/download?key=ipfs://ba7450e7-5b3a-4d22-89c5-ea51e4d1751d
+2025-10-31T01:12:11.229+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-10-31T01:12:11.229+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.tar.metadata.dto.ReceiptUploadResponse@1cec863f]
+2025-10-31T01:12:11.229+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-10-31T01:12:54.985+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/metadata/download?key=ipfs://ba7450e7-5b3a-4d22-89c5-ea51e4d1751d", parameters={masked}
+2025-10-31T01:12:54.987+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.tar.metadata.controller.MetadataController#downloadFile(String)
+2025-10-31T01:12:54.989+08:00  INFO 94063 --- [metadata-service] [nio-8081-exec-4] c.tar.metadata.adapter.IpfsAdapterStub   : Metadata downloaded from IPFS stub: ipfs://ba7450e7-5b3a-4d22-89c5-ea51e4d1751d
+2025-10-31T01:12:54.990+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2025-10-31T01:12:54.990+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing ["{"name":"TAR Receipt #INV-33-22211","description":"Tokenized Asset Receipt - 測試商品 (Amount: 1000.5 TW (truncated)..."]
+2025-10-31T01:12:54.992+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-10-31T01:12:55.019+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/metadata/download?key=ipfs://ba7450e7-5b3a-4d22-89c5-ea51e4d1751d", parameters={masked}
+2025-10-31T01:12:55.020+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.tar.metadata.controller.MetadataController#downloadFile(String)
+2025-10-31T01:12:55.021+08:00  INFO 94063 --- [metadata-service] [nio-8081-exec-5] c.tar.metadata.adapter.IpfsAdapterStub   : Metadata downloaded from IPFS stub: ipfs://ba7450e7-5b3a-4d22-89c5-ea51e4d1751d
+2025-10-31T01:12:55.022+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2025-10-31T01:12:55.022+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing ["{"name":"TAR Receipt #INV-33-22211","description":"Tokenized Asset Receipt - 測試商品 (Amount: 1000.5 TW (truncated)..."]
+2025-10-31T01:12:55.023+08:00 DEBUG 94063 --- [metadata-service] [nio-8081-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

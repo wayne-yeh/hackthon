@@ -1,0 +1,13 @@
+com/tar/metadata/adapter/IpfsAdapterStub.class
+com/tar/metadata/dto/ReceiptUploadRequest.class
+com/tar/metadata/service/HashCalculatorService.class
+com/tar/metadata/adapter/StorageAdapter.class
+com/tar/metadata/adapter/S3Adapter.class
+com/tar/metadata/service/MetadataJsonBuilderService.class
+com/tar/metadata/controller/MetadataController.class
+com/tar/metadata/dto/ReceiptUploadResponse.class
+com/tar/metadata/dto/MetadataJson.class
+com/tar/metadata/dto/HashVerificationResponse.class
+com/tar/metadata/MetadataServiceApplication.class
+com/tar/metadata/service/MetadataService.class
+com/tar/metadata/config/StorageConfig.class

@@ -1,0 +1,14 @@
+com/tar/verification/dto/VerificationResponse$Builder.class
+com/tar/verification/client/BlockchainClient$2.class
+com/tar/verification/dto/VerificationResponse.class
+com/tar/verification/client/BlockchainClient$3.class
+com/tar/verification/client/BlockchainClient$1.class
+com/tar/verification/dto/TokenMetadata.class
+com/tar/verification/client/BlockchainClient$4.class
+com/tar/verification/client/BlockchainClient.class
+com/tar/verification/client/MetadataClient.class
+com/tar/verification/config/ClientConfig.class
+com/tar/verification/service/VerificationService.class
+com/tar/verification/VerificationServiceApplication.class
+com/tar/verification/controller/VerificationController.class
+com/tar/verification/service/HashComparatorService.class

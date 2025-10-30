@@ -1,0 +1,26 @@
+{
+  "name": "TAR Receipt #1",
+  "description": "Tokenized Asset Receipt for Real Estate",
+  "image": "https://example.com/image.jpg",
+  "attributes": [
+    {
+      "trait_type": "Asset Type",
+      "value": "Real Estate"
+    },
+    {
+      "trait_type": "Location",
+      "value": "Taipei, Taiwan"
+    },
+    {
+      "trait_type": "Value",
+      "value": "50000000 TWD"
+    },
+    {
+      "trait_type": "Area",
+      "value": "100 sqm"
+    }
+  ],
+  "external_url": "https://example.com/asset/1",
+  "background_color": "ffffff"
+}
+

@@ -2,15 +2,19 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import { TARReceipt } from "../typechain-types";
 import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
-import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 
 describe("TARReceipt", function () {
-  // Test fixtures
-  async function deployTARReceiptFixture() {
-    const [owner, issuer, buyer, unauthorized] = await ethers.getSigners();
+  let tarReceipt: TARReceipt;
+  let owner: SignerWithAddress;
+  let issuer: SignerWithAddress;
+  let buyer: SignerWithAddress;
+  let unauthorized: SignerWithAddress;
+
+  beforeEach(async function () {
+    [owner, issuer, buyer, unauthorized] = await ethers.getSigners();
 
     const TARReceiptFactory = await ethers.getContractFactory("TARReceipt");
-    const tarReceipt = await TARReceiptFactory.deploy(
+    tarReceipt = await TARReceiptFactory.deploy(
       "Tokenized Asset Receipt",
       "TAR",
       owner.address
@@ -18,61 +22,36 @@ describe("TARReceipt", function () {
 
     // Grant ISSUER_ROLE to issuer
     await tarReceipt.grantRole(await tarReceipt.ISSUER_ROLE(), issuer.address);
-
-    return { tarReceipt, owner, issuer, buyer, unauthorized };
-  }
-
-  async function mintTokenFixture() {
-    const { tarReceipt, issuer, buyer } = await loadFixture(deployTARReceiptFixture());
-    
-    const tokenURI = "https://example.com/metadata/1";
-    const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
-    
-    await tarReceipt.connect(issuer).mint(buyer.address, tokenURI, metaHash);
-    
-    return { tarReceipt, issuer, buyer, tokenURI, metaHash };
-  }
+  });
 
   describe("Deployment", function () {
     it("Should set the correct name and symbol", async function () {
-      const { tarReceipt } = await loadFixture(deployTARReceiptFixture());
-      
       expect(await tarReceipt.name()).to.equal("Tokenized Asset Receipt");
       expect(await tarReceipt.symbol()).to.equal("TAR");
     });
 
     it("Should set the correct default admin role", async function () {
-      const { tarReceipt, owner } = await loadFixture(deployTARReceiptFixture());
-      
       expect(await tarReceipt.hasRole(await tarReceipt.DEFAULT_ADMIN_ROLE(), owner.address)).to.be.true;
     });
 
     it("Should start with token counter at 0", async function () {
-      const { tarReceipt } = await loadFixture(deployTARReceiptFixture());
-      
       expect(await tarReceipt.getCurrentTokenId()).to.equal(0);
     });
   });
 
   describe("Role Management", function () {
     it("Should allow admin to grant ISSUER_ROLE", async function () {
-      const { tarReceipt, owner, issuer } = await loadFixture(deployTARReceiptFixture());
-      
       await tarReceipt.grantRole(await tarReceipt.ISSUER_ROLE(), issuer.address);
       expect(await tarReceipt.hasRole(await tarReceipt.ISSUER_ROLE(), issuer.address)).to.be.true;
     });
 
     it("Should allow admin to revoke ISSUER_ROLE", async function () {
-      const { tarReceipt, owner, issuer } = await loadFixture(deployTARReceiptFixture());
-      
       await tarReceipt.grantRole(await tarReceipt.ISSUER_ROLE(), issuer.address);
       await tarReceipt.revokeRole(await tarReceipt.ISSUER_ROLE(), issuer.address);
       expect(await tarReceipt.hasRole(await tarReceipt.ISSUER_ROLE(), issuer.address)).to.be.false;
     });
 
     it("Should not allow non-admin to grant roles", async function () {
-      const { tarReceipt, unauthorized, issuer } = await loadFixture(deployTARReceiptFixture());
-      
       await expect(
         tarReceipt.connect(unauthorized).grantRole(await tarReceipt.ISSUER_ROLE(), issuer.address)
       ).to.be.revertedWithCustomError(tarReceipt, "AccessControlUnauthorizedAccount");
@@ -81,8 +60,6 @@ describe("TARReceipt", function () {
 
   describe("Minting", function () {
     it("Should mint token successfully with correct parameters", async function () {
-      const { tarReceipt, issuer, buyer } = await loadFixture(deployTARReceiptFixture());
-      
       const tokenURI = "https://example.com/metadata/1";
       const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
       
@@ -97,8 +74,6 @@ describe("TARReceipt", function () {
     });
 
     it("Should store metaHash correctly", async function () {
-      const { tarReceipt, issuer, buyer } = await loadFixture(deployTARReceiptFixture());
-      
       const metaHash = ethers.keccak256(ethers.toUtf8Bytes("test metadata"));
       await tarReceipt.connect(issuer).mint(buyer.address, "https://example.com/1", metaHash);
       
@@ -106,8 +81,6 @@ describe("TARReceipt", function () {
     });
 
     it("Should emit Minted event with correct parameters", async function () {
-      const { tarReceipt, issuer, buyer } = await loadFixture(deployTARReceiptFixture());
-      
       const tokenURI = "https://example.com/metadata/1";
       const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
       
@@ -117,8 +90,6 @@ describe("TARReceipt", function () {
     });
 
     it("Should revert when minting to zero address", async function () {
-      const { tarReceipt, issuer } = await loadFixture(deployTARReceiptFixture());
-      
       const tokenURI = "https://example.com/metadata/1";
       const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
       
@@ -128,8 +99,6 @@ describe("TARReceipt", function () {
     });
 
     it("Should revert when tokenURI is empty", async function () {
-      const { tarReceipt, issuer, buyer } = await loadFixture(deployTARReceiptFixture());
-      
       const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
       
       await expect(
@@ -138,8 +107,6 @@ describe("TARReceipt", function () {
     });
 
     it("Should revert when called by non-issuer", async function () {
-      const { tarReceipt, unauthorized, buyer } = await loadFixture(deployTARReceiptFixture());
-      
       const tokenURI = "https://example.com/metadata/1";
       const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
       
@@ -149,8 +116,6 @@ describe("TARReceipt", function () {
     });
 
     it("Should revert when contract is paused", async function () {
-      const { tarReceipt, owner, issuer, buyer } = await loadFixture(deployTARReceiptFixture());
-      
       await tarReceipt.connect(owner).pause();
       
       const tokenURI = "https://example.com/metadata/1";
@@ -163,38 +128,42 @@ describe("TARReceipt", function () {
   });
 
   describe("Verification", function () {
+    beforeEach(async function () {
+      const tokenURI = "https://example.com/metadata/1";
+      const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
+      await tarReceipt.connect(issuer).mint(buyer.address, tokenURI, metaHash);
+    });
+
     it("Should return true for valid token with matching hash", async function () {
-      const { tarReceipt, metaHash } = await loadFixture(mintTokenFixture());
-      
+      const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
       expect(await tarReceipt.verify(0, metaHash)).to.be.true;
     });
 
     it("Should return false for valid token with wrong hash", async function () {
-      const { tarReceipt } = await loadFixture(mintTokenFixture());
-      
       const wrongHash = ethers.keccak256(ethers.toUtf8Bytes("wrong metadata"));
       expect(await tarReceipt.verify(0, wrongHash)).to.be.false;
     });
 
     it("Should return false for non-existent token", async function () {
-      const { tarReceipt } = await loadFixture(deployTARReceiptFixture());
-      
       const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
       expect(await tarReceipt.verify(999, metaHash)).to.be.false;
     });
 
     it("Should return false for revoked token", async function () {
-      const { tarReceipt, issuer, metaHash } = await loadFixture(mintTokenFixture());
-      
       await tarReceipt.connect(issuer).revoke(0);
+      const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
       expect(await tarReceipt.verify(0, metaHash)).to.be.false;
     });
   });
 
   describe("Revoking", function () {
+    beforeEach(async function () {
+      const tokenURI = "https://example.com/metadata/1";
+      const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
+      await tarReceipt.connect(issuer).mint(buyer.address, tokenURI, metaHash);
+    });
+
     it("Should revoke token successfully", async function () {
-      const { tarReceipt, issuer } = await loadFixture(mintTokenFixture());
-      
       await expect(tarReceipt.connect(issuer).revoke(0))
         .to.emit(tarReceipt, "Revoked")
         .withArgs(0);
@@ -203,24 +172,18 @@ describe("TARReceipt", function () {
     });
 
     it("Should emit Revoked event with correct tokenId", async function () {
-      const { tarReceipt, issuer } = await loadFixture(mintTokenFixture());
-      
       await expect(tarReceipt.connect(issuer).revoke(0))
         .to.emit(tarReceipt, "Revoked")
         .withArgs(0);
     });
 
     it("Should revert when revoking non-existent token", async function () {
-      const { tarReceipt, issuer } = await loadFixture(deployTARReceiptFixture());
-      
       await expect(
         tarReceipt.connect(issuer).revoke(999)
       ).to.be.revertedWithCustomError(tarReceipt, "TokenRevoked");
     });
 
     it("Should revert when revoking already revoked token", async function () {
-      const { tarReceipt, issuer } = await loadFixture(mintTokenFixture());
-      
       await tarReceipt.connect(issuer).revoke(0);
       
       await expect(
@@ -229,16 +192,12 @@ describe("TARReceipt", function () {
     });
 
     it("Should revert when called by non-issuer", async function () {
-      const { tarReceipt, unauthorized } = await loadFixture(mintTokenFixture());
-      
       await expect(
         tarReceipt.connect(unauthorized).revoke(0)
       ).to.be.revertedWithCustomError(tarReceipt, "AccessControlUnauthorizedAccount");
     });
 
     it("Should revert when contract is paused", async function () {
-      const { tarReceipt, owner, issuer } = await loadFixture(mintTokenFixture());
-      
       await tarReceipt.connect(owner).pause();
       
       await expect(
@@ -249,32 +208,27 @@ describe("TARReceipt", function () {
 
   describe("Token URI", function () {
     it("Should set and get tokenURI correctly", async function () {
-      const { tarReceipt, buyer } = await loadFixture(mintTokenFixture());
+      const tokenURI = "https://example.com/metadata/1";
+      const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
       
-      const expectedURI = "https://example.com/metadata/1";
-      expect(await tarReceipt.tokenURI(0)).to.equal(expectedURI);
+      await tarReceipt.connect(issuer).mint(buyer.address, tokenURI, metaHash);
+      expect(await tarReceipt.tokenURI(0)).to.equal(tokenURI);
     });
   });
 
   describe("Pause/Unpause", function () {
     it("Should allow admin to pause contract", async function () {
-      const { tarReceipt, owner } = await loadFixture(deployTARReceiptFixture());
-      
       await tarReceipt.connect(owner).pause();
       expect(await tarReceipt.paused()).to.be.true;
     });
 
     it("Should allow admin to unpause contract", async function () {
-      const { tarReceipt, owner } = await loadFixture(deployTARReceiptFixture());
-      
       await tarReceipt.connect(owner).pause();
       await tarReceipt.connect(owner).unpause();
       expect(await tarReceipt.paused()).to.be.false;
     });
 
     it("Should not allow non-admin to pause", async function () {
-      const { tarReceipt, unauthorized } = await loadFixture(deployTARReceiptFixture());
-      
       await expect(
         tarReceipt.connect(unauthorized).pause()
       ).to.be.revertedWithCustomError(tarReceipt, "AccessControlUnauthorizedAccount");
@@ -283,8 +237,6 @@ describe("TARReceipt", function () {
 
   describe("Royalty Management", function () {
     it("Should allow admin to set default royalty", async function () {
-      const { tarReceipt, owner, buyer } = await loadFixture(deployTARReceiptFixture());
-      
       const receiver = buyer.address;
       const feeNumerator = 250; // 2.5%
       
@@ -296,7 +248,9 @@ describe("TARReceipt", function () {
     });
 
     it("Should allow admin to set token-specific royalty", async function () {
-      const { tarReceipt, owner, buyer } = await loadFixture(mintTokenFixture());
+      const tokenURI = "https://example.com/metadata/1";
+      const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
+      await tarReceipt.connect(issuer).mint(buyer.address, tokenURI, metaHash);
       
       const receiver = buyer.address;
       const feeNumerator = 500; // 5%
@@ -310,9 +264,13 @@ describe("TARReceipt", function () {
   });
 
   describe("Token Transfers", function () {
+    beforeEach(async function () {
+      const tokenURI = "https://example.com/metadata/1";
+      const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
+      await tarReceipt.connect(issuer).mint(buyer.address, tokenURI, metaHash);
+    });
+
     it("Should prevent transfer of revoked tokens", async function () {
-      const { tarReceipt, issuer, buyer, unauthorized } = await loadFixture(mintTokenFixture());
-      
       await tarReceipt.connect(issuer).revoke(0);
       
       await expect(
@@ -321,8 +279,6 @@ describe("TARReceipt", function () {
     });
 
     it("Should allow transfer of non-revoked tokens", async function () {
-      const { tarReceipt, buyer, unauthorized } = await loadFixture(mintTokenFixture());
-      
       await tarReceipt.connect(buyer).transferFrom(buyer.address, unauthorized.address, 0);
       expect(await tarReceipt.ownerOf(0)).to.equal(unauthorized.address);
     });
@@ -330,8 +286,6 @@ describe("TARReceipt", function () {
 
   describe("Edge Cases", function () {
     it("Should handle multiple mints correctly", async function () {
-      const { tarReceipt, issuer, buyer } = await loadFixture(deployTARReceiptFixture());
-      
       const tokenURI1 = "https://example.com/metadata/1";
       const tokenURI2 = "https://example.com/metadata/2";
       const metaHash1 = ethers.keccak256(ethers.toUtf8Bytes("metadata 1"));
@@ -348,7 +302,9 @@ describe("TARReceipt", function () {
     });
 
     it("Should handle revoke idempotency correctly", async function () {
-      const { tarReceipt, issuer } = await loadFixture(mintTokenFixture());
+      const tokenURI = "https://example.com/metadata/1";
+      const metaHash = ethers.keccak256(ethers.toUtf8Bytes("metadata content"));
+      await tarReceipt.connect(issuer).mint(buyer.address, tokenURI, metaHash);
       
       // First revoke should succeed
       await tarReceipt.connect(issuer).revoke(0);
@@ -363,20 +319,14 @@ describe("TARReceipt", function () {
 
   describe("Interface Support", function () {
     it("Should support ERC721 interface", async function () {
-      const { tarReceipt } = await loadFixture(deployTARReceiptFixture());
-      
       expect(await tarReceipt.supportsInterface("0x80ac58cd")).to.be.true; // ERC721
     });
 
     it("Should support AccessControl interface", async function () {
-      const { tarReceipt } = await loadFixture(deployTARReceiptFixture());
-      
       expect(await tarReceipt.supportsInterface("0x7965db0b")).to.be.true; // AccessControl
     });
 
     it("Should support ERC2981 interface", async function () {
-      const { tarReceipt } = await loadFixture(deployTARReceiptFixture());
-      
       expect(await tarReceipt.supportsInterface("0x2a55205a")).to.be.true; // ERC2981
     });
   });

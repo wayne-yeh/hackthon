@@ -1,0 +1,45 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: metadata-service
+
+# Storage configuration
+app:
+  storage:
+    type: ipfs # Use IPFS stub for now, set to 's3' for S3 storage
+  metadata:
+    base-url: http://localhost:8081
+
+aws:
+  s3:
+    bucket-name: tar-metadata
+    region: us-east-1
+    endpoint: http://localhost:4566 # LocalStack endpoint
+    access-key: test
+    secret-key: test
+
+logging:
+  level:
+    com.tar.metadata: DEBUG
+    org.springframework.web: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+      enabled: true
+  health:
+    defaults:
+      enabled: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html

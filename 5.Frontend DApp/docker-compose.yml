@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  tar-dapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:8083
+      - NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=${NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID}
+      - NEXT_PUBLIC_ISSUER_TOKEN=${NEXT_PUBLIC_ISSUER_TOKEN}
+      - NEXT_PUBLIC_CHAIN_ID=${NEXT_PUBLIC_CHAIN_ID:-31337}
+      - NEXT_PUBLIC_CONTRACT_ADDRESS=${NEXT_PUBLIC_CONTRACT_ADDRESS}
+    depends_on:
+      - backend-core-api
+      - metadata-service
+      - verification-service
+    networks:
+      - tar-network
+
+  backend-core-api:
+    image: tar-backend-core-api:latest
+    ports:
+      - "8083:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/tar_db
+      - METADATA_SERVICE_URL=http://metadata-service:8081
+      - VERIFICATION_SERVICE_URL=http://verification-service:8082
+    depends_on:
+      - postgres
+      - metadata-service
+      - verification-service
+    networks:
+      - tar-network
+
+  metadata-service:
+    image: tar-metadata-service:latest
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - tar-network
+
+  verification-service:
+    image: tar-verification-service:latest
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - BACKEND_CORE_API_URL=http://backend-core-api:8080
+      - METADATA_SERVICE_URL=http://metadata-service:8081
+    depends_on:
+      - backend-core-api
+      - metadata-service
+    networks:
+      - tar-network
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=tar_db
+      - POSTGRES_USER=tar_user
+      - POSTGRES_PASSWORD=tar_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - tar-network
+
+volumes:
+  postgres_data:
+
+networks:
+  tar-network:
+    driver: bridge
+
+
+
+
+
+
+
+
+
+

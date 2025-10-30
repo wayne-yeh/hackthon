@@ -1,4 +1,5 @@
 import { ethers } from "hardhat";
+import hre from "hardhat";
 import fs from "fs";
 import path from "path";
 
@@ -39,20 +40,20 @@ async function main() {
     }
   };
 
-  // Create artifacts directory if it doesn't exist
-  const artifactsDir = path.join(__dirname, "../artifacts");
-  if (!fs.existsSync(artifactsDir)) {
-    fs.mkdirSync(artifactsDir, { recursive: true });
+  // Create deploy directory if it doesn't exist
+  const deployDir = path.join(process.cwd(), "deploy");
+  if (!fs.existsSync(deployDir)) {
+    fs.mkdirSync(deployDir, { recursive: true });
   }
 
   // Save addresses.json
-  const addressesPath = path.join(artifactsDir, "addresses.json");
+  const addressesPath = path.join(deployDir, "addresses.json");
   fs.writeFileSync(addressesPath, JSON.stringify(deploymentInfo, null, 2));
   console.log("📄 Deployment info saved to:", addressesPath);
 
   // Get contract ABI
   const contractArtifact = await hre.artifacts.readArtifact("TARReceipt");
-  const abiPath = path.join(artifactsDir, "TARReceipt.json");
+  const abiPath = path.join(deployDir, "TARReceipt.json");
   fs.writeFileSync(abiPath, JSON.stringify(contractArtifact, null, 2));
   console.log("📄 Contract ABI saved to:", abiPath);
 

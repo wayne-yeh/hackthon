@@ -6,7 +6,7 @@ async function main() {
   console.log("🎨 Minting TAR Receipt...");
 
   // Load deployment info
-  const addressesPath = path.join(__dirname, "../artifacts/addresses.json");
+  const addressesPath = path.join(process.cwd(), "deploy/addresses.json");
   if (!fs.existsSync(addressesPath)) {
     console.error("❌ Deployment info not found. Please run deploy.ts first.");
     process.exit(1);
@@ -33,17 +33,20 @@ async function main() {
     process.exit(1);
   }
 
-  // Mint parameters
-  const tokenURI = "https://example.com/metadata/tar-receipt-1";
+  // Mint parameters - 使用本地元數據服務
+  const tokenURI = "http://localhost:3001/metadata/tar-receipt-1";
   const metadataContent = JSON.stringify({
-    name: "Tokenized Asset Receipt #1",
-    description: "A tokenized asset receipt for a valuable asset",
-    image: "https://example.com/images/tar-1.png",
+    name: "TAR Receipt #1",
+    description: "Tokenized Asset Receipt for Real Estate",
+    image: "https://example.com/image.jpg",
     attributes: [
       { trait_type: "Asset Type", value: "Real Estate" },
       { trait_type: "Location", value: "Taipei, Taiwan" },
-      { trait_type: "Value", value: "1000000 USD" }
-    ]
+      { trait_type: "Value", value: "50000000 TWD" },
+      { trait_type: "Area", value: "100 sqm" }
+    ],
+    external_url: "https://example.com/asset/1",
+    background_color: "ffffff"
   });
   const metaHash = ethers.keccak256(ethers.toUtf8Bytes(metadataContent));
 
