@@ -124,7 +124,7 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   Value:               0 ETH
   Gas used:            1720626 of 30000000
-  Block #1:            0x389f2da338e473058e132ed489a373769347967f1fe96505ec113a66cdd80ede
+  Block #1:            0x918c32c45b7b065007cfa85fd396a737e2eb8d6e3f65dd1dc7479f8ab125b671
 
 [32meth_getTransactionByHash[0m
 [32meth_getTransactionReceipt[0m
@@ -170,7 +170,7 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
   To:                  0x5fbdb2315678afecb367f032d93f642f64180aa3
   Value:               0 ETH
   Gas used:            51542 of 30000000
-  Block #2:            0x2d3fb5a22fe3f30c4d827ca3f8e966cbf959f5dde03e88929f678f528c6680fe
+  Block #2:            0xc28ae81d25e6f4a8055b65c47bda5bd247e3a46864617715afc2e87a3a659a45
 
 [32meth_getTransactionByHash[0m
 [32meth_getTransactionReceipt[0m
@@ -181,49 +181,73 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
 
 [32meth_getCode[0m
 [32meth_blockNumber[0m
+[32meth_getBalance[0m
+[32meth_getBalance (2)[0m
+[32meth_getBalance (3)[0m
+[32meth_getBalance (4)[0m
+[32meth_getBalance (5)[0m
+[32meth_getBlockByNumber[0m
+[32meth_getBalance[0m
+[32meth_getBalance (2)[0m
+[32meth_accounts[0m
+[31meth_call[0m
+  Contract call:       TARReceipt#ownerOf
+  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+  To:                  0x5fbdb2315678afecb367f032d93f642f64180aa3
+
+  Error: VM Exception while processing transaction: reverted with an unrecognized custom error (return data: 0x7e2732890000000000000000000000000000000000000000000000000000000000000001)
+
+[31meth_call[0m
+  Contract call:       TARReceipt#<unrecognized-selector>
+  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+  To:                  0x5fbdb2315678afecb367f032d93f642f64180aa3
+
+  Error: Transaction reverted without a reason
+
+[32meth_blockNumber[0m
 [32meth_chainId[0m
 [32meth_getTransactionCount[0m
 [32meth_sendRawTransaction[0m
   Contract call:       TARReceipt#mint
-  Transaction:         0x75cd2da7102387c28b8fda173cf0e52d0b8ea70a1e26b0c37b0195cbcfca4bb4
+  Transaction:         0x07458f75b61eb5b5981435d2fdb4f42bfa26ebdbe1eb30b9bd63b8861e35588b
   From:                0x70997970c51812dc3a010c7d01b50e0d17dc79c8
   To:                  0x5fbdb2315678afecb367f032d93f642f64180aa3
   Value:               0 ETH
   Gas used:            216299 of 9000000
-  Block #3:            0x365782b9f5ea4b3231a23e58035b4af0eea5c61309266fc3b72fbbdeaae07a53
+  Block #3:            0x433dea97e294c7c47a8b459e37e279b7b412f6e7fa9d12ce7fad87cbeaafde0d
 
 [32meth_getTransactionReceipt[0m
-[32meth_chainId[0m
-[32meth_call[0m
-  Contract call:       TARReceipt#isRevoked
-  From:                0x70997970c51812dc3a010c7d01b50e0d17dc79c8
-  To:                  0x5fbdb2315678afecb367f032d93f642f64180aa3
-
-[32meth_chainId[0m
+[32meth_blockNumber[0m
+[32meth_getBlockByNumber[0m
+[32meth_getBalance[0m
+[32meth_getBalance (2)[0m
+[32meth_getBalance (3)[0m
+[32meth_getBalance (4)[0m
+[32meth_getBalance (5)[0m
+[32meth_getBalance (6)[0m
+[32meth_getBalance (7)[0m
 [32meth_call[0m
   Contract call:       TARReceipt#ownerOf
-  From:                0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   To:                  0x5fbdb2315678afecb367f032d93f642f64180aa3
 
 [32meth_call[0m
-  Contract call:       TARReceipt#getMetaHash
-  From:                0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+  Contract call:       TARReceipt#supportsInterface
+  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   To:                  0x5fbdb2315678afecb367f032d93f642f64180aa3
 
 [32meth_call[0m
-  Contract call:       TARReceipt#verify
-  From:                0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+  Contract call:       TARReceipt#tokenURI
+  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   To:                  0x5fbdb2315678afecb367f032d93f642f64180aa3
 
-[32meth_chainId[0m
-[32meth_getTransactionCount[0m
-[32meth_sendRawTransaction[0m
-  Contract call:       TARReceipt#revoke
-  Transaction:         0x18fae3dd6a9e726ac978e6680c1a8602b3d8f3d607b6f1258f36c320eff7e421
-  From:                0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+[32meth_call[0m
+  Contract call:       TARReceipt#name
+  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   To:                  0x5fbdb2315678afecb367f032d93f642f64180aa3
-  Value:               0 ETH
-  Gas used:            52655 of 9000000
-  Block #4:            0xa6f416e437f95c9cfa7ea27cf58c5227d867584803307ce5a2fa4250f3f8c7c3
 
-[32meth_getTransactionReceipt[0m
+[32meth_call[0m
+  Contract call:       TARReceipt#symbol
+  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+  To:                  0x5fbdb2315678afecb367f032d93f642f64180aa3
+
