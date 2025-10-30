@@ -30,6 +30,8 @@ public class IssueReceiptRequest {
 
     private String imageBase64;
 
+    private String image; // Support both 'image' and 'imageBase64' for flexibility
+
     // Constructors
     public IssueReceiptRequest() {
     }
@@ -92,5 +94,12 @@ public class IssueReceiptRequest {
     public void setImageBase64(String imageBase64) {
         this.imageBase64 = imageBase64;
     }
-}
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+}

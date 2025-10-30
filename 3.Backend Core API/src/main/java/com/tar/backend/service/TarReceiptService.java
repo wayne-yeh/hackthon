@@ -43,13 +43,18 @@ public class TarReceiptService {
             }
 
             // Step 1: Upload metadata to metadata service
+            // Support both 'image' and 'imageBase64' fields - prefer 'image' if provided
+            String imageData = request.getImage() != null && !request.getImage().isEmpty()
+                    ? request.getImage()
+                    : request.getImageBase64();
+
             MetadataServiceClient.MetadataUploadResult metadataResult = metadataServiceClient.uploadMetadata(
                     request.getInvoiceNo(),
                     request.getPurchaseDate(),
                     request.getAmount(),
                     request.getItemName(),
                     request.getOwnerAddress(),
-                    request.getImageBase64());
+                    imageData);
 
             // Step 2: Mint NFT on blockchain
             BlockchainService.MintResult mintResult = blockchainService.mintReceipt(
