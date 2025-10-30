@@ -11,7 +11,7 @@ export interface ReceiptIssueRequest {
   itemName: string;
   ownerAddress: string;
   description?: string;
-  image?: File | null;
+  image?: File | string | null; // Support both File and URL string
   metadata?: Record<string, any>;
 }
 
@@ -59,7 +59,6 @@ class ApiService {
 
   async issueReceipt(data: ReceiptIssueRequest): Promise<ReceiptIssueResponse> {
     try {
-      // Convert image file to base64 if provided
       let requestData: any = {
         invoiceNo: data.invoiceNo,
         purchaseDate: data.purchaseDate,
@@ -73,11 +72,20 @@ class ApiService {
         requestData.description = data.description;
       }
 
-      // Convert image file to base64 if provided
+      // Handle image: if it's a URL string, use it directly; if it's a File, convert to base64
       if (data.image) {
-        requestData.imageBase64 = await this.fileToBase64(data.image);
+        if (typeof data.image === 'string') {
+          // Image is already a URL (uploaded to localhost)
+          requestData.image = data.image;
+          console.log('📸 使用圖片 URL:', data.image);
+        } else if (data.image instanceof File) {
+          // Image is a File object, convert to base64 (fallback for backward compatibility)
+          requestData.imageBase64 = await this.fileToBase64(data.image);
+          console.log('📸 使用圖片 Base64 (向後兼容)');
+        }
       }
 
+      console.log('📤 發送請求體:', JSON.stringify(requestData, null, 2));
       const response = await axios.post(`${API_BASE_URL}/api/v1/receipts/issue`, requestData, {
         headers: {
           'Content-Type': 'application/json',

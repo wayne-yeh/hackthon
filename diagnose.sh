@@ -92,3 +92,4 @@ echo "3. 使用 Hardhat 腳本直接測試 mint 功能"
 echo "4. 檢查 web3j 版本兼容性"
 
 
+

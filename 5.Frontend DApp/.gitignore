@@ -84,6 +84,9 @@ pids/
 tmp/
 temp/
 
+# Uploaded images
+public/uploads/
+
 
 
 

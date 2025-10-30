@@ -6,8 +6,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent } from '@/components/ui/card';
-import { Upload, X, Image as ImageIcon } from 'lucide-react';
+import { Upload, X, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { apiService, ReceiptIssueRequest } from '@/services/apiService';
+import { toast } from 'react-hot-toast';
+import axios from 'axios';
 
 interface ReceiptFormProps {
   onSubmit: (data: ReceiptIssueRequest) => Promise<void>;
@@ -25,6 +27,8 @@ export function ReceiptForm({ onSubmit, isSubmitting = false }: ReceiptFormProps
   });
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -34,23 +38,63 @@ export function ReceiptForm({ onSubmit, isSubmitting = false }: ReceiptFormProps
     }));
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      setFormData(prev => ({ ...prev, image: file }));
-      
-      // Create preview
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setImagePreview(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    // 驗證文件類型
+    if (!file.type.startsWith('image/')) {
+      toast.error('只支持圖片文件');
+      return;
+    }
+
+    // 驗證文件大小（10MB）
+    const maxSize = 10 * 1024 * 1024;
+    if (file.size > maxSize) {
+      toast.error('文件大小不能超過 10MB');
+      return;
+    }
+
+    // 創建預覽
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setImagePreview(e.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+
+    // 立即上傳圖片
+    setIsUploading(true);
+    try {
+      const uploadFormData = new FormData();
+      uploadFormData.append('file', file);
+
+      const response = await axios.post('/api/upload-image', uploadFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.data.success) {
+        const uploadedUrl = `http://localhost:3000${response.data.url}`;
+        setImageUrl(uploadedUrl);
+        setFormData(prev => ({ ...prev, image: uploadedUrl }));
+        toast.success('圖片上傳成功');
+      } else {
+        throw new Error(response.data.error || '上傳失敗');
+      }
+    } catch (error: any) {
+      console.error('圖片上傳錯誤:', error);
+      toast.error(error.response?.data?.error || error.message || '圖片上傳失敗');
+      setImagePreview(null);
+    } finally {
+      setIsUploading(false);
     }
   };
 
   const removeImage = () => {
     setFormData(prev => ({ ...prev, image: null }));
     setImagePreview(null);
+    setImageUrl(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -161,13 +205,22 @@ export function ReceiptForm({ onSubmit, isSubmitting = false }: ReceiptFormProps
                 onChange={handleImageChange}
                 className="hidden"
                 id="image-upload"
+                disabled={isUploading}
               />
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => document.getElementById('image-upload')?.click()}
+                disabled={isUploading}
               >
-                選擇圖片
+                {isUploading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    上傳中...
+                  </>
+                ) : (
+                  '選擇圖片'
+                )}
               </Button>
             </div>
           ) : (
@@ -179,12 +232,18 @@ export function ReceiptForm({ onSubmit, isSubmitting = false }: ReceiptFormProps
                     alt="Preview"
                     className="w-full h-48 object-cover"
                   />
+                  {isUploading && (
+                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                      <Loader2 className="h-8 w-8 text-white animate-spin" />
+                    </div>
+                  )}
                   <Button
                     type="button"
                     variant="destructive"
                     size="sm"
                     className="absolute top-2 right-2"
                     onClick={removeImage}
+                    disabled={isUploading}
                   >
                     <X className="h-4 w-4" />
                   </Button>
@@ -192,15 +251,18 @@ export function ReceiptForm({ onSubmit, isSubmitting = false }: ReceiptFormProps
                 <div className="p-4">
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <ImageIcon className="h-4 w-4" />
-                    <span>{formData.image?.name}</span>
+                    <span className="truncate">{imageUrl || '上傳中...'}</span>
                   </div>
+                  {imageUrl && (
+                    <p className="text-xs text-green-600 mt-1">✓ 圖片已上傳並存儲</p>
+                  )}
                 </div>
               </CardContent>
             </Card>
           )}
         </div>
         <p className="text-xs text-gray-500">
-          支持 JPG、PNG 格式，最大 10MB
+          支持 JPG、PNG 格式，最大 10MB。點擊選擇圖片後會自動上傳到本地服務器
         </p>
       </div>
 
