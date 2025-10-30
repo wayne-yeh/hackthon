@@ -27,18 +27,18 @@ export default function HomePage() {
             </div>
             
             <nav className="hidden md:flex items-center space-x-6">
+              {wallet.isConnected && (
+                <Link href="/issuer" className="text-gray-600 hover:text-gray-900 transition-colors">
+                  發行收據
+                </Link>
+              )}
               <Link href="/verify" className="text-gray-600 hover:text-gray-900 transition-colors">
                 驗證收據
               </Link>
               {wallet.isConnected && (
-                <>
-                  <Link href="/issuer" className="text-gray-600 hover:text-gray-900 transition-colors">
-                    發行收據
-                  </Link>
-                  <Link href="/revoke" className="text-gray-600 hover:text-gray-900 transition-colors">
-                    作廢收據
-                  </Link>
-                </>
+                <Link href="/revoke" className="text-gray-600 hover:text-gray-900 transition-colors">
+                  作廢收據
+                </Link>
               )}
             </nav>
           </div>
