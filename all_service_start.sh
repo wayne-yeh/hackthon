@@ -28,7 +28,7 @@ BACKEND_PID=$!
 cd ..
 
 echo "Start Frontend DApp..."
-cd "5.Frontend DApp" || exit
+cd "4.Frontend DApp" || exit
 make dev > ../logs/frontend.log 2>&1 &
 FRONTEND_PID=$!
 cd ..
