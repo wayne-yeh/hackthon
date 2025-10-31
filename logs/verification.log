@@ -38,14 +38,17 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.0)
 
-2025-10-31 17:26:53 - Starting VerificationServiceApplication using Java 17.0.16 with PID 89739 (/Users/weiyeh/Desktop/hackathon/4.Verification Service/target/classes started by weiyeh in /Users/weiyeh/Desktop/hackathon/4.Verification Service)
-2025-10-31 17:26:53 - Running with Spring Boot v3.2.0, Spring v6.1.1
-2025-10-31 17:26:53 - No active profile set, falling back to 1 default profile: "default"
-2025-10-31 17:26:53 - Tomcat initialized with port 8082 (http)
-2025-10-31 17:26:53 - Starting service [Tomcat]
-2025-10-31 17:26:53 - Starting Servlet engine: [Apache Tomcat/10.1.16]
-2025-10-31 17:26:54 - Initializing Spring embedded WebApplicationContext
-2025-10-31 17:26:54 - Root WebApplicationContext: initialization completed in 896 ms
-2025-10-31 17:26:54 - Exposing 3 endpoint(s) beneath base path '/actuator'
-2025-10-31 17:26:54 - Tomcat started on port 8082 (http) with context path ''
-2025-10-31 17:26:54 - Started VerificationServiceApplication in 1.927 seconds (process running for 2.231)
+2025-10-31 23:22:49 - Starting VerificationServiceApplication using Java 17.0.16 with PID 79054 (/Users/weiyeh/Desktop/hackathon/4.Verification Service/target/classes started by weiyeh in /Users/weiyeh/Desktop/hackathon/4.Verification Service)
+2025-10-31 23:22:49 - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-10-31 23:22:49 - No active profile set, falling back to 1 default profile: "default"
+2025-10-31 23:22:55 - Tomcat initialized with port 8082 (http)
+2025-10-31 23:22:55 - Starting service [Tomcat]
+2025-10-31 23:22:55 - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-10-31 23:22:55 - Initializing Spring embedded WebApplicationContext
+2025-10-31 23:22:55 - Root WebApplicationContext: initialization completed in 5633 ms
+2025-10-31 23:22:58 - Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-10-31 23:22:58 - Tomcat started on port 8082 (http) with context path ''
+2025-10-31 23:22:58 - Started VerificationServiceApplication in 11.122 seconds (process running for 12.977)
+2025-10-31 23:26:02 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-31 23:26:02 - Initializing Servlet 'dispatcherServlet'
+2025-10-31 23:26:02 - Completed initialization in 16 ms

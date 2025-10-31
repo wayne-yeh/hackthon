@@ -37,184 +37,39 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.0)
 
-2025-10-31T17:26:53.284+08:00  INFO 89741 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Starting MetadataServiceApplication using Java 17.0.16 with PID 89741 (/Users/weiyeh/Desktop/hackathon/2.Metadata Service/target/classes started by weiyeh in /Users/weiyeh/Desktop/hackathon/2.Metadata Service)
-2025-10-31T17:26:53.285+08:00 DEBUG 89741 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Running with Spring Boot v3.2.0, Spring v6.1.1
-2025-10-31T17:26:53.285+08:00  INFO 89741 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-10-31T17:26:53.996+08:00  INFO 89741 --- [metadata-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-10-31T17:26:54.000+08:00  INFO 89741 --- [metadata-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-10-31T17:26:54.000+08:00  INFO 89741 --- [metadata-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
-2025-10-31T17:26:54.036+08:00  INFO 89741 --- [metadata-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-10-31T17:26:54.037+08:00  INFO 89741 --- [metadata-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 714 ms
-2025-10-31T17:26:54.106+08:00 DEBUG 89741 --- [metadata-service] [           main] o.s.w.f.ServerHttpObservationFilter      : Filter 'webMvcObservationFilter' configured for use
-2025-10-31T17:26:54.217+08:00 DEBUG 89741 --- [metadata-service] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 9 mappings in 'requestMappingHandlerMapping'
-2025-10-31T17:26:54.245+08:00 DEBUG 89741 --- [metadata-service] [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
-2025-10-31T17:26:54.259+08:00 DEBUG 89741 --- [metadata-service] [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-10-31T17:26:54.274+08:00 DEBUG 89741 --- [metadata-service] [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-10-31T17:26:54.365+08:00  INFO 89741 --- [metadata-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoint(s) beneath base path '/actuator'
-2025-10-31T17:26:54.405+08:00  INFO 89741 --- [metadata-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
-2025-10-31T17:26:54.414+08:00  INFO 89741 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Started MetadataServiceApplication in 1.379 seconds (process running for 1.608)
-2025-10-31T17:32:14.028+08:00  INFO 89741 --- [metadata-service] [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-10-31T17:32:14.028+08:00  INFO 89741 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-10-31T17:32:14.028+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
-2025-10-31T17:32:14.029+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
-2025-10-31T17:32:14.029+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
-2025-10-31T17:32:14.029+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@26895948
-2025-10-31T17:32:14.030+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@483188f9
-2025-10-31T17:32:14.030+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-10-31T17:32:14.044+08:00  INFO 89741 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 16 ms
-2025-10-31T17:32:14.059+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/metadata/receipts", parameters={multipart}
-2025-10-31T17:32:14.072+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.tar.metadata.controller.MetadataController#uploadReceipt(String, String, String, String, String, MultipartFile, String)
-2025-10-31T17:32:14.112+08:00  INFO 89741 --- [metadata-service] [nio-8081-exec-1] c.tar.metadata.adapter.IpfsAdapterStub   : Metadata uploaded to IPFS stub: http://localhost:8081/api/metadata/download?key=ipfs://b132926d-d498-484a-b364-9ed54ff28942
-2025-10-31T17:32:14.121+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-10-31T17:32:14.122+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.tar.metadata.dto.ReceiptUploadResponse@5227ad09]
-2025-10-31T17:32:14.127+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-10-31T17:34:55.525+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/metadata/receipts", parameters={multipart}
-2025-10-31T17:34:55.530+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.tar.metadata.controller.MetadataController#uploadReceipt(String, String, String, String, String, MultipartFile, String)
-2025-10-31T17:34:55.532+08:00  INFO 89741 --- [metadata-service] [nio-8081-exec-3] c.tar.metadata.adapter.IpfsAdapterStub   : Metadata uploaded to IPFS stub: http://localhost:8081/api/metadata/download?key=ipfs://b515d2c5-fe01-4028-98b2-682ad7e3ad28
-2025-10-31T17:34:55.532+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-10-31T17:34:55.532+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.tar.metadata.dto.ReceiptUploadResponse@12731a9e]
-2025-10-31T17:34:55.532+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-10-31T17:35:08.014+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/metadata/download?key=ipfs://cd6c79bc-fcf4-47de-ad9d-40beaebc6857", parameters={masked}
-2025-10-31T17:35:08.018+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.tar.metadata.controller.MetadataController#downloadFile(String)
-2025-10-31T17:35:08.021+08:00 ERROR 89741 --- [metadata-service] [nio-8081-exec-4] c.tar.metadata.adapter.IpfsAdapterStub   : Failed to download metadata from IPFS stub: Metadata not found for hash: cd6c79bc-fcf4-47de-ad9d-40beaebc6857
-
-java.lang.Exception: Metadata not found for hash: cd6c79bc-fcf4-47de-ad9d-40beaebc6857
-	at com.tar.metadata.adapter.IpfsAdapterStub.downloadMetadata(IpfsAdapterStub.java:73) ~[classes/:na]
-	at com.tar.metadata.service.MetadataService.downloadMetadata(MetadataService.java:120) ~[classes/:na]
-	at com.tar.metadata.controller.MetadataController.downloadFile(MetadataController.java:99) ~[classes/:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:254) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:182) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[tomcat-embed-core-10.1.16.jar:6.0]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.16.jar:6.0]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
-
-2025-10-31T17:35:08.030+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-10-31T17:35:08.030+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Nothing to write: null body
-2025-10-31T17:35:08.031+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 500 INTERNAL_SERVER_ERROR
-2025-10-31T17:35:17.487+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/metadata/download?key=ipfs://cd6c79bc-fcf4-47de-ad9d-40beaebc6857", parameters={masked}
-2025-10-31T17:35:17.493+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.tar.metadata.controller.MetadataController#downloadFile(String)
-2025-10-31T17:35:17.494+08:00 ERROR 89741 --- [metadata-service] [nio-8081-exec-5] c.tar.metadata.adapter.IpfsAdapterStub   : Failed to download metadata from IPFS stub: Metadata not found for hash: cd6c79bc-fcf4-47de-ad9d-40beaebc6857
-
-java.lang.Exception: Metadata not found for hash: cd6c79bc-fcf4-47de-ad9d-40beaebc6857
-	at com.tar.metadata.adapter.IpfsAdapterStub.downloadMetadata(IpfsAdapterStub.java:73) ~[classes/:na]
-	at com.tar.metadata.service.MetadataService.downloadMetadata(MetadataService.java:120) ~[classes/:na]
-	at com.tar.metadata.controller.MetadataController.downloadFile(MetadataController.java:99) ~[classes/:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:254) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:182) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[tomcat-embed-core-10.1.16.jar:6.0]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.16.jar:6.0]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
-
-2025-10-31T17:35:17.499+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-10-31T17:35:17.499+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Nothing to write: null body
-2025-10-31T17:35:17.499+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 500 INTERNAL_SERVER_ERROR
-2025-10-31T17:35:59.556+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/metadata/download?key=ipfs://b515d2c5-fe01-4028-98b2-682ad7e3ad28", parameters={masked}
-2025-10-31T17:35:59.557+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.tar.metadata.controller.MetadataController#downloadFile(String)
-2025-10-31T17:35:59.557+08:00  INFO 89741 --- [metadata-service] [nio-8081-exec-7] c.tar.metadata.adapter.IpfsAdapterStub   : Metadata downloaded from IPFS stub: ipfs://b515d2c5-fe01-4028-98b2-682ad7e3ad28
-2025-10-31T17:35:59.557+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-10-31T17:35:59.558+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing ["{"name":"TAR Receipt #ＲＷＡ-202511010002","description":"Tokenized Asset Receipt - 現金 (Amount: 999998. (truncated)..."]
-2025-10-31T17:35:59.558+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-10-31T17:36:00.543+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/metadata/download?key=ipfs://b515d2c5-fe01-4028-98b2-682ad7e3ad28", parameters={masked}
-2025-10-31T17:36:00.547+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.tar.metadata.controller.MetadataController#downloadFile(String)
-2025-10-31T17:36:00.548+08:00  INFO 89741 --- [metadata-service] [nio-8081-exec-8] c.tar.metadata.adapter.IpfsAdapterStub   : Metadata downloaded from IPFS stub: ipfs://b515d2c5-fe01-4028-98b2-682ad7e3ad28
-2025-10-31T17:36:00.549+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-10-31T17:36:00.550+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing ["{"name":"TAR Receipt #ＲＷＡ-202511010002","description":"Tokenized Asset Receipt - 現金 (Amount: 999998. (truncated)..."]
-2025-10-31T17:36:00.552+08:00 DEBUG 89741 --- [metadata-service] [nio-8081-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-10-31T23:22:49.320+08:00  INFO 79042 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Starting MetadataServiceApplication using Java 17.0.16 with PID 79042 (/Users/weiyeh/Desktop/hackathon/2.Metadata Service/target/classes started by weiyeh in /Users/weiyeh/Desktop/hackathon/2.Metadata Service)
+2025-10-31T23:22:49.323+08:00 DEBUG 79042 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-10-31T23:22:49.326+08:00  INFO 79042 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-10-31T23:22:54.511+08:00  INFO 79042 --- [metadata-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-10-31T23:22:54.533+08:00  INFO 79042 --- [metadata-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-31T23:22:54.533+08:00  INFO 79042 --- [metadata-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-10-31T23:22:54.834+08:00  INFO 79042 --- [metadata-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-31T23:22:54.834+08:00  INFO 79042 --- [metadata-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5458 ms
+2025-10-31T23:22:55.345+08:00 DEBUG 79042 --- [metadata-service] [           main] o.s.w.f.ServerHttpObservationFilter      : Filter 'webMvcObservationFilter' configured for use
+2025-10-31T23:22:55.947+08:00 DEBUG 79042 --- [metadata-service] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 9 mappings in 'requestMappingHandlerMapping'
+2025-10-31T23:22:56.102+08:00 DEBUG 79042 --- [metadata-service] [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2025-10-31T23:22:56.156+08:00 DEBUG 79042 --- [metadata-service] [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-10-31T23:22:56.234+08:00 DEBUG 79042 --- [metadata-service] [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-10-31T23:22:56.684+08:00  INFO 79042 --- [metadata-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-10-31T23:22:56.919+08:00  INFO 79042 --- [metadata-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2025-10-31T23:22:56.984+08:00  INFO 79042 --- [metadata-service] [           main] c.t.metadata.MetadataServiceApplication  : Started MetadataServiceApplication in 9.388 seconds (process running for 11.469)
+2025-10-31T23:24:20.668+08:00  INFO 79042 --- [metadata-service] [nio-8081-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-31T23:24:20.719+08:00  INFO 79042 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-31T23:24:20.725+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-10-31T23:24:20.725+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-10-31T23:24:20.725+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-10-31T23:24:20.752+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@a7ba05
+2025-10-31T23:24:20.752+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@611517cd
+2025-10-31T23:24:20.752+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-10-31T23:24:20.752+08:00  INFO 79042 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 33 ms
+2025-10-31T23:24:21.112+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/actuator/health", parameters={}
+2025-10-31T23:24:21.263+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Read "application/octet-stream" to []
+2025-10-31T23:24:21.419+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/vnd.spring-boot.actuator.v3+json', given [*/*] and supported [application/vnd.spring-boot.actuator.v3+json, application/vnd.spring-boot.actuator.v2+json, application/json]
+2025-10-31T23:24:21.906+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [org.springframework.boot.actuate.health.SystemHealth@d8e343e]
+2025-10-31T23:24:21.950+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-10-31T23:25:21.385+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/api/metadata/receipts", parameters={multipart}
+2025-10-31T23:25:22.470+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.tar.metadata.controller.MetadataController#uploadReceipt(String, String, String, String, String, MultipartFile, String)
+2025-10-31T23:25:22.514+08:00  INFO 79042 --- [metadata-service] [nio-8081-exec-2] c.tar.metadata.adapter.IpfsAdapterStub   : Metadata uploaded to IPFS stub: http://localhost:8081/api/metadata/download?key=ipfs://a1f30ccd-6f14-4bb6-b112-e7119079c5e3
+2025-10-31T23:25:22.520+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-10-31T23:25:22.520+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.tar.metadata.dto.ReceiptUploadResponse@569ad093]
+2025-10-31T23:25:22.521+08:00 DEBUG 79042 --- [metadata-service] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
