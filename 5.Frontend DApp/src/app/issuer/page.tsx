@@ -28,7 +28,7 @@ export default function IssuerPage() {
       
       // 等待一下讓用戶看到成功消息
       setTimeout(() => {
-        router.push('/my');
+        router.push('/');
       }, 1500);
     } catch (error: any) {
       console.error('發行收據錯誤:', error);

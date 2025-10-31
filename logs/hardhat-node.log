@@ -124,7 +124,7 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   Value:               0 ETH
   Gas used:            1720626 of 30000000
-  Block #1:            0xb1851cdec4e08ee4f687c1cbb290cf50fd6bd0346c2adcf47d47fc56efdc12f9
+  Block #1:            0x26608ecebd562574b5bfc1a295e94986afa639bb812685785bc947a6bbbe29df
 
 [32meth_getTransactionByHash[0m
 [32meth_getTransactionReceipt[0m
@@ -170,7 +170,7 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
   To:                  0x5fbdb2315678afecb367f032d93f642f64180aa3
   Value:               0 ETH
   Gas used:            51542 of 30000000
-  Block #2:            0x011e3c56267e9d2ef2dfbfca9613b8a01d3cd717098da2e0229534c8464dc23e
+  Block #2:            0x7a4a595a8ca06717d9d0bbf6e0979d235bc68b61289eeba2620e3a2ca20150ed
 
 [32meth_getTransactionByHash[0m
 [32meth_getTransactionReceipt[0m
@@ -184,11 +184,23 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
 [32meth_getTransactionCount[0m
 [32meth_sendRawTransaction[0m
   Contract call:       TARReceipt#mint
-  Transaction:         0x09825d0e0220e7696c7bef6d5ebc5d23b34ccaf1354ca93ab58265d061b406f3
+  Transaction:         0xcc2cc475e6dbdb8360ab5f7a196df70257ace0d3eb1453c133ea23333536c3bf
   From:                0x70997970c51812dc3a010c7d01b50e0d17dc79c8
   To:                  0x5fbdb2315678afecb367f032d93f642f64180aa3
   Value:               0 ETH
   Gas used:            216287 of 9000000
-  Block #3:            0x26b46f58f572795d6f0f240bb00b203936e8a447775d8424ecb53994f0704ba3
+  Block #3:            0x641f6f79dabf574dfa8b0cd3fd66e6ccee54a4c3341889ab8fd44db319f63e8e
+
+[32meth_getTransactionReceipt[0m
+[32meth_chainId[0m
+[32meth_getTransactionCount[0m
+[32meth_sendRawTransaction[0m
+  Contract call:       TARReceipt#mint
+  Transaction:         0x8e334f89edff51ccb0be2cc535e312cefb6772bd7ec585f6b065459111b05a7f
+  From:                0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+  To:                  0x5fbdb2315678afecb367f032d93f642f64180aa3
+  Value:               0 ETH
+  Gas used:            182099 of 9000000
+  Block #4:            0x705a7d05d2abf9f74c62b5879c4c5b46ddae68b3c6a74d50883c4b380fd801f5
 
 [32meth_getTransactionReceipt[0m
