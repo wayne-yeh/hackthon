@@ -180,7 +180,54 @@ function VerifyPageContent() {
           </Card>
 
           {/* Verification Result */}
-          {receipt && (
+          {verificationStatus === 'invalid' ? (
+            <Card className="mb-8 border-red-200 bg-red-50">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center gap-2 text-red-900">
+                    <XCircle className="h-5 w-5 text-red-600" />
+                    驗證結果
+                  </CardTitle>
+                  <VerifyBadge status={verificationStatus} size="lg" />
+                </div>
+                <CardDescription className="text-red-700">
+                  {receipt ? `Token ID: ${receipt.tokenId} 的驗證結果` : '驗證失敗'}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="text-center py-8">
+                <div className="mb-6">
+                  <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <XCircle className="h-12 w-12 text-red-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-red-900 mb-2">收據驗證失敗</h3>
+                  <p className="text-red-700 mb-4">此收據無法通過驗證，可能的原因包括：</p>
+                </div>
+                <div className="space-y-3 text-left max-w-md mx-auto">
+                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border border-red-200">
+                    <XCircle className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-red-900">Token ID 不存在或無效</p>
+                      <p className="text-sm text-red-700">請確認 Token ID 是否正確</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border border-red-200">
+                    <XCircle className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-red-900">元數據已被篡改</p>
+                      <p className="text-sm text-red-700">收據的元數據與區塊鏈記錄不一致</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border border-red-200">
+                    <XCircle className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-red-900">區塊鏈記錄不一致</p>
+                      <p className="text-sm text-red-700">無法驗證收據的真實性</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ) : receipt && (
             <Card className="mb-8">
               <CardHeader>
                 <div className="flex items-center justify-between">
