@@ -9,7 +9,7 @@
 [WARNING] The artifact com.github.tomakehurst:wiremock-jre8:jar:3.0.1 has been relocated to org.wiremock:wiremock:jar:3.0.1
 [INFO] 
 [INFO] --- jacoco:0.8.11:prepare-agent (default) @ verification-service ---
-[INFO] argLine set to "-javaagent:/Users/weiyeh/.m2/repository/org/jacoco/org.jacoco.agent/0.8.11/org.jacoco.agent-0.8.11-runtime.jar=destfile=/Users/weiyeh/Desktop/區塊鏈/hackathon/4.Verification Service/target/jacoco.exec"
+[INFO] argLine set to "-javaagent:/Users/weiyeh/.m2/repository/org/jacoco/org.jacoco.agent/0.8.11/org.jacoco.agent-0.8.11-runtime.jar=destfile=/Users/weiyeh/Desktop/hackathon/4.Verification Service/target/jacoco.exec"
 [INFO] 
 [INFO] --- resources:3.3.1:resources (default-resources) @ verification-service ---
 [INFO] Copying 1 resource from src/main/resources to target/classes
@@ -38,14 +38,14 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.0)
 
-2025-10-31 15:24:42 - Starting VerificationServiceApplication using Java 17.0.16 with PID 56469 (/Users/weiyeh/Desktop/區塊鏈/hackathon/4.Verification Service/target/classes started by weiyeh in /Users/weiyeh/Desktop/區塊鏈/hackathon/4.Verification Service)
-2025-10-31 15:24:42 - Running with Spring Boot v3.2.0, Spring v6.1.1
-2025-10-31 15:24:42 - No active profile set, falling back to 1 default profile: "default"
-2025-10-31 15:24:43 - Tomcat initialized with port 8082 (http)
-2025-10-31 15:24:43 - Starting service [Tomcat]
-2025-10-31 15:24:43 - Starting Servlet engine: [Apache Tomcat/10.1.16]
-2025-10-31 15:24:43 - Initializing Spring embedded WebApplicationContext
-2025-10-31 15:24:43 - Root WebApplicationContext: initialization completed in 712 ms
-2025-10-31 15:24:44 - Exposing 3 endpoint(s) beneath base path '/actuator'
-2025-10-31 15:24:44 - Tomcat started on port 8082 (http) with context path ''
-2025-10-31 15:24:44 - Started VerificationServiceApplication in 1.571 seconds (process running for 1.791)
+2025-10-31 17:26:53 - Starting VerificationServiceApplication using Java 17.0.16 with PID 89739 (/Users/weiyeh/Desktop/hackathon/4.Verification Service/target/classes started by weiyeh in /Users/weiyeh/Desktop/hackathon/4.Verification Service)
+2025-10-31 17:26:53 - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-10-31 17:26:53 - No active profile set, falling back to 1 default profile: "default"
+2025-10-31 17:26:53 - Tomcat initialized with port 8082 (http)
+2025-10-31 17:26:53 - Starting service [Tomcat]
+2025-10-31 17:26:53 - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-10-31 17:26:54 - Initializing Spring embedded WebApplicationContext
+2025-10-31 17:26:54 - Root WebApplicationContext: initialization completed in 896 ms
+2025-10-31 17:26:54 - Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-10-31 17:26:54 - Tomcat started on port 8082 (http) with context path ''
+2025-10-31 17:26:54 - Started VerificationServiceApplication in 1.927 seconds (process running for 2.231)
