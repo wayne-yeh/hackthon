@@ -38,17 +38,14 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.0)
 
-2025-10-31 01:11:55 - Starting VerificationServiceApplication using Java 17.0.16 with PID 94064 (/Users/weiyeh/Desktop/區塊鏈/hackathon/4.Verification Service/target/classes started by weiyeh in /Users/weiyeh/Desktop/區塊鏈/hackathon/4.Verification Service)
-2025-10-31 01:11:55 - Running with Spring Boot v3.2.0, Spring v6.1.1
-2025-10-31 01:11:55 - No active profile set, falling back to 1 default profile: "default"
-2025-10-31 01:11:56 - Tomcat initialized with port 8082 (http)
-2025-10-31 01:11:56 - Starting service [Tomcat]
-2025-10-31 01:11:56 - Starting Servlet engine: [Apache Tomcat/10.1.16]
-2025-10-31 01:11:56 - Initializing Spring embedded WebApplicationContext
-2025-10-31 01:11:56 - Root WebApplicationContext: initialization completed in 720 ms
-2025-10-31 01:11:56 - Exposing 3 endpoint(s) beneath base path '/actuator'
-2025-10-31 01:11:56 - Tomcat started on port 8082 (http) with context path ''
-2025-10-31 01:11:56 - Started VerificationServiceApplication in 1.578 seconds (process running for 1.766)
-2025-10-31 01:12:08 - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-10-31 01:12:08 - Initializing Servlet 'dispatcherServlet'
-2025-10-31 01:12:08 - Completed initialization in 1 ms
+2025-10-31 15:12:15 - Starting VerificationServiceApplication using Java 17.0.16 with PID 28892 (/Users/weiyeh/Desktop/區塊鏈/hackathon/4.Verification Service/target/classes started by weiyeh in /Users/weiyeh/Desktop/區塊鏈/hackathon/4.Verification Service)
+2025-10-31 15:12:15 - Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-10-31 15:12:15 - No active profile set, falling back to 1 default profile: "default"
+2025-10-31 15:12:16 - Tomcat initialized with port 8082 (http)
+2025-10-31 15:12:16 - Starting service [Tomcat]
+2025-10-31 15:12:16 - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-10-31 15:12:16 - Initializing Spring embedded WebApplicationContext
+2025-10-31 15:12:16 - Root WebApplicationContext: initialization completed in 718 ms
+2025-10-31 15:12:16 - Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-10-31 15:12:16 - Tomcat started on port 8082 (http) with context path ''
+2025-10-31 15:12:16 - Started VerificationServiceApplication in 1.644 seconds (process running for 1.825)
