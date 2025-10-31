@@ -23,3 +23,4 @@ npm run dev
  ○ Compiling /api/upload-image ...
  ✓ Compiled /api/upload-image in 1653ms (452 modules)
  POST /api/upload-image 200 in 2294ms
+ GET / 200 in 416ms
