@@ -52,7 +52,7 @@ export function WalletConnectButton() {
             已連接錢包
           </CardTitle>
           <CardDescription>
-            您的錢包已成功連接到 TAR DApp
+            您的錢包已成功連接到Dreamchain
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -96,7 +96,7 @@ export function WalletConnectButton() {
           連接錢包
         </CardTitle>
         <CardDescription>
-          連接您的 MetaMask 錢包以開始使用 TAR DApp
+          連接您的 MetaMask 錢包以開始使用Dreamchain
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
