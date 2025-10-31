@@ -74,7 +74,7 @@ export default function IssuerPage() {
               發行收據
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              創建新的資產收據
+              開立收據
             </h2>
             <p className="text-gray-600">
               填寫以下信息來發行一個新的 Tokenized Asset Receipt
@@ -84,8 +84,7 @@ export default function IssuerPage() {
           {/* Form Card */}
           <Card className="shadow-lg">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Upload className="h-5 w-5 text-blue-600" />
+              <CardTitle>
                 收據信息
               </CardTitle>
               <CardDescription>

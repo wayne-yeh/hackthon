@@ -54,12 +54,13 @@ export default function HomePage() {
           </div>
           
           <h2 className="text-5xl font-bold text-gray-900 mb-6">
-            數位化您的
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> 資產收據</span>
+            上鏈夢想家
+            <br />
+            <span className="mt-4 inline-block">區塊鏈收據發行</span>
           </h2>
           
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            使用區塊鏈技術創建、驗證和管理您的資產收據。安全、透明、不可篡改的數位收據解決方案。
+            
           </p>
 
           {wallet.isConnected ? (
