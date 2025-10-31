@@ -62,7 +62,7 @@ function VerifyPageContent() {
       // 根據驗證結果設置狀態
       if (verificationResult.revoked) {
         setVerificationStatus('revoked');
-        toast.error('收據已被撤銷');
+        toast.error('收據已被作廢');
       } else if (verificationResult.valid) {
         setVerificationStatus('valid');
         toast.success('驗證成功！收據有效');
@@ -127,7 +127,7 @@ function VerifyPageContent() {
               收據驗證
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              驗證收據真偽
+              驗證收據
             </h2>
             <p className="text-gray-600">
               輸入 Token ID 來驗證收據的有效性和真實性
@@ -227,7 +227,7 @@ function VerifyPageContent() {
                 </div>
                 <div className="flex items-start gap-2">
                   <div className="w-2 h-2 bg-green-600 rounded-full mt-2"></div>
-                  <span>收據未被撤銷</span>
+                  <span>收據未被作廢</span>
                 </div>
               </CardContent>
             </Card>
@@ -254,7 +254,7 @@ function VerifyPageContent() {
                 </div>
                 <div className="flex items-start gap-2">
                   <div className="w-2 h-2 bg-red-600 rounded-full mt-2"></div>
-                  <span>收據已被撤銷</span>
+                  <span>收據已被作廢</span>
                 </div>
               </CardContent>
             </Card>

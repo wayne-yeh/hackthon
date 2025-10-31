@@ -76,9 +76,6 @@ export default function IssuerPage() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               開立收據
             </h2>
-            <p className="text-gray-600">
-              填寫以下信息來發行一個新的 Tokenized Asset Receipt
-            </p>
           </div>
 
           {/* Form Card */}

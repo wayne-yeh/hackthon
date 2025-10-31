@@ -203,7 +203,7 @@ export default function RevokePage() {
                     <p className="text-lg font-semibold">${receipt.amount}</p>
                   </div>
                   <div className="col-span-2">
-                    <Label className="text-sm text-gray-500">商品名稱</Label>
+                    <Label className="text-sm text-gray-500">品項</Label>
                     <p className="text-lg font-semibold">{receipt.itemName}</p>
                   </div>
                   <div className="col-span-2">

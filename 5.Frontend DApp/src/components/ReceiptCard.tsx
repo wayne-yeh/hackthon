@@ -37,7 +37,7 @@ export function ReceiptCard({ receipt, onVerify, showVerifyButton = true }: Rece
 
   const getStatusBadge = () => {
     if (receipt.revoked) {
-      return <Badge variant="destructive">已撤銷</Badge>;
+      return <Badge variant="destructive">已作廢</Badge>;
     }
     if (receipt.valid) {
       return <Badge variant="default" className="bg-green-600">有效</Badge>;
@@ -84,7 +84,7 @@ export function ReceiptCard({ receipt, onVerify, showVerifyButton = true }: Rece
           <div className="flex items-center gap-2 p-2 bg-blue-50 rounded">
             <Calendar className="h-4 w-4 text-blue-600" />
             <div>
-              <p className="text-xs text-blue-600">購買日期</p>
+              <p className="text-xs text-blue-600">發票日期</p>
               <p className="text-sm font-medium">{formatDate(receipt.purchaseDate)}</p>
             </div>
           </div>

@@ -19,8 +19,8 @@ interface ReceiptFormProps {
 export function ReceiptForm({ onSubmit, isSubmitting = false }: ReceiptFormProps) {
   const [formData, setFormData] = useState<ReceiptIssueRequest>({
     ownerAddress: '',
-    invoiceNo: '',
-    itemName: '',
+    invoiceNo: 'ＲＷＡ-20251031001',
+    itemName: '現金',
     amount: 0,
     description: '',
     purchaseDate: new Date().toISOString().split('T')[0],
@@ -29,12 +29,14 @@ export function ReceiptForm({ onSubmit, isSubmitting = false }: ReceiptFormProps
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isInvoiceNoFocused, setIsInvoiceNoFocused] = useState(false);
+  const [isItemNameFocused, setIsItemNameFocused] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'amount' ? parseFloat(value) || 0 : value,
+      [name]: name === 'amount' ? (value === '' ? 0 : parseFloat(value) || 0) : value,
     }));
   };
 
@@ -132,21 +134,27 @@ export function ReceiptForm({ onSubmit, isSubmitting = false }: ReceiptFormProps
           placeholder="INV-2024-001"
           value={formData.invoiceNo}
           onChange={handleInputChange}
+          onFocus={() => setIsInvoiceNoFocused(true)}
+          onBlur={() => setIsInvoiceNoFocused(false)}
           required
+          className={formData.invoiceNo === 'ＲＷＡ-20251031001' && !isInvoiceNoFocused ? 'text-gray-400' : ''}
         />
       </div>
 
       {/* Item Name */}
       <div className="space-y-2">
-        <Label htmlFor="itemName">物品名稱 *</Label>
+        <Label htmlFor="itemName">品項 *</Label>
         <Input
           id="itemName"
           name="itemName"
           type="text"
-          placeholder="黃金條"
+          placeholder="現金"
           value={formData.itemName}
           onChange={handleInputChange}
+          onFocus={() => setIsItemNameFocused(true)}
+          onBlur={() => setIsItemNameFocused(false)}
           required
+          className={formData.itemName === '現金' && !isItemNameFocused ? 'text-gray-400' : ''}
         />
       </div>
 
@@ -159,7 +167,7 @@ export function ReceiptForm({ onSubmit, isSubmitting = false }: ReceiptFormProps
           type="number"
           step="0.01"
           placeholder="1000.00"
-          value={formData.amount}
+          value={formData.amount === 0 ? '' : formData.amount.toString()}
           onChange={handleInputChange}
           required
         />
@@ -167,7 +175,7 @@ export function ReceiptForm({ onSubmit, isSubmitting = false }: ReceiptFormProps
 
       {/* Purchase Date */}
       <div className="space-y-2">
-        <Label htmlFor="purchaseDate">購買日期 *</Label>
+        <Label htmlFor="purchaseDate">發票日期 *</Label>
         <Input
           id="purchaseDate"
           name="purchaseDate"
@@ -180,11 +188,11 @@ export function ReceiptForm({ onSubmit, isSubmitting = false }: ReceiptFormProps
 
       {/* Description */}
       <div className="space-y-2">
-        <Label htmlFor="description">描述</Label>
+        <Label htmlFor="description">詳細描述</Label>
         <Textarea
           id="description"
           name="description"
-          placeholder="詳細描述此資產..."
+          placeholder="詳細描述..."
           value={formData.description}
           onChange={handleInputChange}
           rows={3}
@@ -193,7 +201,7 @@ export function ReceiptForm({ onSubmit, isSubmitting = false }: ReceiptFormProps
 
       {/* Image Upload */}
       <div className="space-y-2">
-        <Label>資產圖片</Label>
+        <Label>上傳圖片</Label>
         <div className="space-y-4">
           {!imagePreview ? (
             <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">

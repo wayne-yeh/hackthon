@@ -54,7 +54,7 @@ export default function HomePage() {
           </div>
           
           <h2 className="text-5xl font-bold text-gray-900 mb-6">
-            上鏈夢想家
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">上鏈夢想家</span>
             <br />
             <span className="mt-4 inline-block">區塊鏈收據發行</span>
           </h2>
@@ -122,35 +122,13 @@ export default function HomePage() {
             </CardHeader>
           </Card>
         </div>
-
-        {/* Stats Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-3xl font-bold mb-2">100%</div>
-              <div className="text-blue-100">安全保證</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-2">24/7</div>
-              <div className="text-blue-100">隨時驗證</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-2">∞</div>
-              <div className="text-blue-100">永久保存</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-2">0</div>
-              <div className="text-blue-100">手續費</div>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* Footer */}
       <footer className="border-t bg-white/80 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center text-gray-600">
-            <p>&copy; 2024 TAR DApp. 基於區塊鏈的資產收據系統</p>
+            <p>＠2025 ＲＷＡ黑客松上鏈夢想家 區塊鏈收據系統</p>
           </div>
         </div>
       </footer>

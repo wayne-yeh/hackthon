@@ -31,7 +31,7 @@ export function VerifyBadge({ status, size = 'md' }: VerifyBadgeProps) {
           icon: AlertCircle,
           variant: 'destructive' as const,
           className: 'bg-orange-600 hover:bg-orange-700 text-white',
-          text: '已撤銷',
+          text: '已作廢',
         };
       case 'pending':
         return {
