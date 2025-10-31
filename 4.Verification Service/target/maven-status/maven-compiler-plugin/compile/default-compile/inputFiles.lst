@@ -1,9 +1,0 @@
-/Users/weiyeh/Desktop/hackathon/4.Verification Service/src/main/java/com/tar/verification/service/HashComparatorService.java
-/Users/weiyeh/Desktop/hackathon/4.Verification Service/src/main/java/com/tar/verification/client/MetadataClient.java
-/Users/weiyeh/Desktop/hackathon/4.Verification Service/src/main/java/com/tar/verification/dto/TokenMetadata.java
-/Users/weiyeh/Desktop/hackathon/4.Verification Service/src/main/java/com/tar/verification/controller/VerificationController.java
-/Users/weiyeh/Desktop/hackathon/4.Verification Service/src/main/java/com/tar/verification/config/ClientConfig.java
-/Users/weiyeh/Desktop/hackathon/4.Verification Service/src/main/java/com/tar/verification/client/BlockchainClient.java
-/Users/weiyeh/Desktop/hackathon/4.Verification Service/src/main/java/com/tar/verification/VerificationServiceApplication.java
-/Users/weiyeh/Desktop/hackathon/4.Verification Service/src/main/java/com/tar/verification/dto/VerificationResponse.java
-/Users/weiyeh/Desktop/hackathon/4.Verification Service/src/main/java/com/tar/verification/service/VerificationService.java

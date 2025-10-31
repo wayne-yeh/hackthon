@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 要釋放的 port 清單
-PORTS=(8545 8081 8083 8082 3000)
+PORTS=(8545 8081 8083 3000)
 
 for PORT in "${PORTS[@]}"; do
   echo "Checking port: $PORT"
