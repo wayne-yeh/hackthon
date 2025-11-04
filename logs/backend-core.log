@@ -37,27 +37,27 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.0)
 
-2025-10-31T23:39:46.695+08:00  INFO 96260 --- [tar-backend-core-api] [           main] com.tar.backend.BackendCoreApplication   : Starting BackendCoreApplication using Java 17.0.16 with PID 96260 (/Users/weiyeh/Desktop/hackathon/3.Backend Core API/target/classes started by weiyeh in /Users/weiyeh/Desktop/hackathon/3.Backend Core API)
-2025-10-31T23:39:46.719+08:00  INFO 96260 --- [tar-backend-core-api] [           main] com.tar.backend.BackendCoreApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-10-31T23:39:52.445+08:00  INFO 96260 --- [tar-backend-core-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-10-31T23:39:53.954+08:00  INFO 96260 --- [tar-backend-core-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 930 ms. Found 1 JPA repository interface.
-2025-10-31T23:39:59.381+08:00  INFO 96260 --- [tar-backend-core-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8083 (http)
-2025-10-31T23:39:59.421+08:00  INFO 96260 --- [tar-backend-core-api] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-10-31T23:39:59.421+08:00  INFO 96260 --- [tar-backend-core-api] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
-2025-10-31T23:40:00.323+08:00  INFO 96260 --- [tar-backend-core-api] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-10-31T23:40:00.329+08:00  INFO 96260 --- [tar-backend-core-api] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 13474 ms
-2025-10-31T23:40:01.634+08:00  INFO 96260 --- [tar-backend-core-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-10-31T23:40:03.300+08:00  INFO 96260 --- [tar-backend-core-api] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
-2025-10-31T23:40:03.304+08:00  INFO 96260 --- [tar-backend-core-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-10-31T23:40:03.347+08:00  INFO 96260 --- [tar-backend-core-api] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
-2025-10-31T23:40:04.970+08:00  INFO 96260 --- [tar-backend-core-api] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-10-31T23:40:05.686+08:00  INFO 96260 --- [tar-backend-core-api] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
-2025-10-31T23:40:05.784+08:00  INFO 96260 --- [tar-backend-core-api] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-10-31T23:40:07.069+08:00  INFO 96260 --- [tar-backend-core-api] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-10-31T23:40:07.305+08:00  WARN 96260 --- [tar-backend-core-api] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-10-31T23:40:12.074+08:00  INFO 96260 --- [tar-backend-core-api] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-10-31T23:40:12.467+08:00  INFO 96260 --- [tar-backend-core-api] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-10-31T23:40:15.347+08:00  INFO 96260 --- [tar-backend-core-api] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-04T13:32:36.125+08:00  INFO 30787 --- [tar-backend-core-api] [           main] com.tar.backend.BackendCoreApplication   : Starting BackendCoreApplication using Java 17.0.16 with PID 30787 (/Users/weiyeh/Desktop/hackathon/3.Backend Core API/target/classes started by weiyeh in /Users/weiyeh/Desktop/hackathon/3.Backend Core API)
+2025-11-04T13:32:36.134+08:00  INFO 30787 --- [tar-backend-core-api] [           main] com.tar.backend.BackendCoreApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-11-04T13:32:39.026+08:00  INFO 30787 --- [tar-backend-core-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-04T13:32:39.321+08:00  INFO 30787 --- [tar-backend-core-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 279 ms. Found 1 JPA repository interface.
+2025-11-04T13:32:40.780+08:00  INFO 30787 --- [tar-backend-core-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8083 (http)
+2025-11-04T13:32:40.800+08:00  INFO 30787 --- [tar-backend-core-api] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-04T13:32:40.801+08:00  INFO 30787 --- [tar-backend-core-api] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-04T13:32:40.891+08:00  INFO 30787 --- [tar-backend-core-api] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-04T13:32:40.893+08:00  INFO 30787 --- [tar-backend-core-api] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4641 ms
+2025-11-04T13:32:41.111+08:00  INFO 30787 --- [tar-backend-core-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-11-04T13:32:41.387+08:00  INFO 30787 --- [tar-backend-core-api] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-11-04T13:32:41.389+08:00  INFO 30787 --- [tar-backend-core-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-11-04T13:32:41.400+08:00  INFO 30787 --- [tar-backend-core-api] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2025-11-04T13:32:41.705+08:00  INFO 30787 --- [tar-backend-core-api] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-04T13:32:41.770+08:00  INFO 30787 --- [tar-backend-core-api] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-11-04T13:32:41.806+08:00  INFO 30787 --- [tar-backend-core-api] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-11-04T13:32:42.132+08:00  INFO 30787 --- [tar-backend-core-api] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-04T13:32:42.217+08:00  WARN 30787 --- [tar-backend-core-api] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-04T13:32:43.254+08:00  INFO 30787 --- [tar-backend-core-api] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-04T13:32:43.410+08:00  INFO 30787 --- [tar-backend-core-api] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-04T13:32:44.408+08:00  INFO 30787 --- [tar-backend-core-api] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
 ✅ Blockchain credentials created successfully for address: 0x70997970c51812dc3a010c7d01b50e0d17dc79c8
 🔗 Blockchain service initialized:
    RPC URL: http://localhost:8545
@@ -66,58 +66,8 @@
 🔍 Contract code length: 14636
 ✅ Contract found at address: 0x5FbDB2315678afecb367f032d93F642f64180aa3
    Code length: 14636 characters
-2025-10-31T23:40:21.533+08:00  WARN 96260 --- [tar-backend-core-api] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-10-31T23:40:23.680+08:00  INFO 96260 --- [tar-backend-core-api] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoint(s) beneath base path '/actuator'
-2025-10-31T23:40:23.882+08:00  INFO 96260 --- [tar-backend-core-api] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1c6d908b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5dd52021, org.springframework.security.web.context.SecurityContextHolderFilter@7188bd49, org.springframework.security.web.header.HeaderWriterFilter@1703b09a, org.springframework.web.filter.CorsFilter@24fb6521, org.springframework.security.web.authentication.logout.LogoutFilter@1a26f595, com.tar.backend.config.ApiKeyAuthFilter@c0013b8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@345236c6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@16c30e11, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@393bd750, org.springframework.security.web.session.SessionManagementFilter@9e5e75, org.springframework.security.web.access.ExceptionTranslationFilter@18fb5226, org.springframework.security.web.access.intercept.AuthorizationFilter@632f505b]
-2025-10-31T23:40:27.211+08:00  INFO 96260 --- [tar-backend-core-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8083 (http) with context path ''
-2025-10-31T23:40:27.521+08:00  INFO 96260 --- [tar-backend-core-api] [           main] com.tar.backend.BackendCoreApplication   : Started BackendCoreApplication in 42.565 seconds (process running for 44.165)
-2025-10-31T23:40:49.687+08:00  INFO 96260 --- [tar-backend-core-api] [nio-8083-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-10-31T23:40:49.690+08:00  INFO 96260 --- [tar-backend-core-api] [nio-8083-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-10-31T23:40:49.694+08:00  INFO 96260 --- [tar-backend-core-api] [nio-8083-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
-2025-10-31T23:40:49.743+08:00  WARN 96260 --- [tar-backend-core-api] [nio-8083-exec-2] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/actuator/health' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
-2025-10-31T23:41:28.419+08:00 ERROR 96260 --- [tar-backend-core-api] [nio-8083-exec-3] i.n.r.d.DnsServerAddressStreamProviders  : Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'. Use DEBUG level to see the full stack: java.lang.UnsatisfiedLinkError: failed to load the required native library
-🪙 Attempting to mint receipt:
-   To Address: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-   Token URI: http://localhost:8081/api/metadata/download?key=ipfs://ba4be2bb-8a12-441a-95b9-c81400aa2f69
-   Metadata Hash: ac4f2352693bf12ceb775dffb9d897e59f0bbe5fcf9a6596dd902bd16b989a3a
-   Credentials Available: true
-🔗 準備直接調用區塊鏈合約...
-   合約地址: 0x5FbDB2315678afecb367f032d93F642f64180aa3
-   接收地址: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-   Token URI: http://localhost:8081/api/metadata/download?key=ipfs://ba4be2bb-8a12-441a-95b9-c81400aa2f69
-   Metadata Hash: ac4f2352693bf12ceb775dffb9d897e59f0bbe5fcf9a6596dd902bd16b989a3a
-   Hash bytes length: 32
-📝 Function signature: mint(address,string,bytes32)
-📝 Function data: 0xe64e1a26000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb922660000000000000000000000000000000000000000000000000000000000000060ac4f2352693bf12ceb775dffb9d897e59f0bbe5fcf9a6596dd902bd16b989a3a000000000000000000000000000000000000000000000000000000000000005b687474703a2f2f6c6f63616c686f73743a383038312f6170692f6d657461646174612f646f776e6c6f61643f6b65793d697066733a2f2f62613462653262622d386131322d343431612d393562392d6338313430306161326636390000000000
-📝 Function data length: 458
-📝 Actual selector: 0xe64e1a26
-📝 Expected selector: 0xd34047b6
-📝 Using correct function data: 0xd34047b6000000000000000000000000f39fd6e51aad88f6...
-🔗 Chain ID: 31337
-🚀 發送交易到區塊鏈...
-   合約地址: 0x5FbDB2315678afecb367f032d93F642f64180aa3
-   函數數據: 0xd34047b6000000000000000000000000f39fd6e51aad88f6...
-   Gas Price: 4100000000
-   Gas Limit: 9000000
-📝 交易已發送，哈希: 0xdb9efd534ffeaacd53a43b2e298c40cd120fa0a4487683b2b82fb4acf1dc73f7
-✅ 交易收據已找到！
-📝 Transaction sent, hash: 0xdb9efd534ffeaacd53a43b2e298c40cd120fa0a4487683b2b82fb4acf1dc73f7
-✅ Mint transaction successful!
-   Transaction Hash: 0xdb9efd534ffeaacd53a43b2e298c40cd120fa0a4487683b2b82fb4acf1dc73f7
-   Status: SUCCESS
-🔍 Looking for Minted event with signature: 0x735d687607ce9e35b73121f5b238c4cd2854db103741adba51d670bb706051cc
-✅ Found Minted event!
-📝 Extracted token ID from Minted event: 0
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD FAILURE
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  02:50 min
-[INFO] Finished at: 2025-10-31T23:42:12+08:00
-[INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.2.0:run (default-cli) on project backend-core-api: Process terminated with exit code: 137 -> [Help 1]
-[ERROR] 
-[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-[ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR] 
-[ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+2025-11-04T13:32:49.930+08:00  WARN 30787 --- [tar-backend-core-api] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-04T13:32:52.243+08:00  INFO 30787 --- [tar-backend-core-api] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-11-04T13:32:52.522+08:00  INFO 30787 --- [tar-backend-core-api] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1c6d908b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5dd52021, org.springframework.security.web.context.SecurityContextHolderFilter@7188bd49, org.springframework.security.web.header.HeaderWriterFilter@1703b09a, org.springframework.web.filter.CorsFilter@24fb6521, org.springframework.security.web.authentication.logout.LogoutFilter@1a26f595, com.tar.backend.config.ApiKeyAuthFilter@4ec0229c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@345236c6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@16c30e11, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@393bd750, org.springframework.security.web.session.SessionManagementFilter@9e5e75, org.springframework.security.web.access.ExceptionTranslationFilter@18fb5226, org.springframework.security.web.access.intercept.AuthorizationFilter@632f505b]
+2025-11-04T13:32:54.553+08:00  INFO 30787 --- [tar-backend-core-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8083 (http) with context path ''
+2025-11-04T13:32:54.594+08:00  INFO 30787 --- [tar-backend-core-api] [           main] com.tar.backend.BackendCoreApplication   : Started BackendCoreApplication in 19.275 seconds (process running for 20.062)

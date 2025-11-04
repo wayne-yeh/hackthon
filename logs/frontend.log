@@ -11,16 +11,8 @@ npm run dev
  ⚠ Invalid next.config.js options detected: 
  ⚠     Unrecognized key(s) in object: 'appDir' at "experimental"
  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
- ✓ Ready in 21s
+ ✓ Ready in 9.3s
  ○ Compiling / ...
- ✓ Compiled / in 27.3s (570 modules)
- GET / 200 in 31728ms
- ✓ Compiled in 4s (289 modules)
- GET / 200 in 150ms
- GET / 200 in 130ms
- ○ Compiling /issuer ...
- ✓ Compiled /issuer in 4.9s (764 modules)
- ○ Compiling /api/upload-image ...
- ✓ Compiled /api/upload-image in 1653ms (452 modules)
- POST /api/upload-image 200 in 2294ms
- GET / 200 in 416ms
+ ✓ Compiled / in 8.3s (561 modules)
+ GET / 200 in 9712ms
+ ✓ Compiled in 1286ms (289 modules)
